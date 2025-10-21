@@ -29,6 +29,8 @@ import org.checkerframework.checker.index.qual.GTENegativeOne;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.index.qual.Shrinkable;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -45,6 +47,7 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
+import org.chromium.build.annotations.MockedInTests;
 
 import java.util.function.Consumer;
 import java.util.function.Predicate;
@@ -542,7 +545,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @return the element that was removed from the list
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public E remove(@GuardSatisfied @Shrinkable ArrayList<E> this, @NonNegative int index) {
+    public E remove(@GuardSatisfied @Shrinkable @Modifiable ArrayList<E> this, @NonNegative int index) {
         Objects.checkIndex(index, size);
         final Object[] es = elementData;
 
@@ -654,7 +657,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @param o element to be removed from this list, if present
      * @return {@code true} if this list contained the specified element
      */
-    public boolean remove(@GuardSatisfied @Shrinkable ArrayList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+    public boolean remove(@GuardSatisfied @Shrinkable @Modifiable ArrayList<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         final Object[] es = elementData;
         final int size = this.size;
         int i = 0;
