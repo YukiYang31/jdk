@@ -26,6 +26,7 @@
 package java.lang;
 
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 
@@ -495,6 +496,7 @@ public @UsesObjectEquals class ThreadLocal<@Nullable T> {
         /**
          * Returns the number of elements in the map.
          */
+        @Pure
         int size() {
             return size;
         }

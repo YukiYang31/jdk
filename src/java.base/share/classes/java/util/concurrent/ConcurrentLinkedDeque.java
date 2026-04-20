@@ -52,6 +52,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
+import org.checkerframework.dataflow.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
@@ -846,6 +847,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      *
      * @throws NullPointerException if the specified element is null
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public void addFirst(@Growable ConcurrentLinkedDeque<E> this, E e) {
         linkFirst(e);
     }
@@ -859,6 +861,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      *
      * @throws NullPointerException if the specified element is null
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public void addLast(@Growable ConcurrentLinkedDeque<E> this, E e) {
         linkLast(e);
     }
@@ -870,6 +873,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @return {@code true} (as specified by {@link Deque#offerFirst})
      * @throws NullPointerException if the specified element is null
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean offerFirst(@Growable ConcurrentLinkedDeque<E> this, E e) {
         linkFirst(e);
         return true;
@@ -884,6 +888,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @return {@code true} (as specified by {@link Deque#offerLast})
      * @throws NullPointerException if the specified element is null
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean offerLast(@Growable ConcurrentLinkedDeque<E> this, E e) {
         linkLast(e);
         return true;
@@ -924,6 +929,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
+    @Pure
     public E getFirst(@NonEmpty ConcurrentLinkedDeque<E> this) {
         return screenNullResult(peekFirst());
     }
@@ -931,10 +937,12 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
+    @Pure
     public E getLast(@NonEmpty ConcurrentLinkedDeque<E> this) {
         return screenNullResult(peekLast());
     }
 
+    @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E pollFirst(@Shrinkable @GuardSatisfied @CanShrink ConcurrentLinkedDeque<E> this) {
         restart: for (;;) {
             for (Node<E> first = first(), p = first;;) {
@@ -956,6 +964,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
         }
     }
 
+    @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E pollLast(@Shrinkable @GuardSatisfied @CanShrink ConcurrentLinkedDeque<E> this) {
         restart: for (;;) {
             for (Node<E> last = last(), p = last;;) {
@@ -980,6 +989,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public E removeFirst(@Shrinkable @GuardSatisfied @NonEmpty @CanShrink ConcurrentLinkedDeque<E> this) {
         return screenNullResult(pollFirst());
     }
@@ -987,6 +997,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public E removeLast(@Shrinkable @GuardSatisfied @NonEmpty @CanShrink ConcurrentLinkedDeque<E> this) {
         return screenNullResult(pollLast());
     }
@@ -1000,6 +1011,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @return {@code true} (as specified by {@link Queue#offer})
      * @throws NullPointerException if the specified element is null
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean offer(@Growable ConcurrentLinkedDeque<E> this, E e) {
         return offerLast(e);
     }
@@ -1013,10 +1025,12 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @throws NullPointerException if the specified element is null
      */
     @EnsuresNonEmpty("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean add(@Growable ConcurrentLinkedDeque<E> this, E e) {
         return offerLast(e);
     }
 
+    @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E poll(@Shrinkable @CanShrink ConcurrentLinkedDeque<E> this)           { return pollFirst(); }
     @Pure
     public @Nullable E peek()           { return peekFirst(); }
@@ -1024,21 +1038,25 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public E remove(@Shrinkable @NonEmpty @CanShrink ConcurrentLinkedDeque<E> this)         { return removeFirst(); }
 
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public E pop(@Shrinkable @GuardSatisfied @NonEmpty @CanShrink ConcurrentLinkedDeque<E> this)            { return removeFirst(); }
 
     /**
      * @throws NoSuchElementException {@inheritDoc}
      */
+    @SideEffectFree
     public E element(@NonEmpty ConcurrentLinkedDeque<E> this)        { return getFirst(); }
 
     /**
      * @throws NullPointerException {@inheritDoc}
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public void push(@Growable ConcurrentLinkedDeque<E> this, E e)     { addFirst(e); }
 
     /**
@@ -1053,6 +1071,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @return {@code true} if the deque contained the specified element
      * @throws NullPointerException if the specified element is null
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean removeFirstOccurrence(@Shrinkable @CanShrink ConcurrentLinkedDeque<E> this, Object o) {
         Objects.requireNonNull(o);
         for (Node<E> p = first(); p != null; p = succ(p)) {
@@ -1079,6 +1098,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @return {@code true} if the deque contained the specified element
      * @throws NullPointerException if the specified element is null
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean removeLastOccurrence(@Shrinkable @CanShrink ConcurrentLinkedDeque<E> this, Object o) {
         Objects.requireNonNull(o);
         for (Node<E> p = last(); p != null; p = pred(p)) {
@@ -1171,6 +1191,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @return {@code true} if the deque contained the specified element
      * @throws NullPointerException if the specified element is null
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean remove(@Shrinkable @CanShrink ConcurrentLinkedDeque<E> this, @GuardSatisfied @UnknownSignedness Object o) {
         return removeFirstOccurrence(o);
     }
@@ -1187,6 +1208,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      *         of its elements are null
      * @throws IllegalArgumentException if the collection is this deque
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean addAll(@Growable ConcurrentLinkedDeque<E> this, Collection<? extends E> c) {
         if (c == this)
             // As historically specified in AbstractQueue#addAll
@@ -1241,6 +1263,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * Removes all of the elements from this deque.
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public void clear(@Shrinkable @GuardSatisfied @CanShrink ConcurrentLinkedDeque<E> this) {
         while (pollFirst() != null)
             ;
@@ -1357,7 +1380,6 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      *         this deque
      * @throws NullPointerException if the specified array is null
      */
-    @SideEffectFree
     @SuppressWarnings("unchecked")
     public <T> @Nullable T[] toArray(@PolyNull T[] a) {
         if (a == null) throw new NullPointerException();
@@ -1374,7 +1396,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @return an iterator over the elements in this deque in proper sequence
      */
     @SideEffectFree
-    public @PolyModifiable @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty ConcurrentLinkedDeque<E> this) {
+    public @PolyGrowShrink @PolyModifiable @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty ConcurrentLinkedDeque<E> this) {
         return new Itr();
     }
 
@@ -1388,7 +1410,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      *
      * @return an iterator over the elements in this deque in reverse order
      */
-    public @PolyModifiable @PolyGrowShrink @PolyNonEmpty Iterator<E> descendingIterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty ConcurrentLinkedDeque<E> this) {
+    public @PolyGrowShrink @PolyModifiable @PolyNonEmpty Iterator<E> descendingIterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty ConcurrentLinkedDeque<E> this) {
         return new DescendingItr();
     }
 
@@ -1457,6 +1479,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
             return item;
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public void remove() {
             Node<E> l = lastRet;
             if (l == null) throw new IllegalStateException();
@@ -1642,6 +1665,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean removeIf(@Shrinkable @CanShrink ConcurrentLinkedDeque<E> this, Predicate<? super E> filter) {
         Objects.requireNonNull(filter);
         return bulkRemove(filter);
@@ -1650,6 +1674,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean removeAll(@Shrinkable @CanShrink ConcurrentLinkedDeque<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> c.contains(e));
@@ -1658,6 +1683,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * @throws NullPointerException {@inheritDoc}
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink ConcurrentLinkedDeque<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> !c.contains(e));

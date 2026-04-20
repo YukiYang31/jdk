@@ -25,6 +25,10 @@
 
 package java.util;
 
+import org.checkerframework.common.value.qual.StaticallyExecutable;
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+
 import java.util.Objects;
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
@@ -106,6 +110,7 @@ class ReverseOrderListView<E> implements List<E> {
             return it.previous();
         }
 
+        @Pure
         public boolean hasPrevious() {
             return it.hasNext();
         }
@@ -283,6 +288,7 @@ class ReverseOrderListView<E> implements List<E> {
         return StreamSupport.stream(spliterator(), false);
     }
 
+    @SideEffectFree
     public Object[] toArray() {
         return ArraysSupport.reverse(base.toArray());
     }
@@ -292,6 +298,7 @@ class ReverseOrderListView<E> implements List<E> {
         return ArraysSupport.toArrayReversed(base, a);
     }
 
+    @SideEffectFree
     public <T> T[] toArray(IntFunction<T[]> generator) {
         return ArraysSupport.reverse(base.toArray(generator));
     }
@@ -336,17 +343,22 @@ class ReverseOrderListView<E> implements List<E> {
         }
     }
 
+    @Pure
     public E get(int i) {
         int size = base.size();
         Objects.checkIndex(i, size);
         return base.get(size - i - 1);
     }
 
+    @Pure
+    @StaticallyExecutable
     public int indexOf(Object o) {
         int i = base.lastIndexOf(o);
         return i == -1 ? -1 : base.size() - i - 1;
     }
 
+    @Pure
+    @StaticallyExecutable
     public int lastIndexOf(Object o) {
         int i = base.indexOf(o);
         return i == -1 ? -1 : base.size() - i - 1;

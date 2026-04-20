@@ -25,6 +25,8 @@
 
 package java.util;
 
+import org.checkerframework.dataflow.qual.Pure;
+
 /**
  * Provides a reversed-ordered view of a SortedMap. Not serializable.
  *
@@ -168,6 +170,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
 
     // ========== SortedMap ==========
 
+    @Pure
     public Comparator<? super K> comparator() {
         return cmp;
     }
@@ -428,6 +431,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
             return entrySet().size();
         }
 
+        @Pure
         public Comparator<? super K> comparator() {
             return cmp;
         }

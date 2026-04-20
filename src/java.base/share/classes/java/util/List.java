@@ -33,13 +33,13 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.lock.qual.ReleasesNoLocks;
-import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
-import org.checkerframework.checker.modifiability.qual.Modifiable;
-import org.checkerframework.checker.modifiability.qual.Unmodifiable;
-import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.Shrinkable;
+import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
+import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
+import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -48,6 +48,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
+import org.checkerframework.dataflow.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
@@ -216,7 +217,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @return an iterator over the elements in this list in proper sequence
      */
     @SideEffectFree
-    @PolyModifiable @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty List<E> this);
+    @PolyGrowShrink @PolyModifiable @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty List<E> this);
 
     /**
      * Returns an array containing all of the elements in this list in proper
@@ -276,7 +277,6 @@ public interface List<E> extends SequencedCollection<E> {
      *         this list
      * @throws NullPointerException if the specified array is null
      */
-    @SideEffectFree
     <T extends @UnknownSignedness Object> @Nullable T[] toArray(@UnknownModifiability List<E> this, @PolyNull T[] a);
 
 
@@ -643,6 +643,8 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws IndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index >= size()})
      */
+    @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     E set(@Replaceable @GuardSatisfied List<E> this, @IndexFor({"this"}) int index, E element);
 
     /**
@@ -737,7 +739,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @return a list iterator over the elements in this list (in proper
      *         sequence)
      */
-    @PolyModifiable @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty List<E> this);
+    @PolyGrowShrink @PolyModifiable @PolyNonEmpty ListIterator<E> listIterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty List<E> this);
 
     /**
      * Returns a list iterator over the elements in this list (in proper
@@ -754,7 +756,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws IndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index > size()})
      */
-    @PolyModifiable @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty List<E> this, @IndexOrHigh({"this"}) int index);
+    @PolyGrowShrink @PolyModifiable @PolyNonEmpty ListIterator<E> listIterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty List<E> this, @IndexOrHigh({"this"}) int index);
 
     // View
 
@@ -793,7 +795,7 @@ public interface List<E> extends SequencedCollection<E> {
      *         fromIndex > toIndex})
      */
     @SideEffectFree
-    @PolyModifiable @PolyGrowShrink List<E> subList(@PolyModifiable @GuardSatisfied @PolyGrowShrink List<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex);
+    @PolyGrowShrink @PolyModifiable List<E> subList(@PolyModifiable @GuardSatisfied @PolyGrowShrink List<E> this, @IndexOrHigh({"this"}) int fromIndex, @IndexOrHigh({"this"}) int toIndex);
 
     /**
      * Creates a {@link Spliterator} over the elements in this list.
@@ -878,6 +880,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
+    @Pure
     default E getFirst() {
         if (this.isEmpty()) {
             throw new NoSuchElementException();
@@ -896,6 +899,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
+    @Pure
     default E getLast() {
         if (this.isEmpty()) {
             throw new NoSuchElementException();

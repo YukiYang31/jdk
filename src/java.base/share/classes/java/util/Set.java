@@ -28,11 +28,11 @@ package java.util;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
-import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.Shrinkable;
-import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
+import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
+import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -41,6 +41,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
+import org.checkerframework.dataflow.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.framework.qual.AnnotatedFor;
@@ -247,7 +248,6 @@ public interface Set<E> extends Collection<E> {
      *         set
      * @throws NullPointerException if the specified array is null
      */
-    @SideEffectFree
     <T> @Nullable T [] toArray(@UnknownModifiability Set<E> this, @PolyNull T[] a);
 
 
@@ -284,6 +284,7 @@ public interface Set<E> extends Collection<E> {
      *         prevents it from being added to this set
      */
     @EnsuresNonEmpty("this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean add(@Growable @GuardSatisfied Set<E> this, E e);
 
 
@@ -308,6 +309,7 @@ public interface Set<E> extends Collection<E> {
      * @throws UnsupportedOperationException if the {@code remove} operation
      *         is not supported by this set
      */
+    @DoesNotUnrefineReceiver("modifiability")
     boolean remove(@Shrinkable @GuardSatisfied Set<E> this, @UnknownSignedness Object o);
 
 
@@ -358,6 +360,7 @@ public interface Set<E> extends Collection<E> {
      * @see #add(Object)
      */
     @EnsuresNonEmptyIf(result = true, expression = "this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean addAll(@Growable @GuardSatisfied Set<E> this, Collection<? extends E> c);
 
     /**
@@ -381,6 +384,7 @@ public interface Set<E> extends Collection<E> {
      *         or if the specified collection is null
      * @see #remove(Object)
      */
+    @DoesNotUnrefineReceiver("modifiability")
     boolean retainAll(@Shrinkable @GuardSatisfied Set<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
@@ -404,6 +408,7 @@ public interface Set<E> extends Collection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
+    @DoesNotUnrefineReceiver("modifiability")
     boolean removeAll(@Shrinkable @GuardSatisfied Set<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
@@ -413,6 +418,7 @@ public interface Set<E> extends Collection<E> {
      * @throws UnsupportedOperationException if the {@code clear} method
      *         is not supported by this set
      */
+    @DoesNotUnrefineReceiver("modifiability")
     void clear(@Shrinkable @GuardSatisfied Set<E> this);
 
 
@@ -473,6 +479,7 @@ public interface Set<E> extends Collection<E> {
      * @since 1.8
      */
     @Override
+    @DoesNotUnrefineReceiver("modifiability")
     default Spliterator<E> spliterator(@UnknownModifiability Set<E> this) {
         return Spliterators.spliterator(this, Spliterator.DISTINCT);
     }

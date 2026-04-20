@@ -178,6 +178,7 @@ public class SimpleDeque<E> implements Deque<E> {
         return deque.poll();
     }
 
+    @SideEffectFree
     public E element() {
         return deque.element();
     }

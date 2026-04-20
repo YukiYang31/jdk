@@ -478,7 +478,6 @@ public class PriorityQueue<E extends @NonNull Object> extends AbstractQueue<E>
      *         this queue
      * @throws NullPointerException if the specified array is null
      */
-    @SideEffectFree
     public <T> @Nullable T[] toArray(@PolyNull T[] a) {
         final int size = this.size;
         if (a.length < size)
@@ -497,7 +496,7 @@ public class PriorityQueue<E extends @NonNull Object> extends AbstractQueue<E>
      * @return an iterator over the elements in this queue
      */
     @SideEffectFree
-    public @PolyModifiable @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty PriorityQueue<E> this) {
+    public @PolyGrowShrink @PolyModifiable @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty PriorityQueue<E> this) {
         return new Itr();
     }
 

@@ -36,12 +36,13 @@
 package java.util;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
-import org.checkerframework.checker.modifiability.qual.Shrinkable;
-import org.checkerframework.checker.modifiability.qual.PolyShrink;
-import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.PolyShrink;
+import org.checkerframework.checker.modifiability.qual.Shrinkable;
+import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.checker.nullness.qual.KeyFor;
 import org.checkerframework.checker.nullness.qual.Nullable;
+import org.checkerframework.dataflow.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
@@ -127,6 +128,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @throws NullPointerException if the specified key is null
      *         and this map does not permit null keys
      */
+    @SideEffectFree
     Map.@Nullable Entry<K,V> lowerEntry(K key);
 
     /**
@@ -141,6 +143,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @throws NullPointerException if the specified key is null
      *         and this map does not permit null keys
      */
+    @SideEffectFree
     @Nullable K lowerKey(K key);
 
     /**
@@ -156,6 +159,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @throws NullPointerException if the specified key is null
      *         and this map does not permit null keys
      */
+    @SideEffectFree
     Map.@Nullable Entry<K,V> floorEntry(K key);
 
     /**
@@ -170,6 +174,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @throws NullPointerException if the specified key is null
      *         and this map does not permit null keys
      */
+    @SideEffectFree
     @Nullable K floorKey(K key);
 
     /**
@@ -185,6 +190,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @throws NullPointerException if the specified key is null
      *         and this map does not permit null keys
      */
+    @SideEffectFree
     Map.@Nullable Entry<K,V> ceilingEntry(K key);
 
     /**
@@ -199,6 +205,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @throws NullPointerException if the specified key is null
      *         and this map does not permit null keys
      */
+    @SideEffectFree
     @Nullable K ceilingKey(K key);
 
     /**
@@ -214,6 +221,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @throws NullPointerException if the specified key is null
      *         and this map does not permit null keys
      */
+    @SideEffectFree
     Map.@Nullable Entry<K,V> higherEntry(K key);
 
     /**
@@ -228,6 +236,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @throws NullPointerException if the specified key is null
      *         and this map does not permit null keys
      */
+    @SideEffectFree
     @Nullable K higherKey(K key);
 
     /**
@@ -237,6 +246,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @return an entry with the least key,
      *         or {@code null} if this map is empty
      */
+    @SideEffectFree
     Map.@Nullable Entry<K,V> firstEntry();
 
     /**
@@ -246,6 +256,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @return an entry with the greatest key,
      *         or {@code null} if this map is empty
      */
+    @SideEffectFree
     Map.@Nullable Entry<K,V> lastEntry();
 
     /**
@@ -255,6 +266,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @return the removed first entry of this map,
      *         or {@code null} if this map is empty
      */
+    @DoesNotUnrefineReceiver("modifiability")
     Map.@Nullable Entry<K,V> pollFirstEntry(@Shrinkable @GuardSatisfied NavigableMap<K, V> this);
 
     /**
@@ -264,6 +276,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @return the removed last entry of this map,
      *         or {@code null} if this map is empty
      */
+    @DoesNotUnrefineReceiver("modifiability")
     Map.@Nullable Entry<K,V> pollLastEntry(@Shrinkable @GuardSatisfied NavigableMap<K, V> this);
 
     /**

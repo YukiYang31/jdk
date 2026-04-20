@@ -43,6 +43,8 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
+import org.checkerframework.common.value.qual.StaticallyExecutable;
+import org.checkerframework.dataflow.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.dataflow.qual.SideEffectsOnly;
@@ -403,6 +405,7 @@ public class Vector<E>
      *         this vector, or -1 if this vector does not contain the element
      */
     @Pure
+    @StaticallyExecutable
     public @GTENegativeOne int indexOf(@GuardSatisfied Vector<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return indexOf(o, 0);
     }
@@ -424,6 +427,7 @@ public class Vector<E>
      * @see     Object#equals(Object)
      */
     @Pure
+    @StaticallyExecutable
     public synchronized @GTENegativeOne int indexOf(@GuardSatisfied Vector<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o, @NonNegative int index) {
         if (o == null) {
             for (int i = index ; i < elementCount ; i++)
@@ -449,6 +453,7 @@ public class Vector<E>
      *         this vector, or -1 if this vector does not contain the element
      */
     @Pure
+    @StaticallyExecutable
     public synchronized @GTENegativeOne int lastIndexOf(@GuardSatisfied Vector<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return lastIndexOf(o, elementCount-1);
     }
@@ -470,6 +475,7 @@ public class Vector<E>
      *         than or equal to the current size of this vector
      */
     @Pure
+    @StaticallyExecutable
     public synchronized @GTENegativeOne int lastIndexOf(@GuardSatisfied Vector<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o, @NonNegative int index) {
         if (index >= elementCount)
             throw new IndexOutOfBoundsException(index + " >= "+ elementCount);
@@ -553,6 +559,7 @@ public class Vector<E>
      * @throws ArrayIndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index >= size()})
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public synchronized void setElementAt(@Replaceable @GuardSatisfied Vector<E> this, E obj, @NonNegative int index) {
         if (index >= elementCount) {
             throw new ArrayIndexOutOfBoundsException(index + " >= " +
@@ -580,6 +587,7 @@ public class Vector<E>
      * @throws ArrayIndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index >= size()})
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public synchronized void removeElementAt(@Shrinkable @GuardSatisfied @CanShrink Vector<E> this, @NonNegative int index) {
         if (index >= elementCount) {
             throw new ArrayIndexOutOfBoundsException(index + " >= " +
@@ -620,6 +628,7 @@ public class Vector<E>
      * @throws ArrayIndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index > size()})
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public synchronized void insertElementAt(@Growable @GuardSatisfied Vector<E> this, E obj, @NonNegative int index) {
         if (index > elementCount) {
             throw new ArrayIndexOutOfBoundsException(index
@@ -648,6 +657,7 @@ public class Vector<E>
      *
      * @param   obj   the component to be added
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public synchronized void addElement(@Growable @GuardSatisfied Vector<E> this, E obj) {
         modCount++;
         add(obj, elementData, elementCount);
@@ -668,6 +678,7 @@ public class Vector<E>
      * @return  {@code true} if the argument was a component of this
      *          vector; {@code false} otherwise.
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public synchronized boolean removeElement(@Shrinkable @GuardSatisfied @CanShrink Vector<E> this, Object obj) {
         modCount++;
         int i = indexOf(obj);
@@ -684,6 +695,7 @@ public class Vector<E>
      * <p>This method is identical in functionality to the {@link #clear}
      * method (which is part of the {@link List} interface).
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public synchronized void removeAllElements(@Shrinkable @GuardSatisfied @CanShrink Vector<E> this) {
         final Object[] es = elementData;
         for (int to = elementCount, i = elementCount = 0; i < to; i++)
@@ -749,7 +761,6 @@ public class Vector<E>
      * @throws NullPointerException if the given array is null
      * @since 1.2
      */
-    @SideEffectFree
     @SuppressWarnings("unchecked")
     public synchronized <T> @Nullable T[] toArray(@PolyNull T[] a) {
         if (a.length < elementCount)
@@ -803,6 +814,7 @@ public class Vector<E>
      *         ({@code index < 0 || index >= size()})
      * @since 1.2
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public synchronized E set(@Replaceable @GuardSatisfied Vector<E> this, @NonNegative int index, E element) {
         if (index >= elementCount)
             throw new ArrayIndexOutOfBoundsException(index);
@@ -833,6 +845,7 @@ public class Vector<E>
      */
     @SideEffectsOnly("this")
     @EnsuresNonEmpty("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public synchronized boolean add(@Growable @GuardSatisfied Vector<E> this, E e) {
         modCount++;
         add(e, elementData, elementCount);
@@ -850,6 +863,7 @@ public class Vector<E>
      * @return true if the Vector contained the specified element
      * @since 1.2
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean remove(@Shrinkable @GuardSatisfied @CanShrink Vector<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return removeElement(o);
     }
@@ -865,6 +879,7 @@ public class Vector<E>
      *         ({@code index < 0 || index > size()})
      * @since 1.2
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public void add(@Growable @GuardSatisfied Vector<E> this, @NonNegative int index, E element) {
         insertElementAt(element, index);
     }
@@ -880,6 +895,7 @@ public class Vector<E>
      *         ({@code index < 0 || index >= size()})
      * @since 1.2
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public synchronized E remove(@Shrinkable @GuardSatisfied @CanShrink Vector<E> this, @NonNegative int index) {
         modCount++;
         if (index >= elementCount)
@@ -901,6 +917,7 @@ public class Vector<E>
      *
      * @since 1.2
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public void clear(@Shrinkable @GuardSatisfied @CanShrink Vector<E> this) {
         removeAllElements();
     }
@@ -935,6 +952,7 @@ public class Vector<E>
      * @throws NullPointerException if the specified collection is null
      * @since 1.2
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean addAll(@Growable @GuardSatisfied Vector<E> this, Collection<? extends E> c) {
         Object[] a = c.toArray();
         modCount++;
@@ -969,6 +987,7 @@ public class Vector<E>
      *         or if the specified collection is null
      * @since 1.2
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean removeAll(@Shrinkable @GuardSatisfied @CanShrink Vector<E> this, Collection<? extends @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> c.contains(e));
@@ -993,6 +1012,7 @@ public class Vector<E>
      *         or if the specified collection is null
      * @since 1.2
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink Vector<E> this, Collection<? extends @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> !c.contains(e));
@@ -1003,6 +1023,7 @@ public class Vector<E>
      */
     @SuppressWarnings({"unchecked"})
     @Override
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean removeIf(@Shrinkable @CanShrink Vector<E> this, Predicate<? super E> filter) {
         Objects.requireNonNull(filter);
         return bulkRemove(filter);
@@ -1072,6 +1093,7 @@ public class Vector<E>
      * @throws NullPointerException if the specified collection is null
      * @since 1.2
      */
+    @DoesNotUnrefineReceiver("modifiability")
     public synchronized boolean addAll(@Growable @GuardSatisfied Vector<E> this, @NonNegative int index, Collection<? extends E> c) {
         if (index < 0 || index > elementCount)
             throw new ArrayIndexOutOfBoundsException(index);
@@ -1165,7 +1187,7 @@ public class Vector<E>
      *         {@code (fromIndex > toIndex)}
      */
     @SideEffectFree
-    public synchronized @PolyModifiable @PolyGrowShrink List<E> subList(@PolyModifiable @GuardSatisfied @PolyGrowShrink Vector<E> this, int fromIndex, int toIndex) {
+    public synchronized @PolyGrowShrink @PolyModifiable List<E> subList(@PolyModifiable @GuardSatisfied @PolyGrowShrink Vector<E> this, int fromIndex, int toIndex) {
         return Collections.synchronizedList(super.subList(fromIndex, toIndex),
                                             this);
     }
@@ -1177,6 +1199,7 @@ public class Vector<E>
      * This call shortens the list by {@code (toIndex - fromIndex)} elements.
      * (If {@code toIndex==fromIndex}, this operation has no effect.)
      */
+    @DoesNotUnrefineReceiver("modifiability")
     protected synchronized void removeRange(@Shrinkable @GuardSatisfied @CanShrink Vector<E> this, int fromIndex, int toIndex) {
         modCount++;
         shiftTailOverGap(elementData, fromIndex, toIndex);
@@ -1248,7 +1271,7 @@ public class Vector<E>
      *
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public synchronized @PolyModifiable @PolyGrowShrink ListIterator<E> listIterator(@PolyModifiable @PolyGrowShrink Vector<E> this, @NonNegative int index) {
+    public synchronized @PolyGrowShrink @PolyModifiable ListIterator<E> listIterator(@PolyGrowShrink @PolyModifiable Vector<E> this, @NonNegative int index) {
         if (index < 0 || index > elementCount)
             throw new IndexOutOfBoundsException("Index: "+index);
         return new ListItr(index);
@@ -1262,7 +1285,7 @@ public class Vector<E>
      *
      * @see #listIterator(int)
      */
-    public synchronized @PolyModifiable @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyModifiable @PolyGrowShrink Vector<E> this) {
+    public synchronized @PolyGrowShrink @PolyModifiable @PolyNonEmpty ListIterator<E> listIterator(@PolyGrowShrink @PolyModifiable Vector<E> this) {
         return new ListItr(0);
     }
 
@@ -1274,7 +1297,7 @@ public class Vector<E>
      * @return an iterator over the elements in this list in proper sequence
      */
     @SideEffectFree
-    public synchronized @PolyModifiable @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyModifiable @PolyGrowShrink @PolyNonEmpty Vector<E> this) {
+    public synchronized @PolyGrowShrink @PolyModifiable @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty Vector<E> this) {
         return new Itr();
     }
 
@@ -1306,6 +1329,7 @@ public class Vector<E>
             }
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public void remove() {
             if (lastRet == -1)
                 throw new IllegalStateException();
@@ -1354,14 +1378,17 @@ public class Vector<E>
             cursor = index;
         }
 
+        @Pure
         public boolean hasPrevious() {
             return cursor != 0;
         }
 
+        @Pure
         public int nextIndex() {
             return cursor;
         }
 
+        @Pure
         public int previousIndex() {
             return cursor - 1;
         }
@@ -1377,6 +1404,7 @@ public class Vector<E>
             }
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public void set(E e) {
             if (lastRet == -1)
                 throw new IllegalStateException();
@@ -1386,6 +1414,7 @@ public class Vector<E>
             }
         }
 
+        @DoesNotUnrefineReceiver("modifiability")
         public void add(E e) {
             int i = cursor;
             synchronized (Vector.this) {
@@ -1402,6 +1431,7 @@ public class Vector<E>
      * @throws NullPointerException {@inheritDoc}
      */
     @Override
+    @DoesNotUnrefineReceiver("modifiability")
     public synchronized void forEach(Consumer<? super E> action) {
         Objects.requireNonNull(action);
         final int expectedModCount = modCount;
@@ -1418,6 +1448,7 @@ public class Vector<E>
      */
     @SuppressWarnings({"unchecked"})
     @Override
+    @DoesNotUnrefineReceiver("modifiability")
     public synchronized void replaceAll(@Replaceable Vector<E> this, UnaryOperator<E> operator) {
         Objects.requireNonNull(operator);
         final int expectedModCount = modCount;
@@ -1433,6 +1464,7 @@ public class Vector<E>
 
     @SuppressWarnings("unchecked")
     @Override
+    @DoesNotUnrefineReceiver("modifiability")
     public synchronized void sort(@Replaceable Vector<E> this, Comparator<? super E> c) {
         final int expectedModCount = modCount;
         Arrays.sort((E[]) elementData, 0, elementCount, c);

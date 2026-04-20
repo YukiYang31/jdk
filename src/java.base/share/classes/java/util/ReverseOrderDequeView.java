@@ -25,6 +25,9 @@
 
 package java.util;
 
+import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectFree;
+
 import java.util.function.Consumer;
 import java.util.function.IntFunction;
 import java.util.stream.Stream;
@@ -157,6 +160,7 @@ class ReverseOrderDequeView<E> implements Deque<E> {
         return StreamSupport.stream(spliterator(), false);
     }
 
+    @SideEffectFree
     public Object[] toArray() {
         return ArraysSupport.reverse(base.toArray());
     }
@@ -166,6 +170,7 @@ class ReverseOrderDequeView<E> implements Deque<E> {
         return ArraysSupport.toArrayReversed(base, a);
     }
 
+    @SideEffectFree
     public <T> T[] toArray(IntFunction<T[]> generator) {
         return ArraysSupport.reverse(base.toArray(generator));
     }
@@ -201,14 +206,17 @@ class ReverseOrderDequeView<E> implements Deque<E> {
         return base.iterator();
     }
 
+    @Pure
     public E element() {
         return base.getLast();
     }
 
+    @Pure
     public E getFirst() {
         return base.getLast();
     }
 
+    @Pure
     public E getLast() {
         return base.getFirst();
     }
