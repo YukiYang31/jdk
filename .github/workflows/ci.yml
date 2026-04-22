@@ -5,6 +5,10 @@ on:
   pull_request:
   workflow_dispatch:
 
+defaults:
+  run:
+    shell: bash --noprofile --norc {0}
+
 jobs:
   build_jdk:
     runs-on: ubuntu-latest
