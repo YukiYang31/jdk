@@ -31,6 +31,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
@@ -182,7 +183,7 @@ public class ArrayList<E> extends AbstractList<E>
      *         is negative
      */
     @SideEffectFree
-    public @Modifiable ArrayList(@NonNegative int initialCapacity) {
+    public @Modifiable @IteratorPreserveRemove ArrayList(@NonNegative int initialCapacity) {
         if (initialCapacity > 0) {
             this.elementData = new Object[initialCapacity];
         } else if (initialCapacity == 0) {
@@ -197,7 +198,7 @@ public class ArrayList<E> extends AbstractList<E>
      * Constructs an empty list with an initial capacity of ten.
      */
     @SideEffectFree
-    public @Modifiable ArrayList() {
+    public @Modifiable @IteratorPreserveRemove ArrayList() {
         this.elementData = DEFAULTCAPACITY_EMPTY_ELEMENTDATA;
     }
 
@@ -210,7 +211,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @throws NullPointerException if the specified collection is null
      */
     @SideEffectFree
-    public @Modifiable @PolyNonEmpty ArrayList(@PolyNonEmpty Collection<? extends E> c) {
+    public @Modifiable @IteratorPreserveRemove @PolyNonEmpty ArrayList(@PolyNonEmpty Collection<? extends E> c) {
         Object[] a = c.toArray();
         if ((size = a.length) != 0) {
             if (c.getClass() == ArrayList.class) {
@@ -384,7 +385,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @return a clone of this {@code ArrayList} instance
      */
     @SideEffectFree
-    public @Modifiable Object clone(@GuardSatisfied ArrayList<E> this) {
+    public @Modifiable @IteratorPreserveRemove clone(@GuardSatisfied ArrayList<E> this) {
         try {
             ArrayList<?> v = (ArrayList<?>) super.clone();
             v.elementData = Arrays.copyOf(elementData, size);
