@@ -217,7 +217,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @return an iterator over the elements in this list in proper sequence
      */
     @SideEffectFree
-    @PolyGrowShrink @PolyModifiable @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty List<E> this);
+    @PolyGrowShrink @UnknownModifiability @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @UnknownModifiability @PolyNonEmpty List<E> this);
 
     /**
      * Returns an array containing all of the elements in this list in proper
