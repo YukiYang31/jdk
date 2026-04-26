@@ -39,6 +39,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
@@ -202,7 +203,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * Constructs an empty array deque with an initial capacity
      * sufficient to hold 16 elements.
      */
-    public @Modifiable ArrayDeque() {
+    public @Modifiable @IteratorPreserveRemove ArrayDeque() {
         elements = new Object[16 + 1];
     }
 
@@ -212,7 +213,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      *
      * @param numElements lower bound on initial capacity of the deque
      */
-    public @Modifiable ArrayDeque(@NonNegative int numElements) {
+    public @Modifiable @IteratorPreserveRemove ArrayDeque(@NonNegative int numElements) {
         elements =
             new Object[(numElements < 1) ? 1 :
                        (numElements == Integer.MAX_VALUE) ? Integer.MAX_VALUE :
@@ -229,7 +230,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @param c the collection whose elements are to be placed into the deque
      * @throws NullPointerException if the specified collection is null
      */
-    public @Modifiable @PolyNonEmpty ArrayDeque(@PolyNonEmpty Collection<? extends E> c) {
+    public @Modifiable @IteratorPreserveRemove @PolyNonEmpty ArrayDeque(@PolyNonEmpty Collection<? extends E> c) {
         this(c.size());
         copyElements(c);
     }
@@ -1213,7 +1214,7 @@ public class ArrayDeque<E extends @NonNull Object> extends AbstractCollection<E>
      * @return a copy of this deque
      */
     @SideEffectFree
-    public @Modifiable ArrayDeque<E> clone(@GuardSatisfied ArrayDeque<E> this) {
+    public @Modifiable @IteratorPreserveRemove ArrayDeque<E> clone(@GuardSatisfied ArrayDeque<E> this) {
         try {
             @SuppressWarnings("unchecked")
             ArrayDeque<E> result = (ArrayDeque<E>) super.clone();

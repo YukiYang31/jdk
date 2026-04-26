@@ -39,6 +39,7 @@ import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
@@ -209,7 +210,7 @@ public class PriorityBlockingQueue<E extends Object> extends AbstractQueue<E>
      * initial capacity (11) that orders its elements according to
      * their {@linkplain Comparable natural ordering}.
      */
-    public @Modifiable PriorityBlockingQueue() {
+    public @Modifiable @IteratorPreserveRemove PriorityBlockingQueue() {
         this(DEFAULT_INITIAL_CAPACITY, null);
     }
 
@@ -222,7 +223,7 @@ public class PriorityBlockingQueue<E extends Object> extends AbstractQueue<E>
      * @throws IllegalArgumentException if {@code initialCapacity} is less
      *         than 1
      */
-    public @Modifiable PriorityBlockingQueue(int initialCapacity) {
+    public @Modifiable @IteratorPreserveRemove PriorityBlockingQueue(int initialCapacity) {
         this(initialCapacity, null);
     }
 
@@ -238,7 +239,7 @@ public class PriorityBlockingQueue<E extends Object> extends AbstractQueue<E>
      * @throws IllegalArgumentException if {@code initialCapacity} is less
      *         than 1
      */
-    public @Modifiable PriorityBlockingQueue(int initialCapacity,
+    public @Modifiable @IteratorPreserveRemove PriorityBlockingQueue(int initialCapacity,
                                  Comparator<? super E> comparator) {
         if (initialCapacity < 1)
             throw new IllegalArgumentException();
@@ -262,7 +263,7 @@ public class PriorityBlockingQueue<E extends Object> extends AbstractQueue<E>
      * @throws NullPointerException if the specified collection or any
      *         of its elements are null
      */
-    public @Modifiable PriorityBlockingQueue(Collection<? extends E> c) {
+    public @Modifiable @IteratorPreserveRemove PriorityBlockingQueue(Collection<? extends E> c) {
         boolean heapify = true; // true if not known to be in heap order
         boolean screen = true;  // true if must screen for nulls
         if (c instanceof SortedSet<?>) {

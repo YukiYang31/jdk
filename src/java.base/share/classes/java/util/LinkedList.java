@@ -32,6 +32,7 @@ import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.lock.qual.ReleasesNoLocks;
 import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
@@ -143,7 +144,7 @@ public class LinkedList<E>
     /**
      * Constructs an empty list.
      */
-    public @Modifiable LinkedList() {
+    public @Modifiable @IteratorPreserveRemove LinkedList() {
     }
 
     /**
@@ -154,7 +155,7 @@ public class LinkedList<E>
      * @param  c the collection whose elements are to be placed into this list
      * @throws NullPointerException if the specified collection is null
      */
-    public @Modifiable @PolyNonEmpty LinkedList(@PolyNonEmpty Collection<? extends E> c) {
+    public @Modifiable @IteratorPreserveRemove @PolyNonEmpty LinkedList(@PolyNonEmpty Collection<? extends E> c) {
         this();
         addAll(c);
     }
@@ -1112,7 +1113,7 @@ public class LinkedList<E>
      * @return a shallow copy of this {@code LinkedList} instance
      */
     @SideEffectFree
-    public @Modifiable Object clone(@GuardSatisfied LinkedList<E> this) {
+    public @Modifiable @IteratorPreserveRemove Object clone(@GuardSatisfied LinkedList<E> this) {
         LinkedList<E> clone = superClone();
 
         // Put clone into "virgin" state

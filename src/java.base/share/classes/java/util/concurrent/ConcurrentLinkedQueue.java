@@ -39,6 +39,7 @@ import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
@@ -264,7 +265,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
     /**
      * Creates a {@code ConcurrentLinkedQueue} that is initially empty.
      */
-    public @Modifiable ConcurrentLinkedQueue() {
+    public @Modifiable @IteratorPreserveRemove ConcurrentLinkedQueue() {
         head = tail = new Node<E>();
     }
 
@@ -277,7 +278,7 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
      * @throws NullPointerException if the specified collection or any
      *         of its elements are null
      */
-    public @Modifiable ConcurrentLinkedQueue(Collection<? extends E> c) {
+    public @Modifiable @IteratorPreserveRemove ConcurrentLinkedQueue(Collection<? extends E> c) {
         Node<E> h = null, t = null;
         for (E e : c) {
             Node<E> newNode = new Node<E>(Objects.requireNonNull(e));

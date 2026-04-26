@@ -39,6 +39,7 @@ import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
@@ -193,7 +194,7 @@ public class LinkedBlockingDeque<E extends Object>
      * Creates a {@code LinkedBlockingDeque} with a capacity of
      * {@link Integer#MAX_VALUE}.
      */
-    public @Modifiable LinkedBlockingDeque() {
+    public @Modifiable @IteratorPreserveRemove LinkedBlockingDeque() {
         this(Integer.MAX_VALUE);
     }
 
@@ -203,7 +204,7 @@ public class LinkedBlockingDeque<E extends Object>
      * @param capacity the capacity of this deque
      * @throws IllegalArgumentException if {@code capacity} is less than 1
      */
-    public @Modifiable LinkedBlockingDeque(int capacity) {
+    public @Modifiable @IteratorPreserveRemove LinkedBlockingDeque(int capacity) {
         if (capacity <= 0) throw new IllegalArgumentException();
         this.capacity = capacity;
     }
@@ -218,7 +219,7 @@ public class LinkedBlockingDeque<E extends Object>
      * @throws NullPointerException if the specified collection or any
      *         of its elements are null
      */
-    public @Modifiable LinkedBlockingDeque(Collection<? extends E> c) {
+    public @Modifiable @IteratorPreserveRemove LinkedBlockingDeque(Collection<? extends E> c) {
         this(Integer.MAX_VALUE);
         addAll(c);
     }

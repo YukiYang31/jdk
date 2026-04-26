@@ -39,6 +39,7 @@ import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
@@ -792,7 +793,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     /**
      * Constructs an empty deque.
      */
-    public @Modifiable ConcurrentLinkedDeque() {
+    public @Modifiable @IteratorPreserveRemove ConcurrentLinkedDeque() {
         head = tail = new Node<E>();
     }
 
@@ -805,7 +806,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      * @throws NullPointerException if the specified collection or any
      *         of its elements are null
      */
-    public @Modifiable ConcurrentLinkedDeque(Collection<? extends E> c) {
+    public @Modifiable @IteratorPreserveRemove ConcurrentLinkedDeque(Collection<? extends E> c) {
         // Copy c into a private chain of Nodes
         Node<E> h = null, t = null;
         for (E e : c) {

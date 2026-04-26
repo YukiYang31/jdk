@@ -39,6 +39,7 @@ import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
@@ -275,7 +276,7 @@ public class ArrayBlockingQueue<E extends Object> extends AbstractQueue<E>
      * @param capacity the capacity of this queue
      * @throws IllegalArgumentException if {@code capacity < 1}
      */
-    public @Modifiable ArrayBlockingQueue(int capacity) {
+    public @Modifiable @IteratorPreserveRemove ArrayBlockingQueue(int capacity) {
         this(capacity, false);
     }
 
@@ -289,7 +290,7 @@ public class ArrayBlockingQueue<E extends Object> extends AbstractQueue<E>
      *        if {@code false} the access order is unspecified.
      * @throws IllegalArgumentException if {@code capacity < 1}
      */
-    public @Modifiable ArrayBlockingQueue(int capacity, boolean fair) {
+    public @Modifiable @IteratorPreserveRemove ArrayBlockingQueue(int capacity, boolean fair) {
         if (capacity <= 0)
             throw new IllegalArgumentException();
         this.items = new Object[capacity];
@@ -314,7 +315,7 @@ public class ArrayBlockingQueue<E extends Object> extends AbstractQueue<E>
      * @throws NullPointerException if the specified collection or any
      *         of its elements are null
      */
-    public @Modifiable ArrayBlockingQueue(int capacity, boolean fair,
+    public @Modifiable @IteratorPreserveRemove ArrayBlockingQueue(int capacity, boolean fair,
                               Collection<? extends E> c) {
         this(capacity, fair);
 
