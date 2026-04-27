@@ -36,6 +36,7 @@
 package java.util;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrink;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
@@ -312,6 +313,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @return a navigable set view of the keys in this map
      */
     @SideEffectFree
+    @IteratorPreserveRemove
     @PolyShrink @Ungrowable NavigableSet<@KeyFor({"this"}) K> navigableKeySet(@PolyShrink NavigableMap<K, V> this);
 
     /**
@@ -329,6 +331,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @return a reverse order navigable set view of the keys in this map
      */
     @SideEffectFree
+    @IteratorPreserveRemove
     @PolyShrink @Ungrowable NavigableSet<@KeyFor({"this"}) K> descendingKeySet(@PolyShrink NavigableMap<K, V> this);
 
     /**

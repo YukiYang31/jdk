@@ -26,6 +26,7 @@
 package java.util;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nullness.qual.KeyFor;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -1394,17 +1395,20 @@ public class Properties extends Hashtable<Object,Object> {
     }
 
     @Override
+    @IteratorPreserveRemove
     public Set<@KeyFor("this") Object> keySet() {
         return Collections.synchronizedSet(map.keySet(), this);
     }
 
     @Override
+    @IteratorPreserveRemove
     public Collection<Object> values() {
         return Collections.synchronizedCollection(map.values(), this);
     }
 
     @Override
     @SideEffectFree
+    @IteratorPreserveRemove
     public Set<Map.Entry<@KeyFor("this") Object, Object>> entrySet() {
         return Collections.synchronizedSet(new EntrySet(map.entrySet()), this);
     }

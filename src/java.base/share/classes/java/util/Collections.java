@@ -3087,6 +3087,7 @@ public class Collections {
         private transient Set<Map.Entry<K,V>> entrySet;
         private transient Collection<V> values;
 
+        @IteratorPreserveRemove
         public Set<K> keySet() {
             synchronized (mutex) {
                 if (keySet==null)
@@ -3096,6 +3097,7 @@ public class Collections {
         }
 
         @SideEffectFree
+        @IteratorPreserveRemove
         public Set<Map.Entry<K,V>> entrySet() {
             synchronized (mutex) {
                 if (entrySet==null)
@@ -3104,6 +3106,7 @@ public class Collections {
             }
         }
 
+        @IteratorPreserveRemove
         public Collection<V> values() {
             synchronized (mutex) {
                 if (values==null)
@@ -3394,11 +3397,13 @@ public class Collections {
             }
         }
 
+        @IteratorPreserveRemove
         public NavigableSet<K> keySet() {
             return navigableKeySet();
         }
 
         @SideEffectFree
+        @IteratorPreserveRemove
         public NavigableSet<K> navigableKeySet() {
             synchronized (mutex) {
                 return new SynchronizedNavigableSet<>(nm.navigableKeySet(), mutex);
@@ -3406,6 +3411,7 @@ public class Collections {
         }
 
         @SideEffectFree
+        @IteratorPreserveRemove
         public NavigableSet<K> descendingKeySet() {
             synchronized (mutex) {
                 return new SynchronizedNavigableSet<>(nm.descendingKeySet(), mutex);
@@ -4185,7 +4191,9 @@ public class Collections {
         public V get(Object key)               { return m.get(key); }
         public V remove(Object key)            { return m.remove(key); }
         public void clear()                    { m.clear(); }
+        @IteratorPreserveRemove
         public Set<K> keySet()                 { return m.keySet(); }
+        @IteratorPreserveRemove
         public Collection<V> values()          { return m.values(); }
         public boolean equals(Object o)        { return o == this || m.equals(o); }
         public int hashCode()                  { return m.hashCode(); }
@@ -4221,6 +4229,7 @@ public class Collections {
         private transient Set<Map.Entry<K,V>> entrySet;
 
         @SideEffectFree
+        @IteratorPreserveRemove
         public Set<Map.Entry<K,V>> entrySet() {
             if (entrySet==null)
                 entrySet = new CheckedEntrySet<>(m.entrySet(), valueType);
@@ -4713,16 +4722,19 @@ public class Collections {
             return checkedNavigableMap(nm.descendingMap(), keyType, valueType);
         }
 
+        @IteratorPreserveRemove
         public NavigableSet<K> keySet() {
             return navigableKeySet();
         }
 
         @SideEffectFree
+        @IteratorPreserveRemove
         public NavigableSet<K> navigableKeySet() {
             return checkedNavigableSet(nm.navigableKeySet(), keyType);
         }
 
         @SideEffectFree
+        @IteratorPreserveRemove
         public NavigableSet<K> descendingKeySet() {
             return checkedNavigableSet(nm.descendingKeySet(), keyType);
         }

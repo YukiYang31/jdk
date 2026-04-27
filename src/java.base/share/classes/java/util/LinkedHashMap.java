@@ -28,6 +28,7 @@ package java.util;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrink;
@@ -654,6 +655,7 @@ public class LinkedHashMap<K,V>
      * @return a set view of the keys contained in this map
      */
     @SideEffectFree
+    @IteratorPreserveRemove
     public @PolyShrink @Ungrowable Set<K> keySet(@PolyShrink LinkedHashMap<K, V> this) {
         return sequencedKeySet();
     }
@@ -814,6 +816,7 @@ public class LinkedHashMap<K,V>
      *
      * @return a view of the values contained in this map
      */
+    @IteratorPreserveRemove
     public @PolyShrink @Ungrowable Collection<V> values(@PolyShrink LinkedHashMap<K, V> this) {
         return sequencedValues();
     }
@@ -929,6 +932,7 @@ public class LinkedHashMap<K,V>
      * @return a set view of the mappings contained in this map
      */
     @SideEffectFree
+    @IteratorPreserveRemove
     public @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyModifiable @GuardSatisfied LinkedHashMap<K, V> this) {
         return sequencedEntrySet();
     }
@@ -1228,14 +1232,17 @@ public class LinkedHashMap<K,V>
             base.clear();
         }
 
+        @IteratorPreserveRemove
         public Set<K> keySet() {
             return base.sequencedKeySet().reversed();
         }
 
+        @IteratorPreserveRemove
         public Collection<V> values() {
             return base.sequencedValues().reversed();
         }
 
+        @IteratorPreserveRemove
         public Set<Entry<K, V>> entrySet() {
             return base.sequencedEntrySet().reversed();
         }
