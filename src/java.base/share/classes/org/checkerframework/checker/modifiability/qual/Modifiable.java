@@ -13,6 +13,13 @@ import java.lang.annotation.Target;
  *
  * <p>This annotation is not part of the type hierarchy; the Modifiability Checker expands it to
  * {@code @Growable @Shrinkable @Replaceable} on each annotated type.
+ * 
+ * <p>Some Java types lack methods for certain kinds of mutation. For these types, the Modifiability Checker defaults
+ * them to {@code @Unknown}:
+ * <ul> {@code @Modifiable Iterator<>} is treated as {@code @UnknownGrow @Shrinkable @UnknownReplace Iterator}. </ul>
+ * <ul> {@code @Modifiable Set<>} is treated as {@code @Growable @Shrinkable @UnknownReplace Set}. </ul>
+ * <ul> {@code @Modifiable Queue<>} is treated as {@code @Growable @Shrinkable @UnknownReplace Queue}. </ul>
+ * <ul> {@code Map.@Modifiable Entry<>} is treated as {@code @UnknownGrow @UnknownShrink @Replaceable List}. </ul>
  *
  * @checker_framework.manual #modifiability-checker Modifiability Checker
  */
