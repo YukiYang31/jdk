@@ -36,7 +36,7 @@
 package java.util.concurrent;
 
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
-import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
+import org.checkerframework.checker.modifiability.qual.IteratorPreservesRemove;
 import org.checkerframework.checker.modifiability.qual.PolyShrink;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.dataflow.qual.SideEffectFree;
@@ -147,7 +147,7 @@ public interface ConcurrentNavigableMap<K,V>
      * @return a navigable set view of the keys in this map
      */
     @SideEffectFree
-    @IteratorPreserveRemove
+    @IteratorPreservesRemove
     @PolyShrink @Ungrowable NavigableSet<K> navigableKeySet(@PolyShrink ConcurrentNavigableMap<K, V> this);
 
     /**
@@ -168,7 +168,7 @@ public interface ConcurrentNavigableMap<K,V>
      *
      * @return a navigable set view of the keys in this map
      */
-    @IteratorPreserveRemove
+    @IteratorPreservesRemove
     @PolyShrink @Ungrowable NavigableSet<K> keySet(@PolyShrink ConcurrentNavigableMap<K, V> this);
 
     /**
@@ -188,6 +188,6 @@ public interface ConcurrentNavigableMap<K,V>
      * @return a reverse order navigable set view of the keys in this map
      */
     @SideEffectFree
-    @IteratorPreserveRemove
+    @IteratorPreservesRemove
     @PolyShrink @Ungrowable NavigableSet<K> descendingKeySet(@PolyShrink ConcurrentNavigableMap<K, V> this);
 }

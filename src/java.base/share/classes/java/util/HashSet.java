@@ -29,7 +29,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
+import org.checkerframework.checker.modifiability.qual.IteratorPreservesRemove;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
@@ -126,7 +126,7 @@ public class HashSet<E>
      * Constructs a new, empty set; the backing {@code HashMap} instance has
      * default initial capacity (16) and load factor (0.75).
      */
-    public @Modifiable @IteratorPreserveRemove HashSet() {
+    public @Modifiable @IteratorPreservesRemove HashSet() {
         map = new HashMap<>();
     }
 
@@ -139,7 +139,7 @@ public class HashSet<E>
      * @param c the collection whose elements are to be placed into this set
      * @throws NullPointerException if the specified collection is null
      */
-    public @Modifiable @IteratorPreserveRemove @PolyNonEmpty HashSet(@PolyNonEmpty Collection<? extends E> c) {
+    public @Modifiable @IteratorPreservesRemove @PolyNonEmpty HashSet(@PolyNonEmpty Collection<? extends E> c) {
         map = HashMap.newHashMap(Math.max(c.size(), 12));
         addAll(c);
     }
@@ -157,7 +157,7 @@ public class HashSet<E>
      * @throws     IllegalArgumentException if the initial capacity is less
      *             than zero, or if the load factor is nonpositive
      */
-    public @Modifiable @IteratorPreserveRemove HashSet(@NonNegative int initialCapacity, float loadFactor) {
+    public @Modifiable @IteratorPreservesRemove HashSet(@NonNegative int initialCapacity, float loadFactor) {
         map = new HashMap<>(initialCapacity, loadFactor);
     }
 
@@ -173,7 +173,7 @@ public class HashSet<E>
      * @throws     IllegalArgumentException if the initial capacity is less
      *             than zero
      */
-    public @Modifiable @IteratorPreserveRemove HashSet(@NonNegative int initialCapacity) {
+    public @Modifiable @IteratorPreservesRemove HashSet(@NonNegative int initialCapacity) {
         map = new HashMap<>(initialCapacity);
     }
 
@@ -190,7 +190,7 @@ public class HashSet<E>
      * @throws     IllegalArgumentException if the initial capacity is less
      *             than zero, or if the load factor is nonpositive
      */
-    @Modifiable @IteratorPreserveRemove HashSet(int initialCapacity, float loadFactor, boolean dummy) {
+    @Modifiable @IteratorPreservesRemove HashSet(int initialCapacity, float loadFactor, boolean dummy) {
         map = new LinkedHashMap<>(initialCapacity, loadFactor);
     }
 
@@ -294,7 +294,7 @@ public class HashSet<E>
      */
     @SideEffectFree
     @SuppressWarnings("unchecked")
-    public @Modifiable @IteratorPreserveRemove Object clone(@GuardSatisfied HashSet<E> this) {
+    public @Modifiable @IteratorPreservesRemove Object clone(@GuardSatisfied HashSet<E> this) {
         try {
             HashSet<E> newSet = (HashSet<E>) super.clone();
             newSet.map = (HashMap<E, Object>) map.clone();

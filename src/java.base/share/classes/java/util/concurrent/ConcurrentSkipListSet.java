@@ -38,7 +38,7 @@ package java.util.concurrent;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
+import org.checkerframework.checker.modifiability.qual.IteratorPreservesRemove;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
@@ -132,7 +132,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * Constructs a new, empty set that orders its elements according to
      * their {@linkplain Comparable natural ordering}.
      */
-    public @Modifiable @IteratorPreserveRemove ConcurrentSkipListSet() {
+    public @Modifiable @IteratorPreservesRemove ConcurrentSkipListSet() {
         m = new ConcurrentSkipListMap<E,Object>();
     }
 
@@ -144,7 +144,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      *        If {@code null}, the {@linkplain Comparable natural
      *        ordering} of the elements will be used.
      */
-    public @Modifiable @IteratorPreserveRemove ConcurrentSkipListSet(@Nullable Comparator<? super E> comparator) {
+    public @Modifiable @IteratorPreservesRemove ConcurrentSkipListSet(@Nullable Comparator<? super E> comparator) {
         m = new ConcurrentSkipListMap<E,Object>(comparator);
     }
 
@@ -159,7 +159,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws NullPointerException if the specified collection or any
      *         of its elements are null
      */
-    public @Modifiable @IteratorPreserveRemove ConcurrentSkipListSet(Collection<? extends E> c) {
+    public @Modifiable @IteratorPreservesRemove ConcurrentSkipListSet(Collection<? extends E> c) {
         m = new ConcurrentSkipListMap<E,Object>();
         addAll(c);
     }
@@ -172,7 +172,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws NullPointerException if the specified sorted set or any
      *         of its elements are null
      */
-    public @Modifiable @IteratorPreserveRemove ConcurrentSkipListSet(SortedSet<E> s) {
+    public @Modifiable @IteratorPreservesRemove ConcurrentSkipListSet(SortedSet<E> s) {
         m = new ConcurrentSkipListMap<E,Object>(s.comparator());
         addAll(s);
     }
@@ -180,7 +180,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
     /**
      * For use by submaps
      */
-    @Modifiable @IteratorPreserveRemove ConcurrentSkipListSet(ConcurrentNavigableMap<E,Object> m) {
+    @Modifiable @IteratorPreservesRemove ConcurrentSkipListSet(ConcurrentNavigableMap<E,Object> m) {
         this.m = m;
     }
 
@@ -191,7 +191,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @return a shallow copy of this set
      */
     @SideEffectFree
-    public @Modifiable @IteratorPreserveRemove ConcurrentSkipListSet<E> clone() {
+    public @Modifiable @IteratorPreservesRemove ConcurrentSkipListSet<E> clone() {
         try {
             @SuppressWarnings("unchecked")
             ConcurrentSkipListSet<E> clone =

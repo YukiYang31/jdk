@@ -28,7 +28,7 @@ package java.util;
 import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPreserveRemove;
+import org.checkerframework.checker.modifiability.qual.IteratorPreservesRemove;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -67,7 +67,7 @@ public class Stack<E> extends Vector<E> {
     /**
      * Creates an empty Stack.
      */
-    public @Modifiable @IteratorPreserveRemove Stack() {
+    public @Modifiable @IteratorPreservesRemove Stack() {
     }
 
     /**
