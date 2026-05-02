@@ -28,7 +28,7 @@ package java.util;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPreservesRemove;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyShrink;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrink;
@@ -655,7 +655,7 @@ public class LinkedHashMap<K,V>
      * @return a set view of the keys contained in this map
      */
     @SideEffectFree
-    @IteratorPreservesRemove
+    @IteratorPolyShrink
     public @PolyShrink @Ungrowable Set<K> keySet(@PolyShrink LinkedHashMap<K, V> this) {
         return sequencedKeySet();
     }
@@ -816,7 +816,7 @@ public class LinkedHashMap<K,V>
      *
      * @return a view of the values contained in this map
      */
-    @IteratorPreservesRemove
+    @IteratorPolyShrink
     public @PolyShrink @Ungrowable Collection<V> values(@PolyShrink LinkedHashMap<K, V> this) {
         return sequencedValues();
     }
@@ -932,7 +932,7 @@ public class LinkedHashMap<K,V>
      * @return a set view of the mappings contained in this map
      */
     @SideEffectFree
-    @IteratorPreservesRemove
+    @IteratorPolyShrink
     public @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyModifiable @GuardSatisfied LinkedHashMap<K, V> this) {
         return sequencedEntrySet();
     }
@@ -1232,17 +1232,17 @@ public class LinkedHashMap<K,V>
             base.clear();
         }
 
-        @IteratorPreservesRemove
+        @IteratorPolyShrink
         public Set<K> keySet() {
             return base.sequencedKeySet().reversed();
         }
 
-        @IteratorPreservesRemove
+        @IteratorPolyShrink
         public Collection<V> values() {
             return base.sequencedValues().reversed();
         }
 
-        @IteratorPreservesRemove
+        @IteratorPolyShrink
         public Set<Entry<K, V>> entrySet() {
             return base.sequencedEntrySet().reversed();
         }

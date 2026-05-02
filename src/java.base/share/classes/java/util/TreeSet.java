@@ -29,7 +29,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPreservesRemove;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyShrink;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
@@ -131,7 +131,7 @@ public class TreeSet<E> extends AbstractSet<E>
     /**
      * Constructs a set backed by the specified navigable map.
      */
-    @Modifiable @IteratorPreservesRemove TreeSet(NavigableMap<E,Object> m) {
+    @Modifiable @IteratorPolyShrink TreeSet(NavigableMap<E,Object> m) {
         this.m = m;
     }
 
@@ -148,7 +148,7 @@ public class TreeSet<E> extends AbstractSet<E>
      * integers), the {@code add} call will throw a
      * {@code ClassCastException}.
      */
-    public @Modifiable @IteratorPreservesRemove TreeSet() {
+    public @Modifiable @IteratorPolyShrink TreeSet() {
         this(new TreeMap<>());
     }
 
@@ -165,7 +165,7 @@ public class TreeSet<E> extends AbstractSet<E>
      *        If {@code null}, the {@linkplain Comparable natural
      *        ordering} of the elements will be used.
      */
-    public @Modifiable @IteratorPreservesRemove TreeSet(@Nullable Comparator<? super E> comparator) {
+    public @Modifiable @IteratorPolyShrink TreeSet(@Nullable Comparator<? super E> comparator) {
         this(new TreeMap<>(comparator));
     }
 
@@ -183,7 +183,7 @@ public class TreeSet<E> extends AbstractSet<E>
      *         not {@link Comparable}, or are not mutually comparable
      * @throws NullPointerException if the specified collection is null
      */
-    public @Modifiable @IteratorPreservesRemove @PolyNonEmpty TreeSet(@PolyNonEmpty Collection<? extends E> c) {
+    public @Modifiable @IteratorPolyShrink @PolyNonEmpty TreeSet(@PolyNonEmpty Collection<? extends E> c) {
         this();
         addAll(c);
     }
@@ -195,7 +195,7 @@ public class TreeSet<E> extends AbstractSet<E>
      * @param s sorted set whose elements will comprise the new set
      * @throws NullPointerException if the specified sorted set is null
      */
-    public @Modifiable @IteratorPreservesRemove @PolyNonEmpty TreeSet(@PolyNonEmpty SortedSet<E> s) {
+    public @Modifiable @IteratorPolyShrink @PolyNonEmpty TreeSet(@PolyNonEmpty SortedSet<E> s) {
         this(s.comparator());
         addAll(s);
     }
@@ -553,7 +553,7 @@ public class TreeSet<E> extends AbstractSet<E>
      */
     @SideEffectFree
     @SuppressWarnings("unchecked")
-    public @Modifiable @IteratorPreservesRemove Object clone(@GuardSatisfied TreeSet<E> this) {
+    public @Modifiable @IteratorPolyShrink Object clone(@GuardSatisfied TreeSet<E> this) {
         TreeSet<E> clone;
         try {
             clone = (TreeSet<E>) super.clone();

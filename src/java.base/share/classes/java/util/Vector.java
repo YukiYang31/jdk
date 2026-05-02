@@ -31,7 +31,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPreservesRemove;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyShrink;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
@@ -167,7 +167,7 @@ public class Vector<E>
      * @throws IllegalArgumentException if the specified initial capacity
      *         is negative
      */
-    public @Modifiable @IteratorPreservesRemove Vector(@NonNegative int initialCapacity, int capacityIncrement) {
+    public @Modifiable @IteratorPolyShrink Vector(@NonNegative int initialCapacity, int capacityIncrement) {
         super();
         if (initialCapacity < 0)
             throw new IllegalArgumentException("Illegal Capacity: "+
@@ -184,7 +184,7 @@ public class Vector<E>
      * @throws IllegalArgumentException if the specified initial capacity
      *         is negative
      */
-    public @Modifiable @IteratorPreservesRemove Vector(@NonNegative int initialCapacity) {
+    public @Modifiable @IteratorPolyShrink Vector(@NonNegative int initialCapacity) {
         this(initialCapacity, 0);
     }
 
@@ -193,7 +193,7 @@ public class Vector<E>
      * has size {@code 10} and its standard capacity increment is
      * zero.
      */
-    public @Modifiable @IteratorPreservesRemove Vector() {
+    public @Modifiable @IteratorPolyShrink Vector() {
         this(10);
     }
 
@@ -207,7 +207,7 @@ public class Vector<E>
      * @throws NullPointerException if the specified collection is null
      * @since   1.2
      */
-    public @Modifiable @IteratorPreservesRemove @PolyNonEmpty Vector(@PolyNonEmpty Collection<? extends E> c) {
+    public @Modifiable @IteratorPolyShrink @PolyNonEmpty Vector(@PolyNonEmpty Collection<? extends E> c) {
         Object[] a = c.toArray();
         elementCount = a.length;
         if (c.getClass() == ArrayList.class) {
@@ -712,7 +712,7 @@ public class Vector<E>
      * @return  a clone of this vector
      */
     @SideEffectFree
-    public synchronized @Modifiable @IteratorPreservesRemove Object clone(@GuardSatisfied Vector<E> this) {
+    public synchronized @Modifiable @IteratorPolyShrink Object clone(@GuardSatisfied Vector<E> this) {
         try {
             @SuppressWarnings("unchecked")
             Vector<E> v = (Vector<E>) super.clone();

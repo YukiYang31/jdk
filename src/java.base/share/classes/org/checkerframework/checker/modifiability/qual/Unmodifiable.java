@@ -7,19 +7,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Convenience alias meaning {@code @Ungrowable @Unshrinkable @Unreplaceable}. Calling any mutating
- * operation on this collection (growing, shrinking, or replacing) will throw {@link
+ * Convenience alias usually meaning {@code @Ungrowable @Unshrinkable @Unreplaceable}. Calling a
+ * mutating operation (growing, shrinking, or replacing) may throw {@link
  * UnsupportedOperationException}.
  *
- * <p>This annotation is not part of the type hierarchy; the Modifiability Checker expands it to
- * {@code @Ungrowable @Unshrinkable @Unreplaceable} on each annotated type.
- * 
- * <p>Some Java types lack methods for certain kinds of mutation. For these types, the Modifiability Checker defaults
- * them to {@code @Unknown}:
- * <ul> {@code @Unmodifiable Iterator<>} is treated as {@code @UnknownGrow @Unshrinkable @UnknownReplace Iterator}. </ul>
- * <ul> {@code @Unmodifiable Set<>} is treated as {@code @Ungrowable @Unshrinkable @UnknownReplace Set}. </ul>
- * <ul> {@code @Unmodifiable Queue<>} is treated as {@code @Ungrowable @Unshrinkable @UnknownReplace Queue}. </ul>
- * <ul> {@code Map.@Unmodifiable Entry<>} is treated as {@code @UnknownGrow @UnknownShrink @Unreplaceable List}. </ul>
+ * <p>As an exception, {@code @Unmodifiable} means {@code @Unknown*} if the type does not support a
+ * given category of operation; for example, {@Unmodifiable Iterator} means
+ * {@code @UnknownGrow @UnknownShrink @Unreplaceable Iterator}.)
  *
  * @checker_framework.manual #modifiability-checker Modifiability Checker
  */

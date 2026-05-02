@@ -25,7 +25,7 @@
 
 package java.util;
 
-import org.checkerframework.checker.modifiability.qual.IteratorPreservesRemove;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyShrink;
 import org.checkerframework.dataflow.qual.Pure;
 
 /**
@@ -98,7 +98,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
         return base.size();
     }
 
-    @IteratorPreservesRemove
+    @IteratorPolyShrink
     public Set<K> keySet() {
         return new AbstractSet<>() {
             // inherit add(), which throws UOE
@@ -110,7 +110,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
         };
     }
 
-    @IteratorPreservesRemove
+    @IteratorPolyShrink
     public Collection<V> values() {
         return new AbstractCollection<>() {
             // inherit add(), which throws UOE
@@ -122,7 +122,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
         };
     }
 
-    @IteratorPreservesRemove
+    @IteratorPolyShrink
     public Set<Entry<K, V>> entrySet() {
         return new AbstractSet<>() {
             // inherit add(), which throws UOE
@@ -398,7 +398,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
             return ReverseOrderSortedMapView.toString(this, entryIterator());
         }
 
-        @IteratorPreservesRemove
+        @IteratorPolyShrink
         public Set<Entry<K, V>> entrySet() {
             return new AbstractSet<>() {
                 public Iterator<Entry<K, V>> iterator() {

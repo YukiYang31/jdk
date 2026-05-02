@@ -1,0 +1,24 @@
+package org.checkerframework.checker.modifiability.qual;
+
+import java.lang.annotation.Documented;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import org.checkerframework.framework.qual.DefaultQualifierInHierarchy;
+import org.checkerframework.framework.qual.SubtypeOf;
+
+/**
+ * For the annotated collection, The return type of {@code iterator()} is {@code @Unshrinkable}.
+ *
+ * <p>This is the default qualifier for unannotated types.
+ *
+ * @see #IteratorPolyShrink
+ * @checker_framework.manual #modifiability-checker Modifiability Checker
+ */
+@Documented
+@Retention(RetentionPolicy.RUNTIME)
+@Target({ElementType.TYPE_USE, ElementType.TYPE_PARAMETER})
+@SubtypeOf({})
+@DefaultQualifierInHierarchy
+public @interface UnknownIteratorPolyShrink {}

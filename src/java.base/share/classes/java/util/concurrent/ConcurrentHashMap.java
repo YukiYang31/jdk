@@ -37,7 +37,7 @@ package java.util.concurrent;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPreservesRemove;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyShrink;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrink;
@@ -1280,7 +1280,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
      * @return the set view
      */
     @SideEffectFree
-    @IteratorPreservesRemove
+    @IteratorPolyShrink
     public KeySetView<@KeyFor({"this"}) K,V> keySet() {
         KeySetView<K,V> ks;
         if ((ks = keySet) != null) return ks;
@@ -1306,7 +1306,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
      * @return the collection view
      */
     @SideEffectFree
-    @IteratorPreservesRemove
+    @IteratorPolyShrink
     public @PolyShrink @Ungrowable Collection<V> values(@PolyShrink ConcurrentHashMap<K,V> this) {
         ValuesView<K,V> vs;
         if ((vs = values) != null) return vs;
@@ -1331,7 +1331,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
      * @return the set view
      */
     @SideEffectFree
-    @IteratorPreservesRemove
+    @IteratorPolyShrink
     public @PolyShrink @Ungrowable Set<Map.@Modifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyShrink ConcurrentHashMap<K,V> this) {
         EntrySetView<K,V> es;
         if ((es = entrySet) != null) return es;
@@ -2287,7 +2287,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
      * @return the set view
      * @throws NullPointerException if the mappedValue is null
      */
-    @IteratorPreservesRemove
+    @IteratorPolyShrink
     public KeySetView<K,V> keySet(V mappedValue) {
         if (mappedValue == null)
             throw new NullPointerException();
