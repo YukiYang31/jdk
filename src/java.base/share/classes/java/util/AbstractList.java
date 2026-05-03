@@ -339,7 +339,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      * @return an iterator over the elements in this list in proper sequence
      */
     @SideEffectFree
-    public @PolyGrowShrink @PolyModifiable @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty AbstractList<E> this) {
+    public @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty AbstractList<E> this) {
         return new Itr();
     }
 
@@ -351,7 +351,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      *
      * @see #listIterator(int)
      */
-    public @PolyGrowShrink @PolyModifiable @PolyNonEmpty ListIterator<E> listIterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty AbstractList<E> this) {
+    public @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyGrowShrink @PolyNonEmpty AbstractList<E> this) {
         return listIterator(0);
     }
 
@@ -378,7 +378,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      *
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public @PolyGrowShrink @PolyModifiable ListIterator<E> listIterator(@PolyGrowShrink @PolyModifiable AbstractList<E> this, final @IndexOrHigh({"this"}) int index) {
+    public @PolyGrowShrink @PolyNonEmpty ListIterator<E> listIterator(@PolyGrowShrink @PolyNonEmpty AbstractList<E> this, final @IndexOrHigh({"this"}) int index) {
         rangeCheckForAdd(index);
 
         return new ListItr(index);
