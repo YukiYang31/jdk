@@ -28,7 +28,7 @@ package java.util;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPolyShrink;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrink;
@@ -1190,7 +1190,7 @@ public class TreeMap<K,V>
      * operations.
      */
     @DoesNotUnrefineReceiver("modifiability")
-    @IteratorPolyShrink
+    @IteratorPolyMod
     public @PolyShrink @Ungrowable Set<@KeyFor({"this"}) K> keySet(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
         return navigableKeySet();
     }
@@ -1199,7 +1199,7 @@ public class TreeMap<K,V>
      * @since 1.6
      */
     @SideEffectFree
-    @IteratorPolyShrink
+    @IteratorPolyMod
     public @PolyShrink @Ungrowable NavigableSet<@KeyFor({"this"}) K> navigableKeySet(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
         KeySet<K> nks = navigableKeySet;
         return (nks != null) ? nks : (navigableKeySet = new KeySet<>(this));
@@ -1209,7 +1209,7 @@ public class TreeMap<K,V>
      * @since 1.6
      */
     @SideEffectFree
-    @IteratorPolyShrink
+    @IteratorPolyMod
     public @PolyShrink @Ungrowable NavigableSet<@KeyFor({"this"}) K> descendingKeySet(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
         return descendingMap().navigableKeySet();
     }
@@ -1235,7 +1235,7 @@ public class TreeMap<K,V>
      * {@code retainAll} and {@code clear} operations.  It does not
      * support the {@code add} or {@code addAll} operations.
      */
-    @IteratorPolyShrink
+    @IteratorPolyMod
     public @PolyShrink @Ungrowable Collection<V> values(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
         Collection<V> vs = values;
         if (vs == null) {
@@ -1268,7 +1268,7 @@ public class TreeMap<K,V>
      * {@code add} or {@code addAll} operations.
      */
     @SideEffectFree
-    @IteratorPolyShrink
+    @IteratorPolyMod
     public @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyModifiable @GuardSatisfied TreeMap<K, V> this) {
         EntrySet es = entrySet;
         return (es != null) ? es : (entrySet = new EntrySet());
@@ -2059,20 +2059,20 @@ public class TreeMap<K,V>
         transient KeySet<K> navigableKeySetView;
 
         @SideEffectFree
-        @IteratorPolyShrink
+        @IteratorPolyMod
         public final NavigableSet<K> navigableKeySet() {
             KeySet<K> nksv = navigableKeySetView;
             return (nksv != null) ? nksv :
                 (navigableKeySetView = new TreeMap.KeySet<>(this));
         }
 
-        @IteratorPolyShrink
+        @IteratorPolyMod
         public final Set<K> keySet() {
             return navigableKeySet();
         }
 
         @SideEffectFree
-        @IteratorPolyShrink
+        @IteratorPolyMod
         public NavigableSet<K> descendingKeySet() {
             return descendingMap().navigableKeySet();
         }
@@ -2399,7 +2399,7 @@ public class TreeMap<K,V>
         }
 
         @SideEffectFree
-        @IteratorPolyShrink
+        @IteratorPolyMod
         public Set<Map.Entry<K,V>> entrySet() {
             EntrySetView es = entrySetView;
             return (es != null) ? es : (entrySetView = new AscendingEntrySetView());
@@ -2493,7 +2493,7 @@ public class TreeMap<K,V>
         }
 
         @SideEffectFree
-        @IteratorPolyShrink
+        @IteratorPolyMod
         public Set<Map.Entry<K,V>> entrySet() {
             EntrySetView es = entrySetView;
             return (es != null) ? es : (entrySetView = new DescendingEntrySetView());

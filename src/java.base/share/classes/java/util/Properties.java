@@ -26,7 +26,7 @@
 package java.util;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
-import org.checkerframework.checker.modifiability.qual.IteratorPolyShrink;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nullness.qual.KeyFor;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -1395,20 +1395,20 @@ public class Properties extends Hashtable<Object,Object> {
     }
 
     @Override
-    @IteratorPolyShrink
+    @IteratorPolyMod
     public Set<@KeyFor("this") Object> keySet() {
         return Collections.synchronizedSet(map.keySet(), this);
     }
 
     @Override
-    @IteratorPolyShrink
+    @IteratorPolyMod
     public Collection<Object> values() {
         return Collections.synchronizedCollection(map.values(), this);
     }
 
     @Override
     @SideEffectFree
-    @IteratorPolyShrink
+    @IteratorPolyMod
     public Set<Map.Entry<@KeyFor("this") Object, Object>> entrySet() {
         return Collections.synchronizedSet(new EntrySet(map.entrySet()), this);
     }
