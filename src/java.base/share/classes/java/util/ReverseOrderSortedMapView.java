@@ -26,6 +26,9 @@
 package java.util;
 
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.PolyShrink;
+import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.dataflow.qual.Pure;
 
 /**
@@ -98,7 +101,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
         return base.size();
     }
 
-    public @IteratorPolyMod Set<K> keySet() {
+    public @IteratorPolyMod @PolyShrink @Ungrowable Set<K> keySet(@PolyShrink ReverseOrderSortedMapView<K,V> this) {
         return new AbstractSet<>() {
             // inherit add(), which throws UOE
             public Iterator<K> iterator() { return descendingKeyIterator(base); }
@@ -109,7 +112,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
         };
     }
 
-    public @IteratorPolyMod Collection<V> values() {
+    public @IteratorPolyMod @PolyShrink @Ungrowable Collection<V> values(@PolyShrink ReverseOrderSortedMapView<K,V> this) {
         return new AbstractCollection<>() {
             // inherit add(), which throws UOE
             public Iterator<V> iterator() { return descendingValueIterator(base); }
@@ -120,7 +123,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
         };
     }
 
-    public @IteratorPolyMod Set<Entry<K, V>> entrySet() {
+    public @IteratorPolyMod @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<K, V>> entrySet(@PolyModifiable ReverseOrderSortedMapView<K,V> this) {
         return new AbstractSet<>() {
             // inherit add(), which throws UOE
             public Iterator<Entry<K, V>> iterator() { return descendingEntryIterator(base); }
@@ -395,7 +398,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
             return ReverseOrderSortedMapView.toString(this, entryIterator());
         }
 
-        public @IteratorPolyMod Set<Entry<K, V>> entrySet() {
+        public @IteratorPolyMod @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<K, V>> entrySet(@PolyModifiable Submap this) {
             return new AbstractSet<>() {
                 public Iterator<Entry<K, V>> iterator() {
                     return entryIterator();

@@ -1229,15 +1229,15 @@ public class LinkedHashMap<K,V>
             base.clear();
         }
 
-        public @IteratorPolyMod Set<K> keySet() {
+        public @IteratorPolyMod @PolyShrink @Ungrowable Set<K> keySet(@PolyShrink ReversedLinkedHashMapView<K,V> this) {
             return base.sequencedKeySet().reversed();
         }
 
-        public @IteratorPolyMod Collection<V> values() {
+        public @IteratorPolyMod @PolyShrink @Ungrowable Collection<V> values(@PolyShrink ReversedLinkedHashMapView<K,V> this) {
             return base.sequencedValues().reversed();
         }
 
-        public @IteratorPolyMod Set<Entry<K, V>> entrySet() {
+        public @IteratorPolyMod @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<K, V>> entrySet(@PolyModifiable ReversedLinkedHashMapView<K,V> this) {
             return base.sequencedEntrySet().reversed();
         }
 

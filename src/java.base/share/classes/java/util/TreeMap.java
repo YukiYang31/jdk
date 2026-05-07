@@ -2054,18 +2054,18 @@ public class TreeMap<K,V>
         transient KeySet<K> navigableKeySetView;
 
         @SideEffectFree
-        public final @IteratorPolyMod NavigableSet<K> navigableKeySet() {
+        public final @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<K> navigableKeySet(@PolyShrink NavigableSubMap<K,V> this) {
             KeySet<K> nksv = navigableKeySetView;
             return (nksv != null) ? nksv :
                 (navigableKeySetView = new TreeMap.KeySet<>(this));
         }
 
-        public final @IteratorPolyMod Set<K> keySet() {
+        public final @IteratorPolyMod @PolyShrink @Ungrowable Set<K> keySet(@PolyShrink NavigableSubMap<K,V> this) {
             return navigableKeySet();
         }
 
         @SideEffectFree
-        public @IteratorPolyMod NavigableSet<K> descendingKeySet() {
+        public @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<K> descendingKeySet(@PolyShrink NavigableSubMap<K,V> this) {
             return descendingMap().navigableKeySet();
         }
 
@@ -2391,7 +2391,7 @@ public class TreeMap<K,V>
         }
 
         @SideEffectFree
-        public @IteratorPolyMod Set<Map.Entry<K,V>> entrySet() {
+        public @IteratorPolyMod @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<K,V>> entrySet(@PolyModifiable AscendingSubMap<K,V> this) {
             EntrySetView es = entrySetView;
             return (es != null) ? es : (entrySetView = new AscendingEntrySetView());
         }
@@ -2484,7 +2484,7 @@ public class TreeMap<K,V>
         }
 
         @SideEffectFree
-        public @IteratorPolyMod Set<Map.Entry<K,V>> entrySet() {
+        public @IteratorPolyMod @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<K,V>> entrySet(@PolyModifiable DescendingSubMap<K,V> this) {
             EntrySetView es = entrySetView;
             return (es != null) ? es : (entrySetView = new DescendingEntrySetView());
         }

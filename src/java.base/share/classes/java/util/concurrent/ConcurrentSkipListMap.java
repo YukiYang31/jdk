@@ -3011,27 +3011,27 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
 
         /* ---------------- Submap Views -------------- */
 
-        public @IteratorPolyMod NavigableSet<K> keySet() {
+        public @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<K> keySet(@PolyShrink SubMap<K,V> this) {
             KeySet<K,V> ks;
             if ((ks = keySetView) != null) return ks;
             return keySetView = new KeySet<>(this);
         }
 
         @SideEffectFree
-        public @IteratorPolyMod NavigableSet<K> navigableKeySet() {
+        public @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<K> navigableKeySet(@PolyShrink SubMap<K,V> this) {
             KeySet<K,V> ks;
             if ((ks = keySetView) != null) return ks;
             return keySetView = new KeySet<>(this);
         }
 
-        public @IteratorPolyMod Collection<V> values() {
+        public @IteratorPolyMod @PolyShrink @Ungrowable Collection<V> values(@PolyShrink SubMap<K,V> this) {
             Values<K,V> vs;
             if ((vs = valuesView) != null) return vs;
             return valuesView = new Values<>(this);
         }
 
         @SideEffectFree
-        public @IteratorPolyMod Set<Map.Entry<K,V>> entrySet() {
+        public @IteratorPolyMod @PolyShrink @Ungrowable Set<Map.@Unmodifiable Entry<K,V>> entrySet(@PolyShrink SubMap<K,V> this) {
             EntrySet<K,V> es;
             if ((es = entrySetView) != null) return es;
             return entrySetView = new EntrySet<K,V>(this);
