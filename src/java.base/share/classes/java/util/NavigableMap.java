@@ -313,8 +313,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @return a navigable set view of the keys in this map
      */
     @SideEffectFree
-    @IteratorPolyMod
-    @PolyShrink @Ungrowable NavigableSet<@KeyFor({"this"}) K> navigableKeySet(@PolyShrink NavigableMap<K, V> this);
+    @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<@KeyFor({"this"}) K> navigableKeySet(@PolyShrink NavigableMap<K, V> this);
 
     /**
      * Returns a reverse order {@link NavigableSet} view of the keys contained in this map.
@@ -331,8 +330,7 @@ public interface NavigableMap<K,V> extends SortedMap<K,V> {
      * @return a reverse order navigable set view of the keys in this map
      */
     @SideEffectFree
-    @IteratorPolyMod
-    @PolyShrink @Ungrowable NavigableSet<@KeyFor({"this"}) K> descendingKeySet(@PolyShrink NavigableMap<K, V> this);
+    @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<@KeyFor({"this"}) K> descendingKeySet(@PolyShrink NavigableMap<K, V> this);
 
     /**
      * Returns a view of the portion of this map whose keys range from

@@ -1280,8 +1280,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
      * @return the set view
      */
     @SideEffectFree
-    @IteratorPolyMod
-    public KeySetView<@KeyFor({"this"}) K,V> keySet() {
+    public @IteratorPolyMod KeySetView<@KeyFor({"this"}) K,V> keySet() {
         KeySetView<K,V> ks;
         if ((ks = keySet) != null) return ks;
         return keySet = new KeySetView<K,V>(this, null);
@@ -1306,8 +1305,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
      * @return the collection view
      */
     @SideEffectFree
-    @IteratorPolyMod
-    public @PolyShrink @Ungrowable Collection<V> values(@PolyShrink ConcurrentHashMap<K,V> this) {
+    public @IteratorPolyMod @PolyShrink @Ungrowable Collection<V> values(@PolyShrink ConcurrentHashMap<K,V> this) {
         ValuesView<K,V> vs;
         if ((vs = values) != null) return vs;
         return values = new ValuesView<K,V>(this);
@@ -1331,8 +1329,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
      * @return the set view
      */
     @SideEffectFree
-    @IteratorPolyMod
-    public @PolyShrink @Ungrowable Set<Map.@Modifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyShrink ConcurrentHashMap<K,V> this) {
+    public @IteratorPolyMod @PolyShrink @Ungrowable Set<Map.@Modifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyShrink ConcurrentHashMap<K,V> this) {
         EntrySetView<K,V> es;
         if ((es = entrySet) != null) return es;
         return entrySet = new EntrySetView<K,V>(this);
@@ -2287,8 +2284,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
      * @return the set view
      * @throws NullPointerException if the mappedValue is null
      */
-    @IteratorPolyMod
-    public KeySetView<K,V> keySet(V mappedValue) {
+    public @IteratorPolyMod KeySetView<K,V> keySet(V mappedValue) {
         if (mappedValue == null)
             throw new NullPointerException();
         return new KeySetView<K,V>(this, mappedValue);

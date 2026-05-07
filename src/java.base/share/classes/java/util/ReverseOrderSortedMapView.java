@@ -98,8 +98,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
         return base.size();
     }
 
-    @IteratorPolyMod
-    public Set<K> keySet() {
+    public @IteratorPolyMod Set<K> keySet() {
         return new AbstractSet<>() {
             // inherit add(), which throws UOE
             public Iterator<K> iterator() { return descendingKeyIterator(base); }
@@ -110,8 +109,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
         };
     }
 
-    @IteratorPolyMod
-    public Collection<V> values() {
+    public @IteratorPolyMod Collection<V> values() {
         return new AbstractCollection<>() {
             // inherit add(), which throws UOE
             public Iterator<V> iterator() { return descendingValueIterator(base); }
@@ -122,8 +120,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
         };
     }
 
-    @IteratorPolyMod
-    public Set<Entry<K, V>> entrySet() {
+    public @IteratorPolyMod Set<Entry<K, V>> entrySet() {
         return new AbstractSet<>() {
             // inherit add(), which throws UOE
             public Iterator<Entry<K, V>> iterator() { return descendingEntryIterator(base); }
@@ -398,8 +395,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
             return ReverseOrderSortedMapView.toString(this, entryIterator());
         }
 
-        @IteratorPolyMod
-        public Set<Entry<K, V>> entrySet() {
+        public @IteratorPolyMod Set<Entry<K, V>> entrySet() {
             return new AbstractSet<>() {
                 public Iterator<Entry<K, V>> iterator() {
                     return entryIterator();

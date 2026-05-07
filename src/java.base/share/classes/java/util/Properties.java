@@ -1395,21 +1395,18 @@ public class Properties extends Hashtable<Object,Object> {
     }
 
     @Override
-    @IteratorPolyMod
-    public Set<@KeyFor("this") Object> keySet() {
+    public @IteratorPolyMod Set<@KeyFor("this") Object> keySet() {
         return Collections.synchronizedSet(map.keySet(), this);
     }
 
     @Override
-    @IteratorPolyMod
-    public Collection<Object> values() {
+    public @IteratorPolyMod Collection<Object> values() {
         return Collections.synchronizedCollection(map.values(), this);
     }
 
     @Override
     @SideEffectFree
-    @IteratorPolyMod
-    public Set<Map.Entry<@KeyFor("this") Object, Object>> entrySet() {
+    public @IteratorPolyMod Set<Map.Entry<@KeyFor("this") Object, Object>> entrySet() {
         return Collections.synchronizedSet(new EntrySet(map.entrySet()), this);
     }
 

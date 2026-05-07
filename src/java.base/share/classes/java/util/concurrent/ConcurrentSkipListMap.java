@@ -1650,16 +1650,14 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      *
      * @return a navigable set view of the keys in this map
      */
-    @IteratorPolyMod
-    public @PolyShrink @Ungrowable NavigableSet<K> keySet(@PolyShrink ConcurrentSkipListMap<K,V> this) {
+    public @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<K> keySet(@PolyShrink ConcurrentSkipListMap<K,V> this) {
         KeySet<K,V> ks;
         if ((ks = keySet) != null) return ks;
         return keySet = new KeySet<>(this);
     }
 
     @SideEffectFree
-    @IteratorPolyMod
-    public @PolyShrink @Ungrowable NavigableSet<K> navigableKeySet(@PolyShrink ConcurrentSkipListMap<K,V> this) {
+    public @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<K> navigableKeySet(@PolyShrink ConcurrentSkipListMap<K,V> this) {
         KeySet<K,V> ks;
         if ((ks = keySet) != null) return ks;
         return keySet = new KeySet<>(this);
@@ -1684,8 +1682,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * <p>The view's iterators and spliterators are
      * <a href="package-summary.html#Weakly"><i>weakly consistent</i></a>.
      */
-    @IteratorPolyMod
-    public @PolyShrink @Ungrowable Collection<V> values(@PolyShrink ConcurrentSkipListMap<K,V> this) {
+    public @IteratorPolyMod @PolyShrink @Ungrowable Collection<V> values(@PolyShrink ConcurrentSkipListMap<K,V> this) {
         Values<K,V> vs;
         if ((vs = values) != null) return vs;
         return values = new Values<>(this);
@@ -1719,8 +1716,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      *         sorted in ascending key order
      */
     @SideEffectFree
-    @IteratorPolyMod
-    public @PolyShrink @Ungrowable Set<Map.@Unmodifiable Entry<K,V>> entrySet(@PolyShrink ConcurrentSkipListMap<K,V> this) {
+    public @IteratorPolyMod @PolyShrink @Ungrowable Set<Map.@Unmodifiable Entry<K,V>> entrySet(@PolyShrink ConcurrentSkipListMap<K,V> this) {
         EntrySet<K,V> es;
         if ((es = entrySet) != null) return es;
         return entrySet = new EntrySet<K,V>(this);
@@ -1735,8 +1731,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
     }
 
     @SideEffectFree
-    @IteratorPolyMod
-    public @PolyShrink @Ungrowable NavigableSet<K> descendingKeySet(@PolyShrink ConcurrentSkipListMap<K,V> this) {
+    public @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<K> descendingKeySet(@PolyShrink ConcurrentSkipListMap<K,V> this) {
         return descendingMap().navigableKeySet();
     }
 
@@ -3016,39 +3011,34 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
 
         /* ---------------- Submap Views -------------- */
 
-        @IteratorPolyMod
-        public NavigableSet<K> keySet() {
+        public @IteratorPolyMod NavigableSet<K> keySet() {
             KeySet<K,V> ks;
             if ((ks = keySetView) != null) return ks;
             return keySetView = new KeySet<>(this);
         }
 
         @SideEffectFree
-        @IteratorPolyMod
-        public NavigableSet<K> navigableKeySet() {
+        public @IteratorPolyMod NavigableSet<K> navigableKeySet() {
             KeySet<K,V> ks;
             if ((ks = keySetView) != null) return ks;
             return keySetView = new KeySet<>(this);
         }
 
-        @IteratorPolyMod
-        public Collection<V> values() {
+        public @IteratorPolyMod Collection<V> values() {
             Values<K,V> vs;
             if ((vs = valuesView) != null) return vs;
             return valuesView = new Values<>(this);
         }
 
         @SideEffectFree
-        @IteratorPolyMod
-        public Set<Map.Entry<K,V>> entrySet() {
+        public @IteratorPolyMod Set<Map.Entry<K,V>> entrySet() {
             EntrySet<K,V> es;
             if ((es = entrySetView) != null) return es;
             return entrySetView = new EntrySet<K,V>(this);
         }
 
         @SideEffectFree
-        @IteratorPolyMod
-        public NavigableSet<K> descendingKeySet() {
+        public @IteratorPolyMod NavigableSet<K> descendingKeySet() {
             return descendingMap().navigableKeySet();
         }
 

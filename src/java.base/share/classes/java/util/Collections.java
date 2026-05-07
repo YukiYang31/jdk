@@ -3087,8 +3087,7 @@ public class Collections {
         private transient Set<Map.Entry<K,V>> entrySet;
         private transient Collection<V> values;
 
-        @IteratorPolyMod
-        public Set<K> keySet() {
+        public @IteratorPolyMod Set<K> keySet() {
             synchronized (mutex) {
                 if (keySet==null)
                     keySet = new SynchronizedSet<>(m.keySet(), mutex);
@@ -3097,8 +3096,7 @@ public class Collections {
         }
 
         @SideEffectFree
-        @IteratorPolyMod
-        public Set<Map.Entry<K,V>> entrySet() {
+        public @IteratorPolyMod Set<Map.Entry<K,V>> entrySet() {
             synchronized (mutex) {
                 if (entrySet==null)
                     entrySet = new SynchronizedSet<>(m.entrySet(), mutex);
@@ -3106,8 +3104,7 @@ public class Collections {
             }
         }
 
-        @IteratorPolyMod
-        public Collection<V> values() {
+        public @IteratorPolyMod Collection<V> values() {
             synchronized (mutex) {
                 if (values==null)
                     values = new SynchronizedCollection<>(m.values(), mutex);
@@ -3397,22 +3394,19 @@ public class Collections {
             }
         }
 
-        @IteratorPolyMod
-        public NavigableSet<K> keySet() {
+        public @IteratorPolyMod NavigableSet<K> keySet() {
             return navigableKeySet();
         }
 
         @SideEffectFree
-        @IteratorPolyMod
-        public NavigableSet<K> navigableKeySet() {
+        public @IteratorPolyMod NavigableSet<K> navigableKeySet() {
             synchronized (mutex) {
                 return new SynchronizedNavigableSet<>(nm.navigableKeySet(), mutex);
             }
         }
 
         @SideEffectFree
-        @IteratorPolyMod
-        public NavigableSet<K> descendingKeySet() {
+        public @IteratorPolyMod NavigableSet<K> descendingKeySet() {
             synchronized (mutex) {
                 return new SynchronizedNavigableSet<>(nm.descendingKeySet(), mutex);
             }
@@ -4191,10 +4185,8 @@ public class Collections {
         public V get(Object key)               { return m.get(key); }
         public V remove(Object key)            { return m.remove(key); }
         public void clear()                    { m.clear(); }
-        @IteratorPolyMod
-        public Set<K> keySet()                 { return m.keySet(); }
-        @IteratorPolyMod
-        public Collection<V> values()          { return m.values(); }
+        public @IteratorPolyMod Set<K> keySet()                 { return m.keySet(); }
+        public @IteratorPolyMod Collection<V> values()          { return m.values(); }
         public boolean equals(Object o)        { return o == this || m.equals(o); }
         public int hashCode()                  { return m.hashCode(); }
         public String toString()               { return m.toString(); }
@@ -4229,8 +4221,7 @@ public class Collections {
         private transient Set<Map.Entry<K,V>> entrySet;
 
         @SideEffectFree
-        @IteratorPolyMod
-        public Set<Map.Entry<K,V>> entrySet() {
+        public @IteratorPolyMod Set<Map.Entry<K,V>> entrySet() {
             if (entrySet==null)
                 entrySet = new CheckedEntrySet<>(m.entrySet(), valueType);
             return entrySet;
@@ -4722,20 +4713,17 @@ public class Collections {
             return checkedNavigableMap(nm.descendingMap(), keyType, valueType);
         }
 
-        @IteratorPolyMod
-        public NavigableSet<K> keySet() {
+        public @IteratorPolyMod NavigableSet<K> keySet() {
             return navigableKeySet();
         }
 
         @SideEffectFree
-        @IteratorPolyMod
-        public NavigableSet<K> navigableKeySet() {
+        public @IteratorPolyMod NavigableSet<K> navigableKeySet() {
             return checkedNavigableSet(nm.navigableKeySet(), keyType);
         }
 
         @SideEffectFree
-        @IteratorPolyMod
-        public NavigableSet<K> descendingKeySet() {
+        public @IteratorPolyMod NavigableSet<K> descendingKeySet() {
             return checkedNavigableSet(nm.descendingKeySet(), keyType);
         }
 

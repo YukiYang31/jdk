@@ -1190,8 +1190,7 @@ public class TreeMap<K,V>
      * operations.
      */
     @DoesNotUnrefineReceiver("modifiability")
-    @IteratorPolyMod
-    public @PolyShrink @Ungrowable Set<@KeyFor({"this"}) K> keySet(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
+    public @IteratorPolyMod @PolyShrink @Ungrowable Set<@KeyFor({"this"}) K> keySet(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
         return navigableKeySet();
     }
 
@@ -1199,8 +1198,7 @@ public class TreeMap<K,V>
      * @since 1.6
      */
     @SideEffectFree
-    @IteratorPolyMod
-    public @PolyShrink @Ungrowable NavigableSet<@KeyFor({"this"}) K> navigableKeySet(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
+    public @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<@KeyFor({"this"}) K> navigableKeySet(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
         KeySet<K> nks = navigableKeySet;
         return (nks != null) ? nks : (navigableKeySet = new KeySet<>(this));
     }
@@ -1209,8 +1207,7 @@ public class TreeMap<K,V>
      * @since 1.6
      */
     @SideEffectFree
-    @IteratorPolyMod
-    public @PolyShrink @Ungrowable NavigableSet<@KeyFor({"this"}) K> descendingKeySet(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
+    public @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<@KeyFor({"this"}) K> descendingKeySet(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
         return descendingMap().navigableKeySet();
     }
 
@@ -1235,8 +1232,7 @@ public class TreeMap<K,V>
      * {@code retainAll} and {@code clear} operations.  It does not
      * support the {@code add} or {@code addAll} operations.
      */
-    @IteratorPolyMod
-    public @PolyShrink @Ungrowable Collection<V> values(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
+    public @IteratorPolyMod @PolyShrink @Ungrowable Collection<V> values(@PolyShrink @GuardSatisfied TreeMap<K, V> this) {
         Collection<V> vs = values;
         if (vs == null) {
             vs = new Values();
@@ -1268,8 +1264,7 @@ public class TreeMap<K,V>
      * {@code add} or {@code addAll} operations.
      */
     @SideEffectFree
-    @IteratorPolyMod
-    public @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyModifiable @GuardSatisfied TreeMap<K, V> this) {
+    public @IteratorPolyMod @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyModifiable @GuardSatisfied TreeMap<K, V> this) {
         EntrySet es = entrySet;
         return (es != null) ? es : (entrySet = new EntrySet());
     }
@@ -2059,21 +2054,18 @@ public class TreeMap<K,V>
         transient KeySet<K> navigableKeySetView;
 
         @SideEffectFree
-        @IteratorPolyMod
-        public final NavigableSet<K> navigableKeySet() {
+        public final @IteratorPolyMod NavigableSet<K> navigableKeySet() {
             KeySet<K> nksv = navigableKeySetView;
             return (nksv != null) ? nksv :
                 (navigableKeySetView = new TreeMap.KeySet<>(this));
         }
 
-        @IteratorPolyMod
-        public final Set<K> keySet() {
+        public final @IteratorPolyMod Set<K> keySet() {
             return navigableKeySet();
         }
 
         @SideEffectFree
-        @IteratorPolyMod
-        public NavigableSet<K> descendingKeySet() {
+        public @IteratorPolyMod NavigableSet<K> descendingKeySet() {
             return descendingMap().navigableKeySet();
         }
 
@@ -2399,8 +2391,7 @@ public class TreeMap<K,V>
         }
 
         @SideEffectFree
-        @IteratorPolyMod
-        public Set<Map.Entry<K,V>> entrySet() {
+        public @IteratorPolyMod Set<Map.Entry<K,V>> entrySet() {
             EntrySetView es = entrySetView;
             return (es != null) ? es : (entrySetView = new AscendingEntrySetView());
         }
@@ -2493,8 +2484,7 @@ public class TreeMap<K,V>
         }
 
         @SideEffectFree
-        @IteratorPolyMod
-        public Set<Map.Entry<K,V>> entrySet() {
+        public @IteratorPolyMod Set<Map.Entry<K,V>> entrySet() {
             EntrySetView es = entrySetView;
             return (es != null) ? es : (entrySetView = new DescendingEntrySetView());
         }

@@ -655,8 +655,7 @@ public class LinkedHashMap<K,V>
      * @return a set view of the keys contained in this map
      */
     @SideEffectFree
-    @IteratorPolyMod
-    public @PolyShrink @Ungrowable Set<K> keySet(@PolyShrink LinkedHashMap<K, V> this) {
+    public @IteratorPolyMod @PolyShrink @Ungrowable Set<K> keySet(@PolyShrink LinkedHashMap<K, V> this) {
         return sequencedKeySet();
     }
 
@@ -816,8 +815,7 @@ public class LinkedHashMap<K,V>
      *
      * @return a view of the values contained in this map
      */
-    @IteratorPolyMod
-    public @PolyShrink @Ungrowable Collection<V> values(@PolyShrink LinkedHashMap<K, V> this) {
+    public @IteratorPolyMod @PolyShrink @Ungrowable Collection<V> values(@PolyShrink LinkedHashMap<K, V> this) {
         return sequencedValues();
     }
 
@@ -932,8 +930,7 @@ public class LinkedHashMap<K,V>
      * @return a set view of the mappings contained in this map
      */
     @SideEffectFree
-    @IteratorPolyMod
-    public @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyModifiable @GuardSatisfied LinkedHashMap<K, V> this) {
+    public @IteratorPolyMod @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyModifiable @GuardSatisfied LinkedHashMap<K, V> this) {
         return sequencedEntrySet();
     }
 
@@ -1232,18 +1229,15 @@ public class LinkedHashMap<K,V>
             base.clear();
         }
 
-        @IteratorPolyMod
-        public Set<K> keySet() {
+        public @IteratorPolyMod Set<K> keySet() {
             return base.sequencedKeySet().reversed();
         }
 
-        @IteratorPolyMod
-        public Collection<V> values() {
+        public @IteratorPolyMod Collection<V> values() {
             return base.sequencedValues().reversed();
         }
 
-        @IteratorPolyMod
-        public Set<Entry<K, V>> entrySet() {
+        public @IteratorPolyMod Set<Entry<K, V>> entrySet() {
             return base.sequencedEntrySet().reversed();
         }
 
