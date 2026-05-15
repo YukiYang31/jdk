@@ -177,7 +177,7 @@ public class Collections {
      * @see List#sort(Comparator)
      */
     @SuppressWarnings("unchecked")
-    public static <T extends Comparable<? super T>> void sort(@Replaceable List<T> list) {
+    public static <T extends Comparable<? super T>> void sort(@IteratorPolyMod @Replaceable List<T> list) {
         list.sort(null);
     }
 
@@ -211,7 +211,7 @@ public class Collections {
      * @see List#sort(Comparator)
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
-    public static <T> void sort(@Replaceable List<T> list, @Nullable Comparator<? super T> c) {
+    public static <T> void sort(@IteratorPolyMod @Replaceable List<T> list, @Nullable Comparator<? super T> c) {
         list.sort(c);
     }
 
@@ -417,7 +417,7 @@ public class Collections {
      * @see    List#reversed List.reversed
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public static void reverse(@Replaceable @GuardSatisfied List<?> list) {
+    public static void reverse(@IteratorPolyMod @Replaceable @GuardSatisfied List<?> list) {
         int size = list.size();
         if (size < REVERSE_THRESHOLD || list instanceof RandomAccess) {
             for (int i=0, mid=size>>1, j=size-1; i<mid; i++, j--)
@@ -464,7 +464,7 @@ public class Collections {
      * @throws UnsupportedOperationException if the specified list or
      *         its list-iterator does not support the {@code set} operation.
      */
-    public static void shuffle(@Replaceable @GuardSatisfied List<?> list) {
+    public static void shuffle(@IteratorPolyMod @Replaceable @GuardSatisfied List<?> list) {
         Random rnd = r;
         if (rnd == null)
             r = rnd = new Random(); // harmless race.
@@ -487,7 +487,7 @@ public class Collections {
      * @throws UnsupportedOperationException if the specified list or its
      *         list-iterator does not support the {@code set} operation.
      */
-    public static void shuffle(@Replaceable List<?> list, Random rnd) {
+    public static void shuffle(@IteratorPolyMod @Replaceable List<?> list, Random rnd) {
         shuffle(list, (RandomGenerator) rnd);
     }
 
@@ -516,7 +516,7 @@ public class Collections {
      * @since 21
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public static void shuffle(@Replaceable @GuardSatisfied List<?> list, RandomGenerator rnd) {
+    public static void shuffle(@IteratorPolyMod @Replaceable @GuardSatisfied List<?> list, RandomGenerator rnd) {
         int size = list.size();
         if (size < SHUFFLE_THRESHOLD || list instanceof RandomAccess) {
             for (int i=size; i>1; i--)
@@ -583,7 +583,7 @@ public class Collections {
      * @throws UnsupportedOperationException if the specified list or its
      *         list-iterator does not support the {@code set} operation.
      */
-    public static <T> void fill(@Replaceable @GuardSatisfied List<? super T> list, T obj) {
+    public static <T> void fill(@IteratorPolyMod @Replaceable @GuardSatisfied List<? super T> list, T obj) {
         int size = list.size();
 
         if (size < FILL_THRESHOLD || list instanceof RandomAccess) {
@@ -616,7 +616,7 @@ public class Collections {
      * @throws UnsupportedOperationException if the destination list's
      *         list-iterator does not support the {@code set} operation.
      */
-    public static <T> void copy(@Replaceable List<? super T> dest, @UnknownModifiability List<? extends T> src) {
+    public static <T> void copy(@IteratorPolyMod @Replaceable List<? super T> dest, @UnknownModifiability List<? extends T> src) {
         int srcSize = src.size();
         if (srcSize > dest.size())
             throw new IndexOutOfBoundsException("Source does not fit in dest");
@@ -844,7 +844,7 @@ public class Collections {
      *         its list-iterator does not support the {@code set} operation.
      * @since 1.4
      */
-    public static void rotate(@Replaceable @GuardSatisfied List<?> list, int distance) {
+    public static void rotate(@IteratorPolyMod @Replaceable @GuardSatisfied List<?> list, int distance) {
         if (list instanceof RandomAccess || list.size() < ROTATE_THRESHOLD)
             rotate1(list, distance);
         else
@@ -908,7 +908,7 @@ public class Collections {
      *         its list-iterator does not support the {@code set} operation.
      * @since  1.4
      */
-    public static <T> boolean replaceAll(@Replaceable List<T> list, @Nullable T oldVal, T newVal) {
+    public static <T> boolean replaceAll(@IteratorPolyMod @Replaceable List<T> list, @Nullable T oldVal, T newVal) {
         boolean result = false;
         int size = list.size();
         if (size < REPLACEALL_THRESHOLD || list instanceof RandomAccess) {
