@@ -72,7 +72,6 @@ jobs:
           git config --global core.protectNTFS false
           cd ../jdk21u
           git diff --exit-code
-          echo $?
       - name: git merge plan
         run: |
           cd ../jdk21u && git status

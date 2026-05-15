@@ -78,7 +78,6 @@ jobs:
           git config --global core.protectNTFS false
           cd ../jdk21u
           git diff --exit-code
-          echo $?
         displayName: clone-related-jdk21u
       - bash: |
           cd ../jdk21u && git status
