@@ -26,6 +26,7 @@
 package java.util;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -178,7 +179,7 @@ public abstract class AbstractSet<E> extends AbstractCollection<E> implements Se
      * @see #contains(Object)
      */
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean removeAll(@Shrinkable @GuardSatisfied AbstractSet<E> this, Collection<? extends @UnknownSignedness Object> c) {
+    public boolean removeAll(@IteratorPolyMod @Shrinkable @GuardSatisfied AbstractSet<E> this, Collection<? extends @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         boolean modified = false;
 
