@@ -385,7 +385,7 @@ public class ArrayList<E> extends AbstractList<E>
      * @return a clone of this {@code ArrayList} instance
      */
     @SideEffectFree
-    public @Modifiable @IteratorPolyMod clone(@GuardSatisfied ArrayList<E> this) {
+    public @Modifiable @IteratorPolyMod Object clone(@GuardSatisfied ArrayList<E> this) {
         try {
             ArrayList<?> v = (ArrayList<?>) super.clone();
             v.elementData = Arrays.copyOf(elementData, size);
