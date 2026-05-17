@@ -5,7 +5,7 @@ changequote(`[',`]')dnl
 ifelse([The built-in "dnl" m4 macro means "discard to next line",])dnl
 define([canary_os], [ubuntu])dnl
 define([canary_version], [25])dnl
-define([latest_version], [25])dnl
+define([latest_version], [26])dnl
 define([canary_test], [canary_os[]canary_version])dnl
 define([docker_testing], [])dnl
 ifelse([uncomment the next line to use the "testing" Docker images])dnl
@@ -165,7 +165,7 @@ define([daikon_job], [dnl
       - canary_jobs
     pool:
       vmImage: 'ubuntu-latest'
-    container: mdernst/cf-ubuntu-jdk17:latest
+    container: mdernst/cf-ubuntu-jdk$2[]docker_testing:latest
     timeoutInMinutes: 70
     steps:
       - checkout: self
@@ -183,7 +183,7 @@ define([plume_lib_job], [dnl
       - canary_jobs
     pool:
       vmImage: 'ubuntu-latest'
-    container: mdernst/cf-ubuntu-jdk17:latest
+    container: mdernst/cf-ubuntu-jdk$1[]docker_testing:latest
     steps:
       - checkout: self
         fetchDepth: 25
