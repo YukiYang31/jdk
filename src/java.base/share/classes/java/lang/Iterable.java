@@ -25,7 +25,6 @@
 package java.lang;
 
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
-import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.nonempty.qual.PolyNonEmpty;
 import org.checkerframework.common.aliasing.qual.NonLeaked;
 import org.checkerframework.framework.qual.AnnotatedFor;
@@ -52,7 +51,7 @@ public interface Iterable<T> {
      *
      * @return an Iterator.
      */
-    @UnknownModifiability @PolyGrowShrink @PolyNonEmpty Iterator<T> iterator(@UnknownModifiability @PolyGrowShrink @PolyNonEmpty Iterable<T> this);
+    @PolyGrowShrink @PolyNonEmpty Iterator<T> iterator(@PolyGrowShrink @PolyNonEmpty Iterable<T> this);
 
     /**
      * Performs the given action for each element of the {@code Iterable}
