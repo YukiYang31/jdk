@@ -36,7 +36,6 @@ import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.PolyShrink;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
-import org.checkerframework.checker.modifiability.qual.UnknownModifiability;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -116,7 +115,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
      * This implementation returns {@code entrySet().size()}.
      */
     @Pure
-    public @NonNegative int size(@UnknownModifiability @GuardSatisfied AbstractMap<K, V> this) {
+    public @NonNegative int size(@GuardSatisfied AbstractMap<K, V> this) {
         return entrySet().size();
     }
 
@@ -128,7 +127,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = false, expression = "this")
-    public boolean isEmpty(@UnknownModifiability @GuardSatisfied AbstractMap<K, V> this) {
+    public boolean isEmpty(@GuardSatisfied AbstractMap<K, V> this) {
         return size() == 0;
     }
 
@@ -146,7 +145,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
      * @throws NullPointerException {@inheritDoc}
      */
     @Pure
-    public boolean containsValue(@UnknownModifiability @GuardSatisfied AbstractMap<K, V> this, @GuardSatisfied @UnknownSignedness Object value) {
+    public boolean containsValue(@GuardSatisfied AbstractMap<K, V> this, @GuardSatisfied @UnknownSignedness Object value) {
         Iterator<Entry<K,V>> i = entrySet().iterator();
         if (value==null) {
             while (i.hasNext()) {
@@ -180,7 +179,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
      */
     @EnsuresKeyForIf(expression={"#1"}, result=true, map={"this"})
     @Pure
-    public boolean containsKey(@UnknownModifiability @GuardSatisfied AbstractMap<K, V> this, @GuardSatisfied @UnknownSignedness Object key) {
+    public boolean containsKey(@GuardSatisfied AbstractMap<K, V> this, @GuardSatisfied @UnknownSignedness Object key) {
         Iterator<Map.Entry<K,V>> i = entrySet().iterator();
         if (key==null) {
             while (i.hasNext()) {
@@ -213,7 +212,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
      * @throws NullPointerException          {@inheritDoc}
      */
     @Pure
-    public @Nullable V get(@UnknownModifiability @GuardSatisfied AbstractMap<K, V> this, @UnknownSignedness @GuardSatisfied Object key) {
+    public @Nullable V get(@GuardSatisfied AbstractMap<K, V> this, @UnknownSignedness @GuardSatisfied Object key) {
         Iterator<Entry<K,V>> i = entrySet().iterator();
         if (key==null) {
             while (i.hasNext()) {
@@ -542,7 +541,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
      * @return {@code true} if the specified object is equal to this map
      */
     @Pure
-    public boolean equals(@UnknownModifiability @GuardSatisfied AbstractMap<K, V> this, @GuardSatisfied @Nullable Object o) {
+    public boolean equals(@GuardSatisfied AbstractMap<K, V> this, @GuardSatisfied @Nullable Object o) {
         if (o == this)
             return true;
 
@@ -589,7 +588,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
      * @see Set#equals(Object)
      */
     @Pure
-    public int hashCode(@UnknownModifiability@GuardSatisfied AbstractMap<K, V> this) {
+    public int hashCode(@GuardSatisfied AbstractMap<K, V> this) {
         int h = 0;
         for (Entry<K, V> entry : entrySet())
             h += entry.hashCode();
@@ -609,7 +608,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
      * @return a string representation of this map
      */
     @SideEffectFree
-    public String toString(@UnknownModifiability @GuardSatisfied AbstractMap<K, V> this) {
+    public String toString(@GuardSatisfied AbstractMap<K, V> this) {
         Iterator<Entry<K,V>> i = entrySet().iterator();
         if (! i.hasNext())
             return "{}";
