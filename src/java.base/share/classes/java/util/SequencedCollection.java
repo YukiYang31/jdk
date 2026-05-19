@@ -25,13 +25,11 @@
 
 package java.util;
 
-
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.dataflow.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.dataflow.qual.Pure;
-
 
 /**
  * A collection that has a well-defined encounter order, that supports operations at both ends,
