@@ -54,10 +54,10 @@ import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.common.value.qual.StaticallyExecutable;
-import org.checkerframework.dataflow.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
-import org.checkerframework.dataflow.qual.SideEffectsOnly;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 import java.lang.invoke.VarHandle;
@@ -1248,7 +1248,7 @@ public class CopyOnWriteArrayList<E>
         }
 
         @SuppressWarnings("unchecked")
-        @SideEffectsOnly("this")
+        // @SideEffectsOnly("this")
         public E next(@NonEmpty COWIterator<E> this) {
             if (! hasNext())
                 throw new NoSuchElementException();
@@ -1256,7 +1256,7 @@ public class CopyOnWriteArrayList<E>
         }
 
         @SuppressWarnings("unchecked")
-        @SideEffectsOnly("this")
+        // @SideEffectsOnly("this")
         public E previous() {
             if (! hasPrevious())
                 throw new NoSuchElementException();
@@ -1787,7 +1787,7 @@ public class CopyOnWriteArrayList<E>
             return nextIndex() < size;
         }
 
-        @SideEffectsOnly("this")
+        // @SideEffectsOnly("this")
         public E next(@NonEmpty COWSubListIterator<E> this) {
             if (hasNext())
                 return it.next();

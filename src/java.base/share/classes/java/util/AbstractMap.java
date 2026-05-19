@@ -44,10 +44,10 @@ import org.checkerframework.checker.nullness.qual.EnsuresKeyForIf;
 import org.checkerframework.checker.nullness.qual.KeyFor;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
-import org.checkerframework.dataflow.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
-import org.checkerframework.dataflow.qual.SideEffectsOnly;
+// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 
@@ -404,7 +404,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
                             return i.hasNext();
                         }
 
-                        @SideEffectsOnly("this")
+                        // @SideEffectsOnly("this")
                         public K next(/*@NonEmpty Iterator<K> this*/) {
                             return i.next().getKey();
                         }
@@ -474,7 +474,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
                             return i.hasNext();
                         }
 
-                        @SideEffectsOnly("this")
+                        // @SideEffectsOnly("this")
                         public V next(/*@NonEmpty Iterator<V> this*/) {
                             return i.next().getValue();
                         }
