@@ -52,10 +52,10 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
-import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
-import org.checkerframework.dataflow.qual.SideEffectsOnly;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 import java.lang.invoke.MethodHandles;
@@ -933,7 +933,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
             return nextNode != null;
         }
 
-        @SideEffectsOnly("this")
+        // @SideEffectsOnly("this")
         public final E next(@NonEmpty Itr this) {
             final Node p;
             if ((p = nextNode) == null) throw new NoSuchElementException();

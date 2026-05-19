@@ -40,10 +40,10 @@ import org.checkerframework.checker.nonempty.qual.PolyNonEmpty;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
-import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
-import org.checkerframework.dataflow.qual.SideEffectsOnly;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 import java.io.InvalidObjectException;
@@ -253,7 +253,7 @@ public class HashSet<E>
      * @return {@code true} if this set did not already contain the specified
      * element
      */
-    @SideEffectsOnly("this")
+    // @SideEffectsOnly("this")
     @EnsuresNonEmpty("this")
     public boolean add(@Growable @GuardSatisfied HashSet<E> this, E e) {
         return map.put(e, PRESENT)==null;
@@ -271,7 +271,7 @@ public class HashSet<E>
      * @param o object to be removed from this set, if present
      * @return {@code true} if the set contained the specified element
      */
-    @SideEffectsOnly("this")
+    // @SideEffectsOnly("this")
     public boolean remove(@Shrinkable @GuardSatisfied HashSet<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
         return map.remove(o)==PRESENT;
     }
@@ -280,7 +280,7 @@ public class HashSet<E>
      * Removes all of the elements from this set.
      * The set will be empty after this call returns.
      */
-    @SideEffectsOnly("this")
+    // @SideEffectsOnly("this")
     public void clear(@Shrinkable @GuardSatisfied HashSet<E> this) {
         map.clear();
     }

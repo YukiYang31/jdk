@@ -56,7 +56,7 @@ import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
-import org.checkerframework.dataflow.qual.SideEffectsOnly;
+// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 import java.lang.invoke.MethodHandles;
@@ -1472,7 +1472,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
             return nextItem != null;
         }
 
-        @SideEffectsOnly("this")
+        // @SideEffectsOnly("this")
         public E next(@NonEmpty AbstractItr this) {
             E item = nextItem;
             if (item == null) throw new NoSuchElementException();

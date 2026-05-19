@@ -54,7 +54,7 @@ import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.dataflow.qual.Pure;
-import org.checkerframework.dataflow.qual.SideEffectsOnly;
+// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 
 import java.lang.ref.WeakReference;
@@ -1250,7 +1250,7 @@ public class ArrayBlockingQueue<E extends Object> extends AbstractQueue<E>
             }
         }
 
-        @SideEffectsOnly("this")
+        // @SideEffectsOnly("this")
         public E next(@NonEmpty Itr this) {
             final E e = nextItem;
             if (e == null)
