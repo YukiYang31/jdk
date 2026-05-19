@@ -31,7 +31,7 @@ import org.checkerframework.checker.modifiability.qual.PolyShrink;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
-import org.checkerframework.dataflow.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 
 import jdk.internal.util.NullableKeyValueHolder;
