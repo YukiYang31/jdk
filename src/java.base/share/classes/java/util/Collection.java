@@ -280,7 +280,7 @@ import java.util.stream.StreamSupport;
  */
 
 @CFComment("lock/nullness: Subclasses of this interface/class may opt to prohibit null elements")
-@AnnotatedFor({"lock", "nullness", "index"})
+@AnnotatedFor({"lock", "nullness", "index", "modifiability"})
 public interface Collection<E> extends Iterable<E> {
     // Query Operations
 
@@ -417,14 +417,7 @@ public interface Collection<E> extends Iterable<E> {
      *         runtime component type} of the specified array
      * @throws NullPointerException if the specified array is null
      */
-<<<<<<< HEAD
-    <T extends @UnknownSignedness Object> @Nullable T [] toArray(Collection<E> this, @PolyNull T[] a);
-||||||| f7ef3b0183d
-    @SideEffectFree
-    <T extends @UnknownSignedness Object> @Nullable T [] toArray(@PolyNull T[] a);
-=======
-    <T extends @UnknownSignedness Object> @Nullable T [] toArray(@PolyNull T[] a);
->>>>>>> 805ed882efc3db6c39efbf35bfa1d706ac857291
+    <T extends @UnknownSignedness Object> @Nullable T[] toArray(Collection<E> this, @PolyNull T[] a);
 
     /**
      * Returns an array containing all of the elements in this collection,
