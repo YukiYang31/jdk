@@ -45,6 +45,7 @@ import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 // import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 import java.io.InvalidObjectException;
 import jdk.internal.access.SharedSecrets;
@@ -255,6 +256,8 @@ public class HashSet<E>
      */
     // @SideEffectsOnly("this")
     @EnsuresNonEmpty("this")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     public boolean add(@Growable @GuardSatisfied HashSet<E> this, E e) {
         return map.put(e, PRESENT)==null;
     }
@@ -272,8 +275,8 @@ public class HashSet<E>
      * @return {@code true} if the set contained the specified element
      */
     // @SideEffectsOnly("this")
-    public boolean remove(@Shrinkable @GuardSatisfied HashSet<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
-        return map.remove(o)==PRESENT;
+    @DoesNotUnrefineReceiver("modifiability")
+    public boolean remove(@Shrinkable @GuardSatisfied HashSet<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {        return map.remove(o)==PRESENT;
     }
 
     /**
@@ -281,8 +284,8 @@ public class HashSet<E>
      * The set will be empty after this call returns.
      */
     // @SideEffectsOnly("this")
-    public void clear(@Shrinkable @GuardSatisfied HashSet<E> this) {
-        map.clear();
+    @DoesNotUnrefineReceiver("modifiability")
+    public void clear(@Shrinkable @GuardSatisfied HashSet<E> this) {        map.clear();
     }
 
     /**
@@ -400,6 +403,7 @@ public class HashSet<E>
      * @return a {@code Spliterator} over the elements in this set
      * @since 1.8
      */
+    @SideEffectFree
     @DoesNotUnrefineReceiver("modifiability")
     public Spliterator<E> spliterator() {
         return new HashMap.KeySpliterator<>(map, 0, -1, 0, 0);

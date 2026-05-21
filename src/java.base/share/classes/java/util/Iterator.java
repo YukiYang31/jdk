@@ -36,6 +36,7 @@ import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.Covariant;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 import java.util.function.Consumer;
 
@@ -119,9 +120,9 @@ public interface Iterator<E> {
      *         been called after the last call to the {@code next}
      *         method
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default void remove(@Shrinkable @GuardSatisfied @CanShrink Iterator<E> this) {
-        throw new UnsupportedOperationException("remove");
+    default void remove(@Shrinkable @GuardSatisfied @CanShrink Iterator<E> this) {        throw new UnsupportedOperationException("remove");
     }
 
     /**

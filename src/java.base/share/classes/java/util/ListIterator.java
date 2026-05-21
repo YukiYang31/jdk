@@ -38,6 +38,7 @@ import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 // import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 /**
  * An iterator for lists that allows the programmer
@@ -128,6 +129,7 @@ public interface ListIterator<E> extends Iterator<E> {
      * @throws NoSuchElementException if the iteration has no previous
      *         element
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     E previous(@GuardSatisfied ListIterator<E> this);
 
@@ -172,9 +174,9 @@ public interface ListIterator<E> extends Iterator<E> {
      *         {@code add} have been called after the last call to
      *         {@code next} or {@code previous}
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     void remove(@Shrinkable @GuardSatisfied ListIterator<E> this);
-
     /**
      * Replaces the last element returned by {@link #next} or
      * {@link #previous} with the specified element (optional operation).
@@ -195,9 +197,9 @@ public interface ListIterator<E> extends Iterator<E> {
      *         {@code add} have been called after the last call to
      *         {@code next} or {@code previous}
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     void set(@Replaceable @GuardSatisfied ListIterator<E> this, E e);
-
     /**
      * Inserts the specified element into the list (optional operation).
      * The element is inserted immediately before the element that
@@ -218,6 +220,6 @@ public interface ListIterator<E> extends Iterator<E> {
      * @throws IllegalArgumentException if some aspect of this element
      *         prevents it from being added to this list
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    void add(@Growable @GuardSatisfied ListIterator<E> this, E e);
-}
+    void add(@Growable @GuardSatisfied ListIterator<E> this, E e);}

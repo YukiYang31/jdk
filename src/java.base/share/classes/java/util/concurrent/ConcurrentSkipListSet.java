@@ -51,10 +51,10 @@ import org.checkerframework.checker.nullness.qual.EnsuresNonNullIf;
 import org.checkerframework.checker.nullness.qual.NonNull;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
-import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.framework.qual.AnnotatedFor;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 import java.lang.reflect.Field;
 import java.util.AbstractSet;
@@ -268,9 +268,9 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws NullPointerException if the specified element is null
      */
     @EnsuresNonEmpty("this")
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean add(@Growable ConcurrentSkipListSet<E> this, E e) {
-        return m.putIfAbsent(e, Boolean.TRUE) == null;
+    public boolean add(@Growable ConcurrentSkipListSet<E> this, E e) {        return m.putIfAbsent(e, Boolean.TRUE) == null;
     }
 
     /**
@@ -287,17 +287,17 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      *         with the elements currently in this set
      * @throws NullPointerException if the specified element is null
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean remove(@Shrinkable ConcurrentSkipListSet<E> this, @GuardSatisfied @UnknownSignedness Object o) {
-        return m.remove(o, Boolean.TRUE);
+    public boolean remove(@Shrinkable ConcurrentSkipListSet<E> this, @GuardSatisfied @UnknownSignedness Object o) {        return m.remove(o, Boolean.TRUE);
     }
 
     /**
      * Removes all of the elements from this set.
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void clear(@Shrinkable ConcurrentSkipListSet<E> this) {
-        m.clear();
+    public void clear(@Shrinkable ConcurrentSkipListSet<E> this) {        m.clear();
     }
 
     /**
@@ -364,9 +364,9 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws NullPointerException if the specified collection or any
      *         of its elements are null
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean removeAll(@Shrinkable ConcurrentSkipListSet<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
-        // Override AbstractSet version to avoid unnecessary call to size()
+    public boolean removeAll(@Shrinkable ConcurrentSkipListSet<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {        // Override AbstractSet version to avoid unnecessary call to size()
         boolean modified = false;
         for (Object e : c)
             if (remove(e))
@@ -412,15 +412,15 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
         return m.higherKey(e);
     }
 
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public @Nullable E pollFirst(@Shrinkable ConcurrentSkipListSet<E> this) {
-        Map.Entry<E,Object> e = m.pollFirstEntry();
+    public @Nullable E pollFirst(@Shrinkable ConcurrentSkipListSet<E> this) {        Map.Entry<E,Object> e = m.pollFirstEntry();
         return (e == null) ? null : e.getKey();
     }
 
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public @Nullable E pollLast(@Shrinkable ConcurrentSkipListSet<E> this) {
-        Map.Entry<E,Object> e = m.pollLastEntry();
+    public @Nullable E pollLast(@Shrinkable ConcurrentSkipListSet<E> this) {        Map.Entry<E,Object> e = m.pollLastEntry();
         return (e == null) ? null : e.getKey();
     }
 
@@ -494,6 +494,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws NullPointerException if {@code toElement} is null
      * @throws IllegalArgumentException {@inheritDoc}
      */
+    @SideEffectFree
     public @PolyGrowShrink @PolyModifiable @PolyNonEmpty NavigableSet<E> headSet(@PolyGrowShrink @PolyModifiable @PolyNonEmpty ConcurrentSkipListSet<E> this, E toElement, boolean inclusive) {
         return new ConcurrentSkipListSet<E>(m.headMap(toElement, inclusive));
     }
@@ -503,6 +504,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws NullPointerException if {@code fromElement} is null
      * @throws IllegalArgumentException {@inheritDoc}
      */
+    @SideEffectFree
     public @PolyGrowShrink @PolyModifiable @PolyNonEmpty NavigableSet<E> tailSet(@PolyGrowShrink @PolyModifiable @PolyNonEmpty ConcurrentSkipListSet<E> this, E fromElement, boolean inclusive) {
         return new ConcurrentSkipListSet<E>(m.tailMap(fromElement, inclusive));
     }
@@ -513,6 +515,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      *         {@code toElement} is null
      * @throws IllegalArgumentException {@inheritDoc}
      */
+    @SideEffectFree
     public @PolyGrowShrink @PolyModifiable @PolyNonEmpty NavigableSet<E> subSet(@PolyGrowShrink @PolyModifiable @PolyNonEmpty ConcurrentSkipListSet<E> this, E fromElement, E toElement) {
         return subSet(fromElement, true, toElement, false);
     }
@@ -522,6 +525,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws NullPointerException if {@code toElement} is null
      * @throws IllegalArgumentException {@inheritDoc}
      */
+    @SideEffectFree
     public @PolyGrowShrink @PolyModifiable @PolyNonEmpty NavigableSet<E> headSet(@PolyGrowShrink @PolyModifiable @PolyNonEmpty ConcurrentSkipListSet<E> this, E toElement) {
         return headSet(toElement, false);
     }
@@ -531,6 +535,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws NullPointerException if {@code fromElement} is null
      * @throws IllegalArgumentException {@inheritDoc}
      */
+    @SideEffectFree
     public @PolyGrowShrink @PolyModifiable @PolyNonEmpty NavigableSet<E> tailSet(@PolyGrowShrink @PolyModifiable @PolyNonEmpty ConcurrentSkipListSet<E> this, E fromElement) {
         return tailSet(fromElement, true);
     }

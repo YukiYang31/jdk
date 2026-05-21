@@ -50,10 +50,10 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
-import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.framework.qual.AnnotatedFor;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.VarHandle;
@@ -854,9 +854,9 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @throws InterruptedException {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void put(@Growable SynchronousQueue<E> this, E e) throws InterruptedException {
-        if (e == null) throw new NullPointerException();
+    public void put(@Growable SynchronousQueue<E> this, E e) throws InterruptedException {        if (e == null) throw new NullPointerException();
         if (transferer.transfer(e, false, 0) == null) {
             Thread.interrupted();
             throw new InterruptedException();
@@ -872,9 +872,9 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @throws InterruptedException {@inheritDoc}
      * @throws NullPointerException {@inheritDoc}
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean offer(@Growable SynchronousQueue<E> this, E e, long timeout, TimeUnit unit)
-        throws InterruptedException {
+    public boolean offer(@Growable SynchronousQueue<E> this, E e, long timeout, TimeUnit unit)        throws InterruptedException {
         if (e == null) throw new NullPointerException();
         if (transferer.transfer(e, true, unit.toNanos(timeout)) != null)
             return true;
@@ -892,9 +892,9 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      *         {@code false}
      * @throws NullPointerException if the specified element is null
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean offer(@Growable SynchronousQueue<E> this, E e) {
-        if (e == null) throw new NullPointerException();
+    public boolean offer(@Growable SynchronousQueue<E> this, E e) {        if (e == null) throw new NullPointerException();
         return transferer.transfer(e, true, 0) != null;
     }
 
@@ -905,9 +905,9 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @return the head of this queue
      * @throws InterruptedException {@inheritDoc}
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E take(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) throws InterruptedException {
-        E e = transferer.transfer(null, false, 0);
+    public E take(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) throws InterruptedException {        E e = transferer.transfer(null, false, 0);
         if (e != null)
             return e;
         Thread.interrupted();
@@ -923,9 +923,9 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      *         specified waiting time elapses before an element is present
      * @throws InterruptedException {@inheritDoc}
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E poll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
-        E e = transferer.transfer(null, true, unit.toNanos(timeout));
+    public E poll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {        E e = transferer.transfer(null, true, unit.toNanos(timeout));
         if (e != null || !Thread.interrupted())
             return e;
         throw new InterruptedException();
@@ -938,9 +938,9 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @return the head of this queue, or {@code null} if no
      *         element is available
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E poll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) {
-        return transferer.transfer(null, true, 0);
+    public E poll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) {        return transferer.transfer(null, true, 0);
     }
 
     /**
@@ -980,9 +980,9 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * Does nothing.
      * A {@code SynchronousQueue} has no internal capacity.
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void clear(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) {
-    }
+    public void clear(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) {    }
 
     /**
      * Always returns {@code false}.
@@ -1004,9 +1004,9 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @param o the element to remove
      * @return {@code false}
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean remove(@Shrinkable @CanShrink SynchronousQueue<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
-        return false;
+    public boolean remove(@Shrinkable @CanShrink SynchronousQueue<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {        return false;
     }
 
     /**
@@ -1028,9 +1028,9 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @param c the collection
      * @return {@code false}
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean removeAll(@Shrinkable @CanShrink SynchronousQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {
-        return false;
+    public boolean removeAll(@Shrinkable @CanShrink SynchronousQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {        return false;
     }
 
     /**
@@ -1040,9 +1040,9 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @param c the collection
      * @return {@code false}
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {
-        return false;
+    public boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {        return false;
     }
 
     /**
@@ -1107,6 +1107,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * Always returns {@code "[]"}.
      * @return {@code "[]"}
      */
+    @SideEffectFree
     public String toString() {
         return "[]";
     }
@@ -1117,9 +1118,9 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c) {
-        Objects.requireNonNull(c);
+    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c) {        Objects.requireNonNull(c);
         if (c == this)
             throw new IllegalArgumentException();
         int n = 0;
@@ -1134,9 +1135,9 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      * @throws NullPointerException          {@inheritDoc}
      * @throws IllegalArgumentException      {@inheritDoc}
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c, int maxElements) {
-        Objects.requireNonNull(c);
+    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c, int maxElements) {        Objects.requireNonNull(c);
         if (c == this)
             throw new IllegalArgumentException();
         int n = 0;

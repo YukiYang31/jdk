@@ -48,6 +48,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.AnnotatedFor;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 import java.util.Collection;
 import java.util.Queue;
@@ -211,6 +212,8 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      *         element prevents it from being added to this queue
      */
     @EnsuresNonEmpty("this")
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean add(@Growable BlockingQueue<E> this, E e);
 
     /**
@@ -230,6 +233,8 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this queue
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean offer(@Growable BlockingQueue<E> this, E e);
 
     /**
@@ -244,6 +249,8 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this queue
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     void put(@Growable BlockingQueue<E> this, E e) throws InterruptedException;
 
     /**
@@ -264,6 +271,8 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      * @throws IllegalArgumentException if some property of the specified
      *         element prevents it from being added to this queue
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean offer(@Growable BlockingQueue<E> this, E e, long timeout, TimeUnit unit)
         throws InterruptedException;
 
@@ -274,6 +283,8 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      * @return the head of this queue
      * @throws InterruptedException if interrupted while waiting
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     E take(@Shrinkable BlockingQueue<E> this) throws InterruptedException;
 
     /**
@@ -288,6 +299,8 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      *         specified waiting time elapses before an element is available
      * @throws InterruptedException if interrupted while waiting
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     @Nullable E poll(@Shrinkable BlockingQueue<E> this, long timeout, TimeUnit unit)
         throws InterruptedException;
 
@@ -322,6 +335,8 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      * @throws NullPointerException if the specified element is null
      * (<a href="{@docRoot}/java.base/java/util/Collection.html#optional-restrictions">optional</a>)
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     boolean remove(@Shrinkable @CanShrink BlockingQueue<E> this, @UnknownSignedness Object o);
 
     /**
@@ -364,6 +379,8 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      *         queue, or some property of an element of this queue prevents
      *         it from being added to the specified collection
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     int drainTo(@Shrinkable @GuardSatisfied @CanShrink BlockingQueue<E> this, @Growable Collection<? super E> c);
 
     /**
@@ -389,5 +406,7 @@ public interface BlockingQueue<E extends @NonNull Object> extends Queue<E> {
      *         queue, or some property of an element of this queue prevents
      *         it from being added to the specified collection
      */
+    // @SideEffectsOnly("this")
+    @DoesNotUnrefineReceiver("modifiability")
     int drainTo(@Shrinkable @GuardSatisfied @CanShrink BlockingQueue<E> this, @Growable Collection<? super E> c, int maxElements);
 }

@@ -34,6 +34,7 @@ import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 // import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -733,6 +734,7 @@ public final @UsesObjectEquals class ServiceLoader<S>
         }
 
         @Override
+        @Pure
         public S get() {
             if (factoryMethod != null) {
                 return invokeFactoryMethod();
@@ -832,11 +834,13 @@ public final @UsesObjectEquals class ServiceLoader<S>
         // when running with a security manager.
 
         @Override
+        @Pure
         public int hashCode() {
             return Objects.hash(service, type, acc);
         }
 
         @Override
+        @Pure
         public boolean equals(Object ob) {
             return ob instanceof @SuppressWarnings("unchecked")ProviderImpl<?> that
                     && this.service == that.service
@@ -979,6 +983,7 @@ public final @UsesObjectEquals class ServiceLoader<S>
 
         @Override
         // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public Provider<T> next(@NonEmpty LayerLookupIterator<T> this) {
             if (!hasNext())
                 throw new NoSuchElementException();
@@ -1300,6 +1305,7 @@ public final @UsesObjectEquals class ServiceLoader<S>
         @SuppressWarnings("removal")
         @Override
         // @SideEffectsOnly("this")
+        @DoesNotUnrefineReceiver("modifiability")
         public Provider<T> next(@NonEmpty LazyClassPathLookupIterator<T> this) {
             if (acc == null) {
                 return nextService();
@@ -1331,6 +1337,7 @@ public final @UsesObjectEquals class ServiceLoader<S>
                 }
                 @Override
                 // @SideEffectsOnly("this")
+                @DoesNotUnrefineReceiver("modifiability")
                 public Provider<S> next(/*@NonEmpty Iterator<Provider<S>> this*/) {
                     if (first.hasNext()) {
                         return first.next();
@@ -1420,6 +1427,7 @@ public final @UsesObjectEquals class ServiceLoader<S>
 
             @Override
             // @SideEffectsOnly("this")
+            @DoesNotUnrefineReceiver("modifiability")
             public S next(/*@NonEmpty Iterator<S> this*/) {
                 checkReloadCount();
                 S next;

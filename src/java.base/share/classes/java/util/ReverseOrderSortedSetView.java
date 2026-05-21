@@ -33,6 +33,7 @@ import java.util.function.IntFunction;
 import java.util.stream.Stream;
 import java.util.stream.StreamSupport;
 import jdk.internal.util.ArraysSupport;
+import org.checkerframework.dataflow.qual.Pure;
 
 /**
  * Provides a reversed-ordered view of a SortedSet. Not serializable.
@@ -46,6 +47,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
         comp = Collections.reverseOrder(set.comparator());
     }
 
+    @SideEffectFree
     public static <T> SortedSet<T> of(SortedSet<T> set) {
         if (set instanceof ReverseOrderSortedSetView<T> rossv) {
             return rossv.base;
@@ -57,6 +59,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
     // ========== Object ==========
 
     // copied from AbstractSet
+    @Pure
     public boolean equals(Object o) {
         if (o == this)
             return true;
@@ -74,6 +77,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
     }
 
     // copied from AbstractSet
+    @Pure
     public int hashCode() {
         int h = 0;
         Iterator<E> i = iterator();
@@ -86,6 +90,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
     }
 
     // copied from AbstractCollection
+    @SideEffectFree
     public String toString() {
         Iterator<E> it = iterator();
         if (! it.hasNext())
@@ -109,10 +114,12 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
             action.accept(e);
     }
 
+    @SideEffectFree
     public Iterator<E> iterator() {
         return descendingIterator(base);
     }
 
+    @SideEffectFree
     public Spliterator<E> spliterator() {
         return Spliterators.spliteratorUnknownSize(descendingIterator(base), 0);
     }
@@ -132,14 +139,17 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
         base.clear();
     }
 
+    @Pure
     public boolean contains(Object o) {
         return base.contains(o);
     }
 
+    @Pure
     public boolean containsAll(Collection<?> c) {
         return base.containsAll(c);
     }
 
+    @Pure
     public boolean isEmpty() {
         return base.isEmpty();
     }
@@ -161,6 +171,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
         return base.retainAll(c);
     }
 
+    @Pure
     public int size() {
         return base.size();
     }
@@ -197,14 +208,17 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
     @Pure
     public E last() { return base.first(); }
 
+    @SideEffectFree
     public SortedSet<E> headSet(E to) {
         return new Subset(null, to);
     }
 
+    @SideEffectFree
     public SortedSet<E> subSet(E from, E to) {
         return new Subset(from, to);
     }
 
+    @SideEffectFree
     public SortedSet<E> tailSet(E from) {
         return new Subset(from, null);
     }
@@ -217,6 +231,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
             SortedSet<T> view = set;
             T prev = null;
 
+            @Pure
             public boolean hasNext() {
                 return ! view.isEmpty();
             }
@@ -269,12 +284,14 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
             return tail == null || cmp.compare(e, tail) < 0;
         }
 
+        @SideEffectFree
         public Iterator<E> iterator() {
             return new Iterator<>() {
                 E cache = null;
                 boolean dead = false;
                 Iterator<E> it = descendingIterator(base);
 
+                @Pure
                 public boolean hasNext() {
                     if (dead)
                         return false;
@@ -328,6 +345,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
                 return false;
         }
 
+        @Pure
         public int size() {
             int sz = 0;
             for (E e : this)
@@ -340,10 +358,12 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
             return ReverseOrderSortedSetView.this.comparator();
         }
 
+        @SideEffectFree
         public E first() {
             return this.iterator().next();
         }
 
+        @SideEffectFree
         public E last() {
             var it = this.iterator();
             if (! it.hasNext())
@@ -354,6 +374,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
             return last;
         }
 
+        @SideEffectFree
         public SortedSet<E> subSet(E from, E to) {
             if (aboveHead(from) && belowTail(from) &&
                 aboveHead(to) && belowTail(to) &&
@@ -364,6 +385,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
             }
         }
 
+        @SideEffectFree
         public SortedSet<E> headSet(E to) {
             if (aboveHead(to) && belowTail(to))
                 return ReverseOrderSortedSetView.this.new Subset(head, to);
@@ -371,6 +393,7 @@ class ReverseOrderSortedSetView<E> implements SortedSet<E> {
                 throw new IllegalArgumentException();
         }
 
+        @SideEffectFree
         public SortedSet<E> tailSet(E from) {
             if (aboveHead(from) && belowTail(from))
                 return ReverseOrderSortedSetView.this.new Subset(null, tail);

@@ -42,9 +42,10 @@ import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
-import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
 import org.checkerframework.framework.qual.AnnotatedFor;
+import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 /**
  * This class provides skeletal implementations of some {@link Queue}
@@ -104,9 +105,9 @@ public abstract class AbstractQueue<E>
      *         prevents it from being added to this queue
      */
     @EnsuresNonEmpty("this")
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean add(@Growable @GuardSatisfied AbstractQueue<E> this, E e) {
-        if (offer(e))
+    public boolean add(@Growable @GuardSatisfied AbstractQueue<E> this, E e) {        if (offer(e))
             return true;
         else
             throw new IllegalStateException("Queue full");
@@ -123,9 +124,9 @@ public abstract class AbstractQueue<E>
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E remove(@Shrinkable @GuardSatisfied @NonEmpty @CanShrink AbstractQueue<E> this) {
-        E x = poll();
+    public E remove(@Shrinkable @GuardSatisfied @NonEmpty @CanShrink AbstractQueue<E> this) {        E x = poll();
         if (x != null)
             return x;
         else
@@ -143,7 +144,7 @@ public abstract class AbstractQueue<E>
      * @return the head of this queue
      * @throws NoSuchElementException if this queue is empty
      */
-    @SideEffectFree
+    @Pure
     public E element(@GuardSatisfied @NonEmpty AbstractQueue<E> this) {
         E x = peek();
         if (x != null)
@@ -159,9 +160,9 @@ public abstract class AbstractQueue<E>
      * <p>This implementation repeatedly invokes {@link #poll poll} until it
      * returns {@code null}.
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void clear(@Shrinkable @GuardSatisfied @CanShrink AbstractQueue<E> this) {
-        while (poll() != null)
+    public void clear(@Shrinkable @GuardSatisfied @CanShrink AbstractQueue<E> this) {        while (poll() != null)
             ;
     }
 
@@ -194,9 +195,9 @@ public abstract class AbstractQueue<E>
      *         this time due to insertion restrictions
      * @see #add(Object)
      */
+    // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean addAll(@Growable @GuardSatisfied AbstractQueue<E> this, Collection<? extends E> c) {
-        if (c == null)
+    public boolean addAll(@Growable @GuardSatisfied AbstractQueue<E> this, Collection<? extends E> c) {        if (c == null)
             throw new NullPointerException();
         if (c == this)
             throw new IllegalArgumentException();
