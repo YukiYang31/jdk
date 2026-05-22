@@ -1511,14 +1511,12 @@ public class Properties extends Hashtable<Object,Object> {
 
     @Pure
     @Override
-    @Pure
     public synchronized boolean equals(Object o) {
         return map.equals(o);
     }
 
     @Pure
     @Override
-    @Pure
     public synchronized int hashCode() {
         return map.hashCode();
     }

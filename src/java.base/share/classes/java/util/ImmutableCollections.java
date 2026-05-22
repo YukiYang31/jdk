@@ -618,7 +618,6 @@ class ImmutableCollections {
         }
 
         @Override
-        @Pure
         @SuppressWarnings("unchecked")
         @Pure
         public E get(int index) {

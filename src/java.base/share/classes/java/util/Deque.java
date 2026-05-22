@@ -356,7 +356,6 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      */
     @Pure
     @EnsuresNonEmpty("this")
-    @Pure
     E getFirst(@GuardSatisfied @NonEmpty @CanShrink Deque<E> this);
 
     /**
@@ -369,7 +368,6 @@ public interface Deque<E> extends Queue<E>, SequencedCollection<E> {
      */
     @Pure
     @EnsuresNonEmpty("this")
-    @Pure
     E getLast(@GuardSatisfied @NonEmpty @CanShrink Deque<E> this);
 
     /**
