@@ -856,7 +856,8 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void put(@Growable SynchronousQueue<E> this, E e) throws InterruptedException {        if (e == null) throw new NullPointerException();
+    public void put(@Growable SynchronousQueue<E> this, E e) throws InterruptedException {
+        if (e == null) throw new NullPointerException();
         if (transferer.transfer(e, false, 0) == null) {
             Thread.interrupted();
             throw new InterruptedException();
@@ -894,7 +895,8 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean offer(@Growable SynchronousQueue<E> this, E e) {        if (e == null) throw new NullPointerException();
+    public boolean offer(@Growable SynchronousQueue<E> this, E e) {
+        if (e == null) throw new NullPointerException();
         return transferer.transfer(e, true, 0) != null;
     }
 
@@ -907,7 +909,8 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E take(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) throws InterruptedException {        E e = transferer.transfer(null, false, 0);
+    public E take(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) throws InterruptedException {
+        E e = transferer.transfer(null, false, 0);
         if (e != null)
             return e;
         Thread.interrupted();
@@ -925,7 +928,8 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E poll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {        E e = transferer.transfer(null, true, unit.toNanos(timeout));
+    public E poll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
+        E e = transferer.transfer(null, true, unit.toNanos(timeout));
         if (e != null || !Thread.interrupted())
             return e;
         throw new InterruptedException();
@@ -940,7 +944,8 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E poll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) {        return transferer.transfer(null, true, 0);
+    public E poll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) {
+        return transferer.transfer(null, true, 0);
     }
 
     /**
@@ -982,7 +987,8 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void clear(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) {    }
+    public void clear(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) {
+    }
 
     /**
      * Always returns {@code false}.
@@ -1006,7 +1012,8 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean remove(@Shrinkable @CanShrink SynchronousQueue<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {        return false;
+    public boolean remove(@Shrinkable @CanShrink SynchronousQueue<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+        return false;
     }
 
     /**
@@ -1030,7 +1037,8 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean removeAll(@Shrinkable @CanShrink SynchronousQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {        return false;
+    public boolean removeAll(@Shrinkable @CanShrink SynchronousQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {
+        return false;
     }
 
     /**
@@ -1042,7 +1050,8 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {        return false;
+    public boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {
+        return false;
     }
 
     /**
@@ -1120,7 +1129,8 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c) {        Objects.requireNonNull(c);
+    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c) {
+        Objects.requireNonNull(c);
         if (c == this)
             throw new IllegalArgumentException();
         int n = 0;
@@ -1137,7 +1147,8 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c, int maxElements) {        Objects.requireNonNull(c);
+    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c, int maxElements) {
+        Objects.requireNonNull(c);
         if (c == this)
             throw new IllegalArgumentException();
         int n = 0;

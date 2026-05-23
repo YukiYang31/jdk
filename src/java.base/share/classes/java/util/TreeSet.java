@@ -227,7 +227,8 @@ public class TreeSet<E> extends AbstractSet<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public @PolyModifiable NavigableSet<E> descendingSet(@PolyModifiable TreeSet<E> this) {        return new TreeSet<>(m.descendingMap());
+    public @PolyModifiable NavigableSet<E> descendingSet(@PolyModifiable TreeSet<E> this) {
+        return new TreeSet<>(m.descendingMap());
     }
 
     /**
@@ -292,7 +293,8 @@ public class TreeSet<E> extends AbstractSet<E>
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean add(@Growable @GuardSatisfied TreeSet<E> this, E e) {        return m.put(e, PRESENT)==null;
+    public boolean add(@Growable @GuardSatisfied TreeSet<E> this, E e) {
+        return m.put(e, PRESENT)==null;
     }
 
     /**
@@ -314,7 +316,8 @@ public class TreeSet<E> extends AbstractSet<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean remove(@Shrinkable @GuardSatisfied TreeSet<E> this, @GuardSatisfied @UnknownSignedness Object o) {        return m.remove(o)==PRESENT;
+    public boolean remove(@Shrinkable @GuardSatisfied TreeSet<E> this, @GuardSatisfied @UnknownSignedness Object o) {
+        return m.remove(o)==PRESENT;
     }
 
     /**
@@ -323,7 +326,8 @@ public class TreeSet<E> extends AbstractSet<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void clear(@Shrinkable @GuardSatisfied TreeSet<E> this) {        m.clear();
+    public void clear(@Shrinkable @GuardSatisfied TreeSet<E> this) {
+        m.clear();
     }
 
     /**
@@ -339,7 +343,8 @@ public class TreeSet<E> extends AbstractSet<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public  boolean addAll(@Growable @GuardSatisfied TreeSet<E> this, Collection<? extends E> c) {        // Use linear-time version if applicable
+    public  boolean addAll(@Growable @GuardSatisfied TreeSet<E> this, Collection<? extends E> c) {
+        // Use linear-time version if applicable
         if (m.size()==0 && c.size() > 0 &&
             c instanceof SortedSet &&
                 m instanceof TreeMap<E, Object> map) {
@@ -505,7 +510,8 @@ public class TreeSet<E> extends AbstractSet<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public @Nullable E pollFirst(@Shrinkable @GuardSatisfied TreeSet<E> this) {        Map.Entry<E,?> e = m.pollFirstEntry();
+    public @Nullable E pollFirst(@Shrinkable @GuardSatisfied TreeSet<E> this) {
+        Map.Entry<E,?> e = m.pollFirstEntry();
         return (e == null) ? null : e.getKey();
     }
 
@@ -514,7 +520,8 @@ public class TreeSet<E> extends AbstractSet<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public @Nullable E pollLast(@Shrinkable @GuardSatisfied TreeSet<E> this) {        Map.Entry<E,?> e = m.pollLastEntry();
+    public @Nullable E pollLast(@Shrinkable @GuardSatisfied TreeSet<E> this) {
+        Map.Entry<E,?> e = m.pollLastEntry();
         return (e == null) ? null : e.getKey();
     }
 

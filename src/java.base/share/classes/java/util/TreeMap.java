@@ -391,7 +391,8 @@ public class TreeMap<K,V>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void putAll(@Growable @Replaceable @GuardSatisfied TreeMap<K, V> this, Map<? extends K, ? extends V> map) {        int mapSize = map.size();
+    public void putAll(@Growable @Replaceable @GuardSatisfied TreeMap<K, V> this, Map<? extends K, ? extends V> map) {
+        int mapSize = map.size();
         if (size==0 && mapSize!=0 && map instanceof SortedMap) {
             if (Objects.equals(comparator, ((SortedMap<?,?>)map).comparator())) {
                 ++modCount;
@@ -613,13 +614,15 @@ public class TreeMap<K,V>
     @EnsuresKeyFor(value={"#1"}, map={"this"})
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public @Nullable V put(@Growable @Replaceable @GuardSatisfied TreeMap<K, V> this, K key, V value) {        return put(key, value, true);
+    public @Nullable V put(@Growable @Replaceable @GuardSatisfied TreeMap<K, V> this, K key, V value) {
+        return put(key, value, true);
     }
 
     @Override
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public V putIfAbsent(@Growable TreeMap<K,V> this, K key, V value) {        return put(key, value, false);
+    public V putIfAbsent(@Growable TreeMap<K,V> this, K key, V value) {
+        return put(key, value, false);
     }
 
     /**
@@ -966,7 +969,8 @@ public class TreeMap<K,V>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public @Nullable V remove(@Shrinkable @GuardSatisfied TreeMap<K, V> this, @GuardSatisfied @UnknownSignedness Object key) {        Entry<K,V> p = getEntry(key);
+    public @Nullable V remove(@Shrinkable @GuardSatisfied TreeMap<K, V> this, @GuardSatisfied @UnknownSignedness Object key) {
+        Entry<K,V> p = getEntry(key);
         if (p == null)
             return null;
 
@@ -981,7 +985,8 @@ public class TreeMap<K,V>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void clear(@Shrinkable @GuardSatisfied TreeMap<K, V> this) {        modCount++;
+    public void clear(@Shrinkable @GuardSatisfied TreeMap<K, V> this) {
+        modCount++;
         size = 0;
         root = null;
     }
@@ -1041,7 +1046,8 @@ public class TreeMap<K,V>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public Map.@Nullable Entry<K,V> pollFirstEntry(@Shrinkable @GuardSatisfied TreeMap<K, V> this) {        Entry<K,V> p = getFirstEntry();
+    public Map.@Nullable Entry<K,V> pollFirstEntry(@Shrinkable @GuardSatisfied TreeMap<K, V> this) {
+        Entry<K,V> p = getFirstEntry();
         Map.Entry<K,V> result = exportEntry(p);
         if (p != null)
             deleteEntry(p);
@@ -1053,7 +1059,8 @@ public class TreeMap<K,V>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public Map.@Nullable Entry<K,V> pollLastEntry(@Shrinkable @GuardSatisfied TreeMap<K, V> this) {        Entry<K,V> p = getLastEntry();
+    public Map.@Nullable Entry<K,V> pollLastEntry(@Shrinkable @GuardSatisfied TreeMap<K, V> this) {
+        Entry<K,V> p = getLastEntry();
         Map.Entry<K,V> result = exportEntry(p);
         if (p != null)
             deleteEntry(p);

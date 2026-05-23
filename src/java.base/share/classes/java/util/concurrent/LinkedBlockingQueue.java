@@ -350,7 +350,8 @@ public class LinkedBlockingQueue<E extends Object> extends AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void put(@Growable LinkedBlockingQueue<E> this, E e) throws InterruptedException {        if (e == null) throw new NullPointerException();
+    public void put(@Growable LinkedBlockingQueue<E> this, E e) throws InterruptedException {
+        if (e == null) throw new NullPointerException();
         final int c;
         final Node<E> node = new Node<E>(e);
         final ReentrantLock putLock = this.putLock;
@@ -429,7 +430,8 @@ public class LinkedBlockingQueue<E extends Object> extends AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean offer(@Growable LinkedBlockingQueue<E> this, E e) {        if (e == null) throw new NullPointerException();
+    public boolean offer(@Growable LinkedBlockingQueue<E> this, E e) {
+        if (e == null) throw new NullPointerException();
         final AtomicInteger count = this.count;
         if (count.get() == capacity)
             return false;
@@ -454,7 +456,8 @@ public class LinkedBlockingQueue<E extends Object> extends AbstractQueue<E>
 
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E take(@Shrinkable @GuardSatisfied @CanShrink LinkedBlockingQueue<E> this) throws InterruptedException {        final E x;
+    public E take(@Shrinkable @GuardSatisfied @CanShrink LinkedBlockingQueue<E> this) throws InterruptedException {
+        final E x;
         final int c;
         final AtomicInteger count = this.count;
         final ReentrantLock takeLock = this.takeLock;
@@ -477,7 +480,8 @@ public class LinkedBlockingQueue<E extends Object> extends AbstractQueue<E>
 
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public @Nullable E poll(@Shrinkable @GuardSatisfied @CanShrink LinkedBlockingQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {        final E x;
+    public @Nullable E poll(@Shrinkable @GuardSatisfied @CanShrink LinkedBlockingQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
+        final E x;
         final int c;
         long nanos = unit.toNanos(timeout);
         final AtomicInteger count = this.count;
@@ -503,7 +507,8 @@ public class LinkedBlockingQueue<E extends Object> extends AbstractQueue<E>
 
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public @Nullable E poll(@Shrinkable @GuardSatisfied @CanShrink LinkedBlockingQueue<E> this) {        final AtomicInteger count = this.count;
+    public @Nullable E poll(@Shrinkable @GuardSatisfied @CanShrink LinkedBlockingQueue<E> this) {
+        final AtomicInteger count = this.count;
         if (count.get() == 0)
             return null;
         final E x;
@@ -568,7 +573,8 @@ public class LinkedBlockingQueue<E extends Object> extends AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean remove(@Shrinkable @CanShrink LinkedBlockingQueue<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {        if (o == null) return false;
+    public boolean remove(@Shrinkable @CanShrink LinkedBlockingQueue<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+        if (o == null) return false;
         fullyLock();
         try {
             for (Node<E> pred = head, p = pred.next;
@@ -702,7 +708,8 @@ public class LinkedBlockingQueue<E extends Object> extends AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void clear(@Shrinkable @GuardSatisfied @CanShrink LinkedBlockingQueue<E> this) {        fullyLock();
+    public void clear(@Shrinkable @GuardSatisfied @CanShrink LinkedBlockingQueue<E> this) {
+        fullyLock();
         try {
             for (Node<E> p, h = head; (p = h.next) != null; h = p) {
                 h.next = h;
@@ -725,7 +732,8 @@ public class LinkedBlockingQueue<E extends Object> extends AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink LinkedBlockingQueue<E> this, @Growable Collection<? super E> c) {        return drainTo(c, Integer.MAX_VALUE);
+    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink LinkedBlockingQueue<E> this, @Growable Collection<? super E> c) {
+        return drainTo(c, Integer.MAX_VALUE);
     }
 
     /**
@@ -736,7 +744,8 @@ public class LinkedBlockingQueue<E extends Object> extends AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink LinkedBlockingQueue<E> this, @Growable Collection<? super E> c, int maxElements) {        Objects.requireNonNull(c);
+    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink LinkedBlockingQueue<E> this, @Growable Collection<? super E> c, int maxElements) {
+        Objects.requireNonNull(c);
         if (c == this)
             throw new IllegalArgumentException();
         if (maxElements <= 0)
@@ -1067,7 +1076,8 @@ public class LinkedBlockingQueue<E extends Object> extends AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean removeIf(@Shrinkable @CanShrink LinkedBlockingQueue<E> this, Predicate<? super E> filter) {        Objects.requireNonNull(filter);
+    public boolean removeIf(@Shrinkable @CanShrink LinkedBlockingQueue<E> this, Predicate<? super E> filter) {
+        Objects.requireNonNull(filter);
         return bulkRemove(filter);
     }
 
@@ -1076,7 +1086,8 @@ public class LinkedBlockingQueue<E extends Object> extends AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean removeAll(@Shrinkable @CanShrink LinkedBlockingQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {        Objects.requireNonNull(c);
+    public boolean removeAll(@Shrinkable @CanShrink LinkedBlockingQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
+        Objects.requireNonNull(c);
         return bulkRemove(e -> c.contains(e));
     }
 
@@ -1085,7 +1096,8 @@ public class LinkedBlockingQueue<E extends Object> extends AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink LinkedBlockingQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {        Objects.requireNonNull(c);
+    public boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink LinkedBlockingQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
+        Objects.requireNonNull(c);
         return bulkRemove(e -> !c.contains(e));
     }
 

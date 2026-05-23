@@ -276,7 +276,8 @@ public class HashSet<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean remove(@Shrinkable @GuardSatisfied HashSet<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {        return map.remove(o)==PRESENT;
+    public boolean remove(@Shrinkable @GuardSatisfied HashSet<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o) {
+        return map.remove(o)==PRESENT;
     }
 
     /**
@@ -285,7 +286,8 @@ public class HashSet<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void clear(@Shrinkable @GuardSatisfied HashSet<E> this) {        map.clear();
+    public void clear(@Shrinkable @GuardSatisfied HashSet<E> this) {
+        map.clear();
     }
 
     /**

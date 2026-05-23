@@ -307,7 +307,8 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean add(@Growable ConcurrentLinkedQueue<E> this, E e) {        return offer(e);
+    public boolean add(@Growable ConcurrentLinkedQueue<E> this, E e) {
+        return offer(e);
     }
 
     /**
@@ -380,7 +381,8 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean offer(@Growable ConcurrentLinkedQueue<E> this, E e) {        final Node<E> newNode = new Node<E>(Objects.requireNonNull(e));
+    public boolean offer(@Growable ConcurrentLinkedQueue<E> this, E e) {
+        final Node<E> newNode = new Node<E>(Objects.requireNonNull(e));
 
         for (Node<E> t = tail, p = t;;) {
             Node<E> q = p.next;
@@ -410,7 +412,8 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
 
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public @Nullable E poll(@Shrinkable @GuardSatisfied @CanShrink ConcurrentLinkedQueue<E> this) {        restartFromHead: for (;;) {
+    public @Nullable E poll(@Shrinkable @GuardSatisfied @CanShrink ConcurrentLinkedQueue<E> this) {
+        restartFromHead: for (;;) {
             for (Node<E> h = head, p = h, q;; p = q) {
                 final E item;
                 if ((item = p.item) != null && p.casItem(item, null)) {
@@ -555,7 +558,8 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean remove(@Shrinkable @CanShrink ConcurrentLinkedQueue<E> this, @GuardSatisfied @UnknownSignedness Object o) {        if (o == null) return false;
+    public boolean remove(@Shrinkable @CanShrink ConcurrentLinkedQueue<E> this, @GuardSatisfied @UnknownSignedness Object o) {
+        if (o == null) return false;
         restartFromHead: for (;;) {
             for (Node<E> p = head, pred = null; p != null; ) {
                 Node<E> q = p.next;
@@ -592,7 +596,8 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean addAll(@Growable ConcurrentLinkedQueue<E> this, Collection<? extends E> c) {        if (c == this)
+    public boolean addAll(@Growable ConcurrentLinkedQueue<E> this, Collection<? extends E> c) {
+        if (c == this)
             // As historically specified in AbstractQueue#addAll
             throw new IllegalArgumentException();
 
@@ -1008,7 +1013,8 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean removeIf(@Shrinkable @CanShrink ConcurrentLinkedQueue<E> this, Predicate<? super E> filter) {        Objects.requireNonNull(filter);
+    public boolean removeIf(@Shrinkable @CanShrink ConcurrentLinkedQueue<E> this, Predicate<? super E> filter) {
+        Objects.requireNonNull(filter);
         return bulkRemove(filter);
     }
 
@@ -1017,7 +1023,8 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean removeAll(@Shrinkable @CanShrink ConcurrentLinkedQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {        Objects.requireNonNull(c);
+    public boolean removeAll(@Shrinkable @CanShrink ConcurrentLinkedQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
+        Objects.requireNonNull(c);
         return bulkRemove(e -> c.contains(e));
     }
 
@@ -1026,13 +1033,15 @@ public class ConcurrentLinkedQueue<E extends @NonNull Object> extends AbstractQu
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink ConcurrentLinkedQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {        Objects.requireNonNull(c);
+    public boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink ConcurrentLinkedQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
+        Objects.requireNonNull(c);
         return bulkRemove(e -> !c.contains(e));
     }
 
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void clear(@Shrinkable @GuardSatisfied @CanShrink ConcurrentLinkedQueue<E> this) {        bulkRemove(e -> true);
+    public void clear(@Shrinkable @GuardSatisfied @CanShrink ConcurrentLinkedQueue<E> this) {
+        bulkRemove(e -> true);
     }
 
     /**

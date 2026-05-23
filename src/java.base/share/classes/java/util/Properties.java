@@ -1379,25 +1379,29 @@ public class Properties extends Hashtable<Object,Object> {
     @Override
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public synchronized Object put(@Growable @Replaceable Properties this, Object key, Object value) {        return map.put(key, value);
+    public synchronized Object put(@Growable @Replaceable Properties this, Object key, Object value) {
+        return map.put(key, value);
     }
 
     @Override
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public synchronized Object remove(@Shrinkable Properties this, @GuardSatisfied @Nullable @UnknownSignedness Object key) {        return map.remove(key);
+    public synchronized Object remove(@Shrinkable Properties this, @GuardSatisfied @Nullable @UnknownSignedness Object key) {
+        return map.remove(key);
     }
 
     @Override
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public synchronized void putAll(@Growable @Replaceable Properties this, Map<?, ?> t) {        map.putAll(t);
+    public synchronized void putAll(@Growable @Replaceable Properties this, Map<?, ?> t) {
+        map.putAll(t);
     }
 
     @Override
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public synchronized void clear(@Shrinkable Properties this) {        map.clear();
+    public synchronized void clear(@Shrinkable Properties this) {
+        map.clear();
     }
 
     @Override
@@ -1542,25 +1546,29 @@ public class Properties extends Hashtable<Object,Object> {
     @Override
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public synchronized Object putIfAbsent(@Growable Properties this, Object key, Object value) {        return map.putIfAbsent(key, value);
+    public synchronized Object putIfAbsent(@Growable Properties this, Object key, Object value) {
+        return map.putIfAbsent(key, value);
     }
 
     @Override
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public synchronized boolean remove(@Shrinkable Properties this, @GuardSatisfied @Nullable @UnknownSignedness Object key, @GuardSatisfied @Nullable @UnknownSignedness Object value) {        return map.remove(key, value);
+    public synchronized boolean remove(@Shrinkable Properties this, @GuardSatisfied @Nullable @UnknownSignedness Object key, @GuardSatisfied @Nullable @UnknownSignedness Object value) {
+        return map.remove(key, value);
     }
 
     @Override
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public synchronized boolean replace(@Replaceable Properties this, Object key, Object oldValue, Object newValue) {        return map.replace(key, oldValue, newValue);
+    public synchronized boolean replace(@Replaceable Properties this, Object key, Object oldValue, Object newValue) {
+        return map.replace(key, oldValue, newValue);
     }
 
     @Override
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public synchronized Object replace(@Replaceable Properties this, Object key, Object value) {        return map.replace(key, value);
+    public synchronized Object replace(@Replaceable Properties this, Object key, Object value) {
+        return map.replace(key, value);
     }
 
     @Override
