@@ -18,4 +18,4 @@ import org.checkerframework.framework.qual.SubtypeOf;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE_USE, ElementType.TYPE_PARAMETER})
 @SubtypeOf({GrowOnly.class, UncheckedCanShrink.class})
-public @interface BottomGrowShrink {}
+public @interface BottomGrowableShrink {}
