@@ -113,7 +113,8 @@ public interface SequencedCollection<E> extends Collection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default void addFirst(@Growable SequencedCollection<E> this, E e) {        throw new UnsupportedOperationException();
+    default void addFirst(@Growable SequencedCollection<E> this, E e) {
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -132,7 +133,8 @@ public interface SequencedCollection<E> extends Collection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default void addLast(@Growable SequencedCollection<E> this, E e) {        throw new UnsupportedOperationException();
+    default void addLast(@Growable SequencedCollection<E> this, E e) {
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -186,7 +188,8 @@ public interface SequencedCollection<E> extends Collection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default E removeFirst(@IteratorPolyMod @Shrinkable SequencedCollection<E> this) {        var it = this.iterator();
+    default E removeFirst(@IteratorPolyMod @Shrinkable SequencedCollection<E> this) {
+        var it = this.iterator();
         E e = it.next();
         it.remove();
         return e;
@@ -209,7 +212,8 @@ public interface SequencedCollection<E> extends Collection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default E removeLast(@IteratorPolyMod @Shrinkable SequencedCollection<E> this) {        var it = this.reversed().iterator();
+    default E removeLast(@IteratorPolyMod @Shrinkable SequencedCollection<E> this) {
+        var it = this.reversed().iterator();
         E e = it.next();
         it.remove();
         return e;

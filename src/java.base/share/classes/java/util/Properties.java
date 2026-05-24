@@ -30,7 +30,7 @@ import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
-import org.checkerframework.checker.modifiability.qual.PolyShrink;
+import org.checkerframework.checker.modifiability.qual.PolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
@@ -1412,19 +1412,19 @@ public class Properties extends Hashtable<Object,Object> {
 
     @Override
     @SideEffectFree
-    public @IteratorPolyMod @PolyShrink @Ungrowable Set<@KeyFor("this") Object> keySet(@PolyShrink Properties this) {
+    public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<@KeyFor("this") Object> keySet(@PolyShrinkable Properties this) {
         return Collections.synchronizedSet(map.keySet(), this);
     }
 
     @Override
     @SideEffectFree
-    public @IteratorPolyMod @PolyShrink @Ungrowable Collection<Object> values(@PolyShrink Properties this) {
+    public @IteratorPolyMod @PolyShrinkable @Ungrowable Collection<Object> values(@PolyShrinkable Properties this) {
         return Collections.synchronizedCollection(map.values(), this);
     }
 
     @Override
     @SideEffectFree
-    public @IteratorPolyMod @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<@KeyFor("this") Object, Object>> entrySet(@PolyModifiable Properties this) {
+    public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<Map.@PolyModifiable Entry<@KeyFor("this") Object, Object>> entrySet(@PolyModifiable Properties this) {
         return Collections.synchronizedSet(new EntrySet(map.entrySet()), this);
     }
 

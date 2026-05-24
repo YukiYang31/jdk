@@ -179,7 +179,8 @@ public abstract class AbstractSet<E> extends AbstractCollection<E> implements Se
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean removeAll(@IteratorPolyMod @Shrinkable @GuardSatisfied AbstractSet<E> this, Collection<? extends @UnknownSignedness Object> c) {        Objects.requireNonNull(c);
+    public boolean removeAll(@IteratorPolyMod @Shrinkable @GuardSatisfied AbstractSet<E> this, Collection<? extends @UnknownSignedness Object> c) {
+        Objects.requireNonNull(c);
         boolean modified = false;
 
         if (size() > c.size()) {

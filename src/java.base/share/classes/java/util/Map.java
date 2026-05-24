@@ -32,7 +32,7 @@ import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
-import org.checkerframework.checker.modifiability.qual.PolyShrink;
+import org.checkerframework.checker.modifiability.qual.PolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
@@ -403,7 +403,7 @@ public interface Map<K, V> {
      * @return a set view of the keys contained in this map
      */
     @SideEffectFree
-    @IteratorPolyMod @PolyShrink @Ungrowable @PolyNonEmpty Set<@KeyFor({"this"}) K> keySet(@PolyShrink @GuardSatisfied @PolyNonEmpty Map<K, V> this);
+    @IteratorPolyMod @PolyShrinkable @Ungrowable @PolyNonEmpty Set<@KeyFor({"this"}) K> keySet(@PolyShrinkable @GuardSatisfied @PolyNonEmpty Map<K, V> this);
 
     /**
      * Returns a {@link Collection} view of the values contained in this map.
@@ -421,7 +421,7 @@ public interface Map<K, V> {
      * @return a collection view of the values contained in this map
      */
     @SideEffectFree
-    @IteratorPolyMod @PolyShrink @Ungrowable @PolyNonEmpty Collection<V> values(@PolyShrink @GuardSatisfied @PolyNonEmpty Map<K, V> this);
+    @IteratorPolyMod @PolyShrinkable @Ungrowable @PolyNonEmpty Collection<V> values(@PolyShrinkable @GuardSatisfied @PolyNonEmpty Map<K, V> this);
 
     /**
      * Returns a {@link Set} view of the mappings contained in this map.
@@ -440,7 +440,7 @@ public interface Map<K, V> {
      * @return a set view of the mappings contained in this map
      */
     @SideEffectFree
-    @IteratorPolyMod @PolyShrink @Ungrowable @PolyNonEmpty Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K, V>> entrySet(@PolyModifiable @GuardSatisfied @PolyNonEmpty Map<K, V> this);
+    @IteratorPolyMod @PolyShrinkable @Ungrowable @PolyNonEmpty Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K, V>> entrySet(@PolyModifiable @GuardSatisfied @PolyNonEmpty Map<K, V> this);
 
     /**
      * A map entry (key-value pair). The Entry may be unmodifiable, or the
@@ -908,7 +908,8 @@ public interface Map<K, V> {
     @EnsuresKeyFor(value={"#1"}, map={"this"})
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default @Nullable V putIfAbsent(@Growable Map<K, V> this, K key, V value) {        V v = get(key);
+    default @Nullable V putIfAbsent(@Growable Map<K, V> this, K key, V value) {
+        V v = get(key);
         if (v == null) {
             v = put(key, value);
         }
@@ -953,7 +954,8 @@ public interface Map<K, V> {
     @CFComment("nullness: key and value are not @Nullable because this map might not permit null values")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default boolean remove(@Shrinkable Map<K, V> this, @GuardSatisfied @UnknownSignedness Object key, @GuardSatisfied @UnknownSignedness Object value) {        Object curValue = get(key);
+    default boolean remove(@Shrinkable Map<K, V> this, @GuardSatisfied @UnknownSignedness Object key, @GuardSatisfied @UnknownSignedness Object value) {
+        Object curValue = get(key);
         if (!Objects.equals(curValue, value) ||
             (curValue == null && !containsKey(key))) {
             return false;
@@ -1004,7 +1006,8 @@ public interface Map<K, V> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default boolean replace(@Replaceable Map<K, V> this, K key, V oldValue, V newValue) {        Object curValue = get(key);
+    default boolean replace(@Replaceable Map<K, V> this, K key, V oldValue, V newValue) {
+        Object curValue = get(key);
         if (!Objects.equals(curValue, oldValue) ||
             (curValue == null && !containsKey(key))) {
             return false;
@@ -1053,7 +1056,8 @@ public interface Map<K, V> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default @Nullable V replace(@Replaceable Map<K, V> this, K key, V value) {        V curValue;
+    default @Nullable V replace(@Replaceable Map<K, V> this, K key, V value) {
+        V curValue;
         if (((curValue = get(key)) != null) || containsKey(key)) {
             curValue = put(key, value);
         }

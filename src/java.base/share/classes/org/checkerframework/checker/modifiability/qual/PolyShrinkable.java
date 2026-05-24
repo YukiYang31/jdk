@@ -19,4 +19,4 @@ import org.checkerframework.framework.qual.PolymorphicQualifier;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.TYPE_USE, ElementType.TYPE_PARAMETER})
 @PolymorphicQualifier(MaybeShrinkable.class)
-public @interface PolyShrinkable {}
+public @interface PolyShrinkableable {}

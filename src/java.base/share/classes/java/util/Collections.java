@@ -33,7 +33,7 @@ import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
-import org.checkerframework.checker.modifiability.qual.PolyShrink;
+import org.checkerframework.checker.modifiability.qual.PolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
@@ -3218,7 +3218,7 @@ public class Collections {
         private transient Set<Map.Entry<K,V>> entrySet;
         private transient Collection<V> values;
 
-        public @IteratorPolyMod @PolyShrink @Ungrowable Set<K> keySet(@PolyShrink SynchronizedMap<K,V> this) {
+        public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<K> keySet(@PolyShrinkable SynchronizedMap<K,V> this) {
             synchronized (mutex) {
                 if (keySet==null)
                     keySet = new SynchronizedSet<>(m.keySet(), mutex);
@@ -3227,7 +3227,7 @@ public class Collections {
         }
 
         @SideEffectFree
-        public @IteratorPolyMod @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<K,V>> entrySet(@PolyModifiable SynchronizedMap<K,V> this) {
+        public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<Map.@PolyModifiable Entry<K,V>> entrySet(@PolyModifiable SynchronizedMap<K,V> this) {
             synchronized (mutex) {
                 if (entrySet==null)
                     entrySet = new SynchronizedSet<>(m.entrySet(), mutex);
@@ -3235,7 +3235,7 @@ public class Collections {
             }
         }
 
-        public @IteratorPolyMod @PolyShrink @Ungrowable Collection<V> values(@PolyShrink SynchronizedMap<K,V> this) {
+        public @IteratorPolyMod @PolyShrinkable @Ungrowable Collection<V> values(@PolyShrinkable SynchronizedMap<K,V> this) {
             synchronized (mutex) {
                 if (values==null)
                     values = new SynchronizedCollection<>(m.values(), mutex);
@@ -3544,19 +3544,19 @@ public class Collections {
             }
         }
 
-        public @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<K> keySet(@PolyShrink SynchronizedNavigableMap<K,V> this) {
+        public @IteratorPolyMod @PolyShrinkable @Ungrowable NavigableSet<K> keySet(@PolyShrinkable SynchronizedNavigableMap<K,V> this) {
             return navigableKeySet();
         }
 
         @SideEffectFree
-        public @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<K> navigableKeySet(@PolyShrink SynchronizedNavigableMap<K,V> this) {
+        public @IteratorPolyMod @PolyShrinkable @Ungrowable NavigableSet<K> navigableKeySet(@PolyShrinkable SynchronizedNavigableMap<K,V> this) {
             synchronized (mutex) {
                 return new SynchronizedNavigableSet<>(nm.navigableKeySet(), mutex);
             }
         }
 
         @SideEffectFree
-        public @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<K> descendingKeySet(@PolyShrink SynchronizedNavigableMap<K,V> this) {
+        public @IteratorPolyMod @PolyShrinkable @Ungrowable NavigableSet<K> descendingKeySet(@PolyShrinkable SynchronizedNavigableMap<K,V> this) {
             synchronized (mutex) {
                 return new SynchronizedNavigableSet<>(nm.descendingKeySet(), mutex);
             }
@@ -4385,8 +4385,8 @@ public class Collections {
         // @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public void clear()                    { m.clear(); }
-        public @IteratorPolyMod @PolyShrink @Ungrowable Set<K> keySet(@PolyShrink CheckedMap<K,V> this)                 { return m.keySet(); }
-        public @IteratorPolyMod @PolyShrink @Ungrowable Collection<V> values(@PolyShrink CheckedMap<K,V> this)          { return m.values(); }
+        public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<K> keySet(@PolyShrinkable CheckedMap<K,V> this)                 { return m.keySet(); }
+        public @IteratorPolyMod @PolyShrinkable @Ungrowable Collection<V> values(@PolyShrinkable CheckedMap<K,V> this)          { return m.values(); }
         @Pure
         public boolean equals(Object o)        { return o == this || m.equals(o); }
         @Pure
@@ -4427,7 +4427,7 @@ public class Collections {
         private transient Set<Map.Entry<K,V>> entrySet;
 
         @SideEffectFree
-        public @IteratorPolyMod @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<K,V>> entrySet(@PolyModifiable CheckedMap<K,V> this) {
+        public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<Map.@PolyModifiable Entry<K,V>> entrySet(@PolyModifiable CheckedMap<K,V> this) {
             if (entrySet==null)
                 entrySet = new CheckedEntrySet<>(m.entrySet(), valueType);
             return entrySet;
@@ -4957,17 +4957,17 @@ public class Collections {
             return checkedNavigableMap(nm.descendingMap(), keyType, valueType);
         }
 
-        public @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<K> keySet(@PolyShrink CheckedNavigableMap<K,V> this) {
+        public @IteratorPolyMod @PolyShrinkable @Ungrowable NavigableSet<K> keySet(@PolyShrinkable CheckedNavigableMap<K,V> this) {
             return navigableKeySet();
         }
 
         @SideEffectFree
-        public @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<K> navigableKeySet(@PolyShrink CheckedNavigableMap<K,V> this) {
+        public @IteratorPolyMod @PolyShrinkable @Ungrowable NavigableSet<K> navigableKeySet(@PolyShrinkable CheckedNavigableMap<K,V> this) {
             return checkedNavigableSet(nm.navigableKeySet(), keyType);
         }
 
         @SideEffectFree
-        public @IteratorPolyMod @PolyShrink @Ungrowable NavigableSet<K> descendingKeySet(@PolyShrink CheckedNavigableMap<K,V> this) {
+        public @IteratorPolyMod @PolyShrinkable @Ungrowable NavigableSet<K> descendingKeySet(@PolyShrinkable CheckedNavigableMap<K,V> this) {
             return checkedNavigableSet(nm.descendingKeySet(), keyType);
         }
 

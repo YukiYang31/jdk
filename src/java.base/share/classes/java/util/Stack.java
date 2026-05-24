@@ -82,7 +82,8 @@ public class Stack<E> extends Vector<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E push(@Growable @GuardSatisfied Stack<E> this, E item) {        addElement(item);
+    public E push(@Growable @GuardSatisfied Stack<E> this, E item) {
+        addElement(item);
 
         return item;
     }
@@ -97,7 +98,8 @@ public class Stack<E> extends Vector<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public synchronized E pop(@Shrinkable @GuardSatisfied @NonEmpty @CanShrink Stack<E> this) {        E       obj;
+    public synchronized E pop(@Shrinkable @GuardSatisfied @NonEmpty @CanShrink Stack<E> this) {
+        E       obj;
         int     len = size();
 
         obj = peek();
