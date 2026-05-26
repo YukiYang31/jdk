@@ -283,7 +283,8 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean add(@Growable @GuardSatisfied AbstractCollection<E> this, E e) {        throw new UnsupportedOperationException();
+    public boolean add(@Growable @GuardSatisfied AbstractCollection<E> this, E e) {
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -305,7 +306,8 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean remove(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink AbstractCollection<E> this, @GuardSatisfied @UnknownSignedness Object o) {        Iterator<E> it = iterator();
+    public boolean remove(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink AbstractCollection<E> this, @GuardSatisfied @UnknownSignedness Object o) {
+        Iterator<E> it = iterator();
         if (o==null) {
             while (it.hasNext()) {
                 if (it.next()==null) {
@@ -369,7 +371,8 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean addAll(@Growable @GuardSatisfied AbstractCollection<E> this, Collection<? extends E> c) {        boolean modified = false;
+    public boolean addAll(@Growable @GuardSatisfied AbstractCollection<E> this, Collection<? extends E> c) {
+        boolean modified = false;
         for (E e : c)
             if (add(e))
                 modified = true;
@@ -400,7 +403,8 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean removeAll(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink AbstractCollection<E> this, Collection<? extends @UnknownSignedness Object> c) {        Objects.requireNonNull(c);
+    public boolean removeAll(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink AbstractCollection<E> this, Collection<? extends @UnknownSignedness Object> c) {
+        Objects.requireNonNull(c);
         boolean modified = false;
         Iterator<?> it = iterator();
         while (it.hasNext()) {
@@ -436,7 +440,8 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean retainAll(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink AbstractCollection<E> this, Collection<? extends @UnknownSignedness Object> c) {        Objects.requireNonNull(c);
+    public boolean retainAll(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink AbstractCollection<E> this, Collection<? extends @UnknownSignedness Object> c) {
+        Objects.requireNonNull(c);
         boolean modified = false;
         Iterator<E> it = iterator();
         while (it.hasNext()) {
@@ -466,7 +471,8 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void clear(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink AbstractCollection<E> this) {        Iterator<E> it = iterator();
+    public void clear(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink AbstractCollection<E> this) {
+        Iterator<E> it = iterator();
         while (it.hasNext()) {
             it.next();
             it.remove();

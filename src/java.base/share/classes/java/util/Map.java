@@ -908,7 +908,8 @@ public interface Map<K, V> {
     @EnsuresKeyFor(value={"#1"}, map={"this"})
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default @Nullable V putIfAbsent(@Growable Map<K, V> this, K key, V value) {        V v = get(key);
+    default @Nullable V putIfAbsent(@Growable Map<K, V> this, K key, V value) {
+        V v = get(key);
         if (v == null) {
             v = put(key, value);
         }
@@ -953,7 +954,8 @@ public interface Map<K, V> {
     @CFComment("nullness: key and value are not @Nullable because this map might not permit null values")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default boolean remove(@Shrinkable Map<K, V> this, @GuardSatisfied @UnknownSignedness Object key, @GuardSatisfied @UnknownSignedness Object value) {        Object curValue = get(key);
+    default boolean remove(@Shrinkable Map<K, V> this, @GuardSatisfied @UnknownSignedness Object key, @GuardSatisfied @UnknownSignedness Object value) {
+        Object curValue = get(key);
         if (!Objects.equals(curValue, value) ||
             (curValue == null && !containsKey(key))) {
             return false;
@@ -1004,7 +1006,8 @@ public interface Map<K, V> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default boolean replace(@Replaceable Map<K, V> this, K key, V oldValue, V newValue) {        Object curValue = get(key);
+    default boolean replace(@Replaceable Map<K, V> this, K key, V oldValue, V newValue) {
+        Object curValue = get(key);
         if (!Objects.equals(curValue, oldValue) ||
             (curValue == null && !containsKey(key))) {
             return false;
@@ -1053,7 +1056,8 @@ public interface Map<K, V> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default @Nullable V replace(@Replaceable Map<K, V> this, K key, V value) {        V curValue;
+    default @Nullable V replace(@Replaceable Map<K, V> this, K key, V value) {
+        V curValue;
         if (((curValue = get(key)) != null) || containsKey(key)) {
             curValue = put(key, value);
         }

@@ -624,7 +624,8 @@ public interface Collection<E> extends Iterable<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default boolean removeIf(@IteratorPolyMod @Shrinkable @CanShrink Collection<E> this, Predicate<? super E> filter) {        Objects.requireNonNull(filter);
+    default boolean removeIf(@IteratorPolyMod @Shrinkable @CanShrink Collection<E> this, Predicate<? super E> filter) {
+        Objects.requireNonNull(filter);
         boolean removed = false;
         final Iterator<E> each = iterator();
         while (each.hasNext()) {

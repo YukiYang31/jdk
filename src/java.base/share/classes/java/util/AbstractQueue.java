@@ -107,7 +107,8 @@ public abstract class AbstractQueue<E>
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean add(@Growable @GuardSatisfied AbstractQueue<E> this, E e) {        if (offer(e))
+    public boolean add(@Growable @GuardSatisfied AbstractQueue<E> this, E e) {
+        if (offer(e))
             return true;
         else
             throw new IllegalStateException("Queue full");
@@ -126,7 +127,8 @@ public abstract class AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E remove(@Shrinkable @GuardSatisfied @NonEmpty @CanShrink AbstractQueue<E> this) {        E x = poll();
+    public E remove(@Shrinkable @GuardSatisfied @NonEmpty @CanShrink AbstractQueue<E> this) {
+        E x = poll();
         if (x != null)
             return x;
         else
@@ -162,7 +164,8 @@ public abstract class AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void clear(@Shrinkable @GuardSatisfied @CanShrink AbstractQueue<E> this) {        while (poll() != null)
+    public void clear(@Shrinkable @GuardSatisfied @CanShrink AbstractQueue<E> this) {
+        while (poll() != null)
             ;
     }
 
@@ -197,7 +200,8 @@ public abstract class AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean addAll(@Growable @GuardSatisfied AbstractQueue<E> this, Collection<? extends E> c) {        if (c == null)
+    public boolean addAll(@Growable @GuardSatisfied AbstractQueue<E> this, Collection<? extends E> c) {
+        if (c == null)
             throw new NullPointerException();
         if (c == this)
             throw new IllegalArgumentException();

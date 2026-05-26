@@ -469,7 +469,8 @@ public class IdentityHashMap<K,V>
     @EnsuresKeyFor(value={"#1"}, map={"this"})
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public @Nullable V put(@Growable @Replaceable @GuardSatisfied IdentityHashMap<K, V> this, K key, V value) {        final Object k = maskNull(key);
+    public @Nullable V put(@Growable @Replaceable @GuardSatisfied IdentityHashMap<K, V> this, K key, V value) {
+        final Object k = maskNull(key);
 
         retryAfterResize: for (;;) {
             final Object[] tab = table;
@@ -551,7 +552,8 @@ public class IdentityHashMap<K,V>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void putAll(@Growable @Replaceable @GuardSatisfied IdentityHashMap<K, V> this, Map<? extends K, ? extends V> m) {        int n = m.size();
+    public void putAll(@Growable @Replaceable @GuardSatisfied IdentityHashMap<K, V> this, Map<? extends K, ? extends V> m) {
+        int n = m.size();
         if (n == 0)
             return;
         if (n > size)
@@ -574,7 +576,8 @@ public class IdentityHashMap<K,V>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public @Nullable V remove(@Shrinkable @GuardSatisfied IdentityHashMap<K, V> this, @GuardSatisfied @Nullable @UnknownSignedness Object key) {        Object k = maskNull(key);
+    public @Nullable V remove(@Shrinkable @GuardSatisfied IdentityHashMap<K, V> this, @GuardSatisfied @Nullable @UnknownSignedness Object key) {
+        Object k = maskNull(key);
         Object[] tab = table;
         int len = tab.length;
         int i = hash(k, len);
@@ -671,7 +674,8 @@ public class IdentityHashMap<K,V>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void clear(@Shrinkable @GuardSatisfied IdentityHashMap<K, V> this) {        modCount++;
+    public void clear(@Shrinkable @GuardSatisfied IdentityHashMap<K, V> this) {
+        modCount++;
         Object[] tab = table;
         for (int i = 0; i < tab.length; i++)
             tab[i] = null;

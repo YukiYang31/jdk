@@ -250,7 +250,8 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
     @EnsuresKeyFor(value={"#1"}, map={"this"})
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public @Nullable V put(@Growable @Replaceable @GuardSatisfied AbstractMap<K, V> this, K key, V value) {        throw new UnsupportedOperationException();
+    public @Nullable V put(@Growable @Replaceable @GuardSatisfied AbstractMap<K, V> this, K key, V value) {
+        throw new UnsupportedOperationException();
     }
 
     /**
@@ -277,7 +278,8 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public @Nullable V remove(@Shrinkable @GuardSatisfied AbstractMap<K, V> this, @GuardSatisfied @UnknownSignedness Object key) {        Iterator<Entry<K,V>> i = entrySet().iterator();
+    public @Nullable V remove(@Shrinkable @GuardSatisfied AbstractMap<K, V> this, @GuardSatisfied @UnknownSignedness Object key) {
+        Iterator<Entry<K,V>> i = entrySet().iterator();
         Entry<K,V> correctEntry = null;
         if (key==null) {
             while (correctEntry==null && i.hasNext()) {
@@ -323,7 +325,8 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void putAll(@Growable @Replaceable @GuardSatisfied AbstractMap<K, V> this, Map<? extends K, ? extends V> m) {        for (Map.Entry<? extends K, ? extends V> e : m.entrySet())
+    public void putAll(@Growable @Replaceable @GuardSatisfied AbstractMap<K, V> this, Map<? extends K, ? extends V> m) {
+        for (Map.Entry<? extends K, ? extends V> e : m.entrySet())
             put(e.getKey(), e.getValue());
     }
 
@@ -341,7 +344,8 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void clear(@Shrinkable @GuardSatisfied AbstractMap<K, V> this) {        entrySet().clear();
+    public void clear(@Shrinkable @GuardSatisfied AbstractMap<K, V> this) {
+        entrySet().clear();
     }
 
 
