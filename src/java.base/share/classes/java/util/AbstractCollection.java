@@ -105,6 +105,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      */
     @SideEffectFree
     public abstract @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty AbstractCollection<E> this);
+
     @Pure
     public abstract @NonNegative int size(@GuardSatisfied AbstractCollection<E> this);
 

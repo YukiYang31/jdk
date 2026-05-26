@@ -27,7 +27,7 @@ package java.util;
 
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
-import org.checkerframework.checker.modifiability.qual.PolyShrink;
+import org.checkerframework.checker.modifiability.qual.PolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
@@ -296,7 +296,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default @PolyShrink @Ungrowable SequencedSet<K> sequencedKeySet(@PolyShrink SequencedMap<K,V> this) {
+    default @PolyShrinkable @Ungrowable SequencedSet<K> sequencedKeySet(@PolyShrinkable SequencedMap<K,V> this) {
         class SeqKeySet extends AbstractMap.ViewCollection<K> implements SequencedSet<K> {
             Collection<K> view() {
                 return SequencedMap.this.keySet();
@@ -333,7 +333,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default @PolyShrink @Ungrowable SequencedCollection<V> sequencedValues(@PolyShrink SequencedMap<K,V> this) {
+    default @PolyShrinkable @Ungrowable SequencedCollection<V> sequencedValues(@PolyShrinkable SequencedMap<K,V> this) {
         class SeqValues extends AbstractMap.ViewCollection<V> implements SequencedCollection<V> {
             Collection<V> view() {
                 return SequencedMap.this.values();
@@ -361,7 +361,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default @PolyShrink @Ungrowable SequencedSet<Map.@PolyModifiable Entry<K, V>> sequencedEntrySet(@PolyModifiable SequencedMap<K,V> this) {
+    default @PolyShrinkable @Ungrowable SequencedSet<Map.@PolyModifiable Entry<K, V>> sequencedEntrySet(@PolyModifiable SequencedMap<K,V> this) {
         class SeqEntrySet extends AbstractMap.ViewCollection<Map.Entry<K, V>>
                 implements SequencedSet<Map.Entry<K, V>> {
             Collection<Map.Entry<K, V>> view() {

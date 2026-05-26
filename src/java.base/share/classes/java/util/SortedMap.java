@@ -29,7 +29,7 @@ import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
-import org.checkerframework.checker.modifiability.qual.PolyShrink;
+import org.checkerframework.checker.modifiability.qual.PolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -265,7 +265,7 @@ public interface SortedMap<K,V> extends SequencedMap<K,V> {
      *         ascending order
      */
     @SideEffectFree
-    @IteratorPolyMod @PolyShrink @Ungrowable Set<@KeyFor({"this"}) K> keySet(@PolyShrink @GuardSatisfied SortedMap<K, V> this);
+    @IteratorPolyMod @PolyShrinkable @Ungrowable Set<@KeyFor({"this"}) K> keySet(@PolyShrinkable @GuardSatisfied SortedMap<K, V> this);
 
     /**
      * Returns a {@link Collection} view of the values contained in this map.
@@ -286,7 +286,7 @@ public interface SortedMap<K,V> extends SequencedMap<K,V> {
      *         sorted in ascending key order
      */
     @SideEffectFree
-    @IteratorPolyMod @PolyShrink @Ungrowable Collection<V> values(@PolyShrink @GuardSatisfied SortedMap<K, V> this);
+    @IteratorPolyMod @PolyShrinkable @Ungrowable Collection<V> values(@PolyShrinkable @GuardSatisfied SortedMap<K, V> this);
 
     /**
      * Returns a {@link Set} view of the mappings contained in this map.
@@ -307,7 +307,7 @@ public interface SortedMap<K,V> extends SequencedMap<K,V> {
      *         sorted in ascending key order
      */
     @SideEffectFree
-    @IteratorPolyMod @PolyShrink @Ungrowable Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K, V>> entrySet(@PolyModifiable @GuardSatisfied SortedMap<K, V> this);
+    @IteratorPolyMod @PolyShrinkable @Ungrowable Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K, V>> entrySet(@PolyModifiable @GuardSatisfied SortedMap<K, V> this);
 
     /**
      * Throws {@code UnsupportedOperationException}. The encounter order induced by this
