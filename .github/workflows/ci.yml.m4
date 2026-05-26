@@ -96,12 +96,13 @@ jobs:
           git config --global core.longpaths true
           git config --global core.protectNTFS false
           git config --global --add safe.directory /__w/jdk/jdk
+          git config --global merge.conflictstyle diff3
         # This creates ../jdk21u .
         # Run `git-clone-related` without a limit on depth, because if the depth is
         # too small, the merge will fail.  Don't use "--filter=blob:none" because that
         # leads to "fatal: remote error:  filter 'combine' not supported".
-      - name: ci-info
-        run: /tmp/$USER/plume-scripts/ci-info --debug
+      - name: ci-org-and-branch
+        run: /tmp/$USER/plume-scripts/ci-org-and-branch --debug
       - name: clone-related-jdk21u
         run: |
           set -ex
@@ -111,18 +112,25 @@ jobs:
             false
           fi
           df .
-          git config --global --add safe.directory /__w/jdk/jdk
           /tmp/$USER/git-scripts/git-clone-related typetools jdk21u ../jdk21u --single-branch
           cd ../jdk21u
           git diff --exit-code
-      - name: git merge
+      - name: git merge plan
         run: |
           set -ex
           cd ../jdk21u
           git status
-          eval $(/tmp/$USER/plume-scripts/ci-info typetools)
-          echo "About to run: git pull --no-edit https://github.com/${CI_ORGANIZATION}/jdk ${CI_BRANCH_NAME}"
-          if ! git pull --no-edit "https://github.com/${CI_ORGANIZATION}/jdk" "${CI_BRANCH_NAME}"; then
+          /tmp/$USER/plume-scripts/ci-org-and-branch typetools --debug
+          eval $(/tmp/$USER/plume-scripts/ci-org-and-branch typetools)
+          echo "About to run: git pull --no-edit https://github.com/${CI_ORGANIZATION}/jdk ${CI_BRANCH}"
+        shell: bash --noprofile --norc -e {0}
+      - name: git merge
+        run: |
+          set -ex
+          cd ../jdk21u
+          eval $(/tmp/$USER/plume-scripts/ci-org-and-branch typetools)
+          echo "About to run: git pull --no-edit https://github.com/${CI_ORGANIZATION}/jdk ${CI_BRANCH}"
+          if ! git pull --no-edit "https://github.com/${CI_ORGANIZATION}/jdk" "${CI_BRANCH}"; then
             git --version
             git show | head -100
             git status && git diff | head -1000
