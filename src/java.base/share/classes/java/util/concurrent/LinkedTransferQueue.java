@@ -1332,7 +1332,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
 
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E take(@Shrinkable @GuardSatisfied @CanShrink LinkedTransferQueue<E> this) throws InterruptedException {
+    public E take(@GuardSatisfied @Shrinkable @CanShrink LinkedTransferQueue<E> this) throws InterruptedException {
         E e = xfer(null, false, SYNC, 0L);
         if (e != null)
             return e;
@@ -1342,7 +1342,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
 
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E poll(@Shrinkable @GuardSatisfied @CanShrink LinkedTransferQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
+    public E poll(@GuardSatisfied @Shrinkable @CanShrink LinkedTransferQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
         E e = xfer(null, false, TIMED, unit.toNanos(timeout));
         if (e != null || !Thread.interrupted())
             return e;
