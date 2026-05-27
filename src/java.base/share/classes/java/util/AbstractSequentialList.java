@@ -268,7 +268,7 @@ public abstract class AbstractSequentialList<E> extends AbstractList<E> {
      * @return an iterator over the elements in this list (in proper sequence)
      */
     @SideEffectFree
-    public @PolyGrowShrink @PolyModifiable @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty AbstractSequentialList<E> this) {
+    public @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty AbstractSequentialList<E> this) {
         return listIterator();
     }
 
@@ -282,5 +282,5 @@ public abstract class AbstractSequentialList<E> extends AbstractList<E> {
      *         sequence)
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public abstract @PolyGrowShrink @PolyModifiable ListIterator<E> listIterator(@PolyGrowShrink @PolyModifiable AbstractSequentialList<E> this, int index);
+    public abstract @PolyGrowShrink ListIterator<E> listIterator(@PolyGrowShrink AbstractSequentialList<E> this, int index);
 }
