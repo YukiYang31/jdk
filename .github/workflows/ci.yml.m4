@@ -42,10 +42,7 @@ jobs:
           git config --get remote.origin.url || true
           pwd
           ls -al
-          echo "HOME=${HOME}"
-          echo "USER=${USER}"
-          echo "SHELL=${SHELL}"
-          echo "GITHUB_WORKSPACE=${GITHUB_WORKSPACE}"
+          set
       - name: configure
         run: |
           pwd
@@ -69,10 +66,7 @@ jobs:
           git config --get remote.origin.url || true
           pwd
           ls -al
-          echo "HOME=${HOME}"
-          echo "USER=${USER}"
-          echo "SHELL=${SHELL}"
-          echo "GITHUB_WORKSPACE=${GITHUB_WORKSPACE}"
+          set
       - name: clone git-scripts
         run: |
           set -ex
