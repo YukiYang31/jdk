@@ -27,6 +27,7 @@ package java.util;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
@@ -95,7 +96,7 @@ public abstract class AbstractSet<E> extends AbstractCollection<E> implements Se
      * @return {@code true} if the specified object is equal to this set
      */
     @Pure
-    public boolean equals(@GuardSatisfied AbstractSet<E> this, @GuardSatisfied @Nullable Object o) {
+    public boolean equals(@MaybeModifiable @GuardSatisfied AbstractSet<E> this, @GuardSatisfied @Nullable Object o) {
         if (o == this)
             return true;
 
@@ -129,7 +130,7 @@ public abstract class AbstractSet<E> extends AbstractCollection<E> implements Se
      * @see Set#equals(Object)
      */
     @Pure
-    public int hashCode(@GuardSatisfied AbstractSet<E> this) {
+    public int hashCode(@MaybeModifiable @GuardSatisfied AbstractSet<E> this) {
         int h = 0;
         Iterator<E> i = iterator();
         while (i.hasNext()) {

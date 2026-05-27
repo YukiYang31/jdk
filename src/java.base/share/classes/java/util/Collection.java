@@ -31,6 +31,7 @@ import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
@@ -292,7 +293,7 @@ public interface Collection<E> extends Iterable<E> {
      * @return the number of elements in this collection
      */
     @Pure
-    @NonNegative int size(@GuardSatisfied Collection<E> this);
+    @NonNegative int size(@MaybeModifiable @GuardSatisfied Collection<E> this);
 
     /**
      * Returns {@code true} if this collection contains no elements.
@@ -301,7 +302,7 @@ public interface Collection<E> extends Iterable<E> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = false, expression = "this")
-    boolean isEmpty(@GuardSatisfied Collection<E> this);
+    boolean isEmpty(@MaybeModifiable @GuardSatisfied Collection<E> this);
 
     /**
      * Returns {@code true} if this collection contains the specified element.
@@ -324,7 +325,7 @@ public interface Collection<E> extends Iterable<E> {
                 "(though I think a nicer specification would be to return false in that case)"})
     @Pure
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    boolean contains(@GuardSatisfied Collection<E> this, @GuardSatisfied @UnknownSignedness Object o);
+    boolean contains(@MaybeModifiable @GuardSatisfied Collection<E> this, @GuardSatisfied @UnknownSignedness Object o);
 
     /**
      * Returns an iterator over the elements in this collection.  There are no
@@ -335,7 +336,7 @@ public interface Collection<E> extends Iterable<E> {
      * @return an {@code Iterator} over the elements in this collection
      */
     @SideEffectFree
-    @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty Collection<E> this);
+    @MaybeModifiable @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty Collection<E> this);
 
     /**
      * Returns an array containing all of the elements in this collection.
@@ -364,7 +365,7 @@ public interface Collection<E> extends Iterable<E> {
     "methods, because the most useful type for toArray is not expressible",
     "in the surface syntax that the nullness annotations support."})
     @SideEffectFree
-    @PolyNull @PolySigned Object[] toArray(Collection<@PolyNull @PolySigned E> this);
+    @PolyNull @PolySigned Object[] toArray(@MaybeModifiable Collection<@PolyNull @PolySigned E> this);
 
     /**
      * Returns an array containing all of the elements in this collection;
@@ -417,7 +418,8 @@ public interface Collection<E> extends Iterable<E> {
      *         runtime component type} of the specified array
      * @throws NullPointerException if the specified array is null
      */
-    <T extends @UnknownSignedness Object> @Nullable T[] toArray(Collection<E> this, @PolyNull T[] a);
+    @SideEffectFree
+    <T extends @UnknownSignedness Object> @Nullable T[] toArray(@MaybeModifiable Collection<E> this, @PolyNull T[] a);
 
     /**
      * Returns an array containing all of the elements in this collection,
@@ -455,7 +457,7 @@ public interface Collection<E> extends Iterable<E> {
      * @since 11
      */
     @SideEffectFree
-    default <T> T[] toArray(Collection<E> this, IntFunction<T[]> generator) {
+    default <T> T[] toArray(@MaybeModifiable Collection<E> this, IntFunction<T[]> generator) {
         return toArray(generator.apply(0));
     }
 
@@ -543,7 +545,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see    #contains(Object)
      */
     @Pure
-    boolean containsAll(@GuardSatisfied Collection<E> this, @GuardSatisfied Collection<? extends @UnknownSignedness Object> c);
+    boolean containsAll(@MaybeModifiable @GuardSatisfied Collection<E> this, @GuardSatisfied Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Adds all of the elements in the specified collection to this collection
@@ -709,7 +711,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see List#equals(Object)
      */
     @Pure
-    boolean equals(@GuardSatisfied Collection<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o);
+    boolean equals(@MaybeModifiable @GuardSatisfied Collection<E> this, @GuardSatisfied @Nullable @UnknownSignedness Object o);
 
     /**
      * Returns the hash code value for this collection.  While the
@@ -727,7 +729,7 @@ public interface Collection<E> extends Iterable<E> {
      * @see Object#equals(Object)
      */
     @Pure
-    int hashCode(@GuardSatisfied Collection<E> this);
+    int hashCode(@MaybeModifiable @GuardSatisfied Collection<E> this);
 
     /**
      * Creates a {@link Spliterator} over the elements in this collection.
@@ -781,7 +783,7 @@ public interface Collection<E> extends Iterable<E> {
      */
     @SideEffectFree
     @Override
-    default Spliterator<E> spliterator(Collection<E> this) {
+    default Spliterator<E> spliterator(@MaybeModifiable Collection<E> this) {
         return Spliterators.spliterator(this, 0);
     }
 
@@ -801,7 +803,7 @@ public interface Collection<E> extends Iterable<E> {
      * @since 1.8
      */
     @DoesNotUnrefineReceiver("modifiability")
-    default @PolyNonEmpty Stream<E> stream(@PolyNonEmpty Collection<E> this) {
+    default @PolyNonEmpty Stream<E> stream(@MaybeModifiable @PolyNonEmpty Collection<E> this) {
         return StreamSupport.stream(spliterator(), false);
     }
 
@@ -823,7 +825,7 @@ public interface Collection<E> extends Iterable<E> {
      * @since 1.8
      */
     @DoesNotUnrefineReceiver("modifiability")
-    default Stream<E> parallelStream(Collection<E> this) {
+    default Stream<E> parallelStream(@MaybeModifiable Collection<E> this) {
         return StreamSupport.stream(spliterator(), true);
     }
 }

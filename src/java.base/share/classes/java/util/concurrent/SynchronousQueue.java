@@ -875,7 +875,8 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean offer(@Growable SynchronousQueue<E> this, E e, long timeout, TimeUnit unit)        throws InterruptedException {
+    public boolean offer(@Growable SynchronousQueue<E> this, E e, long timeout, TimeUnit unit)
+        throws InterruptedException {
         if (e == null) throw new NullPointerException();
         if (transferer.transfer(e, true, unit.toNanos(timeout)) != null)
             return true;
@@ -909,7 +910,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E take(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) throws InterruptedException {
+    public E take(@GuardSatisfied @Shrinkable @CanShrink SynchronousQueue<E> this) throws InterruptedException {
         E e = transferer.transfer(null, false, 0);
         if (e != null)
             return e;
@@ -928,7 +929,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E poll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
+    public E poll(@GuardSatisfied @Shrinkable @CanShrink SynchronousQueue<E> this, long timeout, TimeUnit unit) throws InterruptedException {
         E e = transferer.transfer(null, true, unit.toNanos(timeout));
         if (e != null || !Thread.interrupted())
             return e;
@@ -944,7 +945,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E poll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) {
+    public E poll(@GuardSatisfied @Shrinkable @CanShrink SynchronousQueue<E> this) {
         return transferer.transfer(null, true, 0);
     }
 
@@ -987,7 +988,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void clear(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this) {
+    public void clear(@GuardSatisfied @Shrinkable @CanShrink SynchronousQueue<E> this) {
     }
 
     /**
@@ -1050,7 +1051,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {
+    public boolean retainAll(@GuardSatisfied @Shrinkable @CanShrink SynchronousQueue<E> this, Collection<? extends @UnknownSignedness Object> c) {
         return false;
     }
 
@@ -1129,7 +1130,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c) {
+    public int drainTo(@GuardSatisfied @Shrinkable @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c) {
         Objects.requireNonNull(c);
         if (c == this)
             throw new IllegalArgumentException();
@@ -1147,7 +1148,7 @@ public class SynchronousQueue<E extends @NonNull Object> extends AbstractQueue<E
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c, int maxElements) {
+    public int drainTo(@GuardSatisfied @Shrinkable @CanShrink SynchronousQueue<E> this, @Growable Collection<? super E> c, int maxElements) {
         Objects.requireNonNull(c);
         if (c == this)
             throw new IllegalArgumentException();

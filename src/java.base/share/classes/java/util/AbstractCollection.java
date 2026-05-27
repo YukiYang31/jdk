@@ -31,6 +31,7 @@ import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
@@ -105,10 +106,10 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @return an iterator over the elements contained in this collection
      */
     @SideEffectFree
-    public abstract @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty AbstractCollection<E> this);
+    public abstract @MaybeModifiable @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty AbstractCollection<E> this);
 
     @Pure
-    public abstract @NonNegative int size(@GuardSatisfied AbstractCollection<E> this);
+    public abstract @NonNegative int size(@MaybeModifiable @GuardSatisfied AbstractCollection<E> this);
 
     /**
      * {@inheritDoc}
@@ -118,7 +119,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = false, expression = "this")
-    public boolean isEmpty(@GuardSatisfied AbstractCollection<E> this) {
+    public boolean isEmpty(@MaybeModifiable @GuardSatisfied AbstractCollection<E> this) {
         return size() == 0;
     }
 
@@ -134,7 +135,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    public boolean contains(@GuardSatisfied AbstractCollection<E> this, @GuardSatisfied @UnknownSignedness Object o) {
+    public boolean contains(@MaybeModifiable @GuardSatisfied AbstractCollection<E> this, @GuardSatisfied @UnknownSignedness Object o) {
         Iterator<E> it = iterator();
         if (o==null) {
             while (it.hasNext())
@@ -172,7 +173,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * }</pre>
      */
     @SideEffectFree
-    public @PolyNull @PolySigned Object[] toArray(AbstractCollection<@PolyNull @PolySigned E> this) {
+    public @PolyNull @PolySigned Object[] toArray(@MaybeModifiable AbstractCollection<@PolyNull @PolySigned E> this) {
         // Estimate size of array; be prepared to see more or fewer elements
         Object[] r = new Object[size()];
         Iterator<E> it = iterator();
@@ -213,7 +214,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @throws NullPointerException {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
-    public <T> @Nullable T [] toArray(@PolyNull T [] a) {
+    public <T> @Nullable T [] toArray(@MaybeModifiable @PolyNull T [] a) {
         // Estimate size of array; be prepared to see more or fewer elements
         int size = size();
         T[] r = a.length >= size ? a :
@@ -346,7 +347,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @see #contains(Object)
      */
     @Pure
-    public boolean containsAll(@GuardSatisfied AbstractCollection<E> this, @GuardSatisfied Collection<? extends @UnknownSignedness Object> c) {
+    public boolean containsAll(@MaybeModifiable @GuardSatisfied AbstractCollection<E> this, @GuardSatisfied Collection<? extends @UnknownSignedness Object> c) {
         for (Object e : c)
             if (!contains(e))
                 return false;
@@ -496,7 +497,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @return a string representation of this collection
      */
     @SideEffectFree
-    public String toString(@GuardSatisfied AbstractCollection<E> this) {
+    public String toString(@MaybeModifiable @GuardSatisfied AbstractCollection<E> this) {
         Iterator<E> it = iterator();
         if (! it.hasNext())
             return "[]";

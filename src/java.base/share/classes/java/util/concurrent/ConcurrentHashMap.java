@@ -4710,7 +4710,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
      *
      * @since 1.8
      */
-    public static final class KeySetView<K,V> extends CollectionView<K,V,K>
+    public static final @Modifiable class KeySetView<K,V> extends CollectionView<K,V,K>
         implements Set<K>, java.io.Serializable {
         private static final long serialVersionUID = 7249069246763182397L;
         @SuppressWarnings("serial") // Conditionally serializable
@@ -5391,6 +5391,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
             super(p, b, i, f, t);
             this.searchFunction = searchFunction; this.result = result;
         }
+        @Pure
         public final U getRawResult() { return result.get(); }
         public final void compute() {
             final Function<? super K, ? extends U> searchFunction;
@@ -5435,6 +5436,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
             super(p, b, i, f, t);
             this.searchFunction = searchFunction; this.result = result;
         }
+        @Pure
         public final U getRawResult() { return result.get(); }
         public final void compute() {
             final Function<? super V, ? extends U> searchFunction;
@@ -5479,6 +5481,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
             super(p, b, i, f, t);
             this.searchFunction = searchFunction; this.result = result;
         }
+        @Pure
         public final U getRawResult() { return result.get(); }
         public final void compute() {
             final Function<Entry<K,V>, ? extends U> searchFunction;
@@ -5523,6 +5526,7 @@ public class ConcurrentHashMap<K extends @NonNull Object,V extends @NonNull Obje
             super(p, b, i, f, t);
             this.searchFunction = searchFunction; this.result = result;
         }
+        @Pure
         public final U getRawResult() { return result.get(); }
         public final void compute() {
             final BiFunction<? super K, ? super V, ? extends U> searchFunction;

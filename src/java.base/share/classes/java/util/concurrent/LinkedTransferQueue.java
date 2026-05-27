@@ -1281,7 +1281,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean tryTransfer(@Growable @GuardSatisfied @CanShrink LinkedTransferQueue<E> this, E e) {
+    public boolean tryTransfer(@GuardSatisfied @Growable @CanShrink LinkedTransferQueue<E> this, E e) {
         return xfer(e, true, NOW, 0L) == null;
     }
 
@@ -1298,7 +1298,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void transfer(@Growable @GuardSatisfied @CanShrink LinkedTransferQueue<E> this, E e) throws InterruptedException {
+    public void transfer(@GuardSatisfied @Growable @CanShrink LinkedTransferQueue<E> this, E e) throws InterruptedException {
         if (xfer(e, true, SYNC, 0L) != null) {
             Thread.interrupted(); // failure possible only due to interrupt
             throw new InterruptedException();
@@ -1321,7 +1321,8 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean tryTransfer(@Growable @GuardSatisfied @CanShrink LinkedTransferQueue<E> this, E e, long timeout, TimeUnit unit)        throws InterruptedException {
+    public boolean tryTransfer(@GuardSatisfied @Growable @CanShrink LinkedTransferQueue<E> this, E e, long timeout, TimeUnit unit)
+        throws InterruptedException {
         if (xfer(e, true, TIMED, unit.toNanos(timeout)) == null)
             return true;
         if (!Thread.interrupted())
@@ -1350,7 +1351,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
 
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E poll(@Shrinkable @GuardSatisfied @CanShrink LinkedTransferQueue<E> this) {
+    public E poll(@GuardSatisfied @Shrinkable @CanShrink LinkedTransferQueue<E> this) {
         return xfer(null, false, NOW, 0L);
     }
 
@@ -1360,7 +1361,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink LinkedTransferQueue<E> this, @Growable Collection<? super E> c) {
+    public int drainTo(@GuardSatisfied @Shrinkable @CanShrink LinkedTransferQueue<E> this, @Growable Collection<? super E> c) {
         Objects.requireNonNull(c);
         if (c == this)
             throw new IllegalArgumentException();
@@ -1376,7 +1377,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public int drainTo(@Shrinkable @GuardSatisfied @CanShrink LinkedTransferQueue<E> this, @Growable Collection<? super E> c, int maxElements) {
+    public int drainTo(@GuardSatisfied @Shrinkable @CanShrink LinkedTransferQueue<E> this, @Growable Collection<? super E> c, int maxElements) {
         Objects.requireNonNull(c);
         if (c == this)
             throw new IllegalArgumentException();
@@ -1624,14 +1625,14 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink LinkedTransferQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
+    public boolean retainAll(@GuardSatisfied @Shrinkable @CanShrink LinkedTransferQueue<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
         Objects.requireNonNull(c);
         return bulkRemove(e -> !c.contains(e));
     }
 
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void clear(@Shrinkable @GuardSatisfied @CanShrink LinkedTransferQueue<E> this) {
+    public void clear(@GuardSatisfied @Shrinkable @CanShrink LinkedTransferQueue<E> this) {
         bulkRemove(e -> true);
     }
 

@@ -30,6 +30,7 @@ import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.lock.qual.ReleasesNoLocks;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrinkable;
@@ -204,7 +205,7 @@ public interface Map<K, V> {
      * @return the number of key-value mappings in this map
      */
     @Pure
-    @NonNegative int size(@GuardSatisfied Map<K, V> this);
+    @NonNegative int size(@MaybeModifiable @GuardSatisfied Map<K, V> this);
 
     /**
      * Returns {@code true} if this map contains no key-value mappings.
@@ -213,7 +214,7 @@ public interface Map<K, V> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = false, expression = "this")
-    boolean isEmpty(@GuardSatisfied Map<K, V> this);
+    boolean isEmpty(@MaybeModifiable @GuardSatisfied Map<K, V> this);
 
     /**
      * Returns {@code true} if this map contains a mapping for the specified
@@ -234,7 +235,7 @@ public interface Map<K, V> {
     @EnsuresKeyForIf(expression={"#1"}, result=true, map={"this"})
     @Pure
     @EnsuresNonEmptyIf(result=true, expression={"this"})
-    boolean containsKey(@GuardSatisfied Map<K, V> this, @GuardSatisfied @UnknownSignedness Object key);
+    boolean containsKey(@MaybeModifiable @GuardSatisfied Map<K, V> this, @GuardSatisfied @UnknownSignedness Object key);
 
     /**
      * Returns {@code true} if this map maps one or more keys to the
@@ -254,7 +255,7 @@ public interface Map<K, V> {
      */
     @Pure
     @EnsuresNonEmptyIf(result=true, expression={"this"})
-    boolean containsValue(@GuardSatisfied Map<K, V> this, @GuardSatisfied @UnknownSignedness Object value);
+    boolean containsValue(@MaybeModifiable @GuardSatisfied Map<K, V> this, @GuardSatisfied @UnknownSignedness Object value);
 
     /**
      * Returns the value to which the specified key is mapped,
@@ -281,7 +282,7 @@ public interface Map<K, V> {
      *         does not permit null keys ({@linkplain Collection##optional-restrictions optional})
      */
     @Pure
-    @Nullable V get(@GuardSatisfied Map<K, V> this, @UnknownSignedness @GuardSatisfied Object key);
+    @Nullable V get(@MaybeModifiable @GuardSatisfied Map<K, V> this, @UnknownSignedness @GuardSatisfied Object key);
 
     // Modification Operations
 
@@ -511,7 +512,7 @@ public interface Map<K, V> {
          *         removed from the backing map.
          */
         @Pure
-        K getKey(Map.@GuardSatisfied Entry<K, V> this);
+        K getKey(Map.@MaybeModifiable @GuardSatisfied Entry<K, V> this);
 
         /**
          * Returns the value corresponding to this entry.  If the mapping
@@ -524,7 +525,7 @@ public interface Map<K, V> {
          *         removed from the backing map.
          */
         @Pure
-        V getValue(Map.@GuardSatisfied Entry<K, V> this);
+        V getValue(Map.@MaybeModifiable @GuardSatisfied Entry<K, V> this);
 
         /**
          * Replaces the value corresponding to this entry with the specified
@@ -568,7 +569,7 @@ public interface Map<K, V> {
          *         entry
          */
         @Pure
-        boolean equals(Map.@GuardSatisfied Entry<K, V> this, @GuardSatisfied @Nullable Object o);
+        boolean equals(Map.@MaybeModifiable @GuardSatisfied Entry<K, V> this, @GuardSatisfied @Nullable Object o);
 
         /**
          * Returns the hash code value for this map entry.  The hash code
@@ -587,7 +588,7 @@ public interface Map<K, V> {
          * @see #equals(Object)
          */
         @Pure
-        int hashCode(Map.@GuardSatisfied Entry<K, V> this);
+        int hashCode(Map.@MaybeModifiable @GuardSatisfied Entry<K, V> this);
 
         /**
          * Returns a comparator that compares {@link Map.Entry} in natural order on key.
@@ -688,8 +689,7 @@ public interface Map<K, V> {
          */
         @SuppressWarnings("unchecked")
         @SideEffectFree
-        public static <K extends @NonNull Object, V extends @NonNull Object> 
-        Map.@Unmodifiable Entry<K, V> copyOf(Map.Entry<? extends K, ? extends V> e) {
+        public static <K extends @NonNull Object, V extends @NonNull Object> Map.@Unmodifiable Entry<K, V> copyOf(Map.@MaybeModifiable Entry<? extends K, ? extends V> e) {
             Objects.requireNonNull(e);
             if (e instanceof KeyValueHolder) {
                 return (Map.Entry<K, V>) e;
@@ -714,7 +714,7 @@ public interface Map<K, V> {
      * @return {@code true} if the specified object is equal to this map
      */
     @Pure
-    boolean equals(@GuardSatisfied Map<K, V> this, @GuardSatisfied @Nullable Object o);
+    boolean equals(@MaybeModifiable @GuardSatisfied Map<K, V> this, @GuardSatisfied @Nullable Object o);
 
     /**
      * Returns the hash code value for this map.  The hash code of a map is
@@ -730,7 +730,7 @@ public interface Map<K, V> {
      * @see #equals(Object)
      */
     @Pure
-    int hashCode(@GuardSatisfied Map<K, V> this);
+    int hashCode(@MaybeModifiable @GuardSatisfied Map<K, V> this);
 
     // Defaultable methods
 
@@ -1831,7 +1831,7 @@ public interface Map<K, V> {
      */
     @SuppressWarnings({"rawtypes","unchecked"})
     @SideEffectFree
-    static <K extends @NonNull Object, V extends @NonNull Object> @Unmodifiable @PolyNonEmpty Map<K, V> copyOf(@PolyNonEmpty Map<? extends K, ? extends V> map) {
+    static <K extends @NonNull Object, V extends @NonNull Object> @Unmodifiable @PolyNonEmpty Map<K, V> copyOf(@MaybeModifiable @PolyNonEmpty Map<? extends K, ? extends V> map) {
         if (map instanceof ImmutableCollections.AbstractImmutableMap) {
             return (Map<K,V>)map;
         } else if (map.isEmpty()) { // Implicit nullcheck of map

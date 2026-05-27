@@ -30,6 +30,7 @@ import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
@@ -105,7 +106,7 @@ public abstract class AbstractSequentialList<E> extends AbstractList<E> {
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
     @Pure
-    public E get(@GuardSatisfied AbstractSequentialList<E> this, int index) {
+    public E get(@MaybeModifiable @GuardSatisfied AbstractSequentialList<E> this, int index) {
         try {
             return listIterator(index).next();
         } catch (NoSuchElementException exc) {
@@ -267,7 +268,7 @@ public abstract class AbstractSequentialList<E> extends AbstractList<E> {
      * @return an iterator over the elements in this list (in proper sequence)
      */
     @SideEffectFree
-    public @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty AbstractSequentialList<E> this) {
+    public @PolyGrowShrink @PolyModifiable @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty AbstractSequentialList<E> this) {
         return listIterator();
     }
 
@@ -281,5 +282,5 @@ public abstract class AbstractSequentialList<E> extends AbstractList<E> {
      *         sequence)
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
-    public abstract @PolyGrowShrink ListIterator<E> listIterator(@PolyGrowShrink AbstractSequentialList<E> this, int index);
+    public abstract @PolyGrowShrink @PolyModifiable ListIterator<E> listIterator(@PolyGrowShrink @PolyModifiable AbstractSequentialList<E> this, int index);
 }

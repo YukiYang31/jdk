@@ -29,6 +29,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
@@ -146,7 +147,7 @@ public interface Set<E> extends Collection<E> {
      * @return the number of elements in this set (its cardinality)
      */
     @Pure
-    @NonNegative int size(@GuardSatisfied Set<E> this);
+    @NonNegative int size(@MaybeModifiable @GuardSatisfied Set<E> this);
 
     /**
      * Returns {@code true} if this set contains no elements.
@@ -155,7 +156,7 @@ public interface Set<E> extends Collection<E> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = false, expression = "this")
-    boolean isEmpty(@GuardSatisfied Set<E> this);
+    boolean isEmpty(@MaybeModifiable @GuardSatisfied Set<E> this);
 
     /**
      * Returns {@code true} if this set contains the specified element.
@@ -174,7 +175,7 @@ public interface Set<E> extends Collection<E> {
      */
     @Pure
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    boolean contains(@GuardSatisfied Set<E> this, @GuardSatisfied @UnknownSignedness Object o);
+    boolean contains(@MaybeModifiable @GuardSatisfied Set<E> this, @GuardSatisfied @UnknownSignedness Object o);
 
     /**
      * Returns an iterator over the elements in this set.  The elements are
@@ -184,7 +185,7 @@ public interface Set<E> extends Collection<E> {
      * @return an iterator over the elements in this set
      */
     @SideEffectFree
-    @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@PolyGrowShrink @PolyNonEmpty Set<E> this);
+    @MaybeModifiable @PolyGrowShrink @PolyNonEmpty Iterator<E> iterator(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty Set<E> this);
 
     /**
      * Returns an array containing all of the elements in this set.
@@ -203,7 +204,7 @@ public interface Set<E> extends Collection<E> {
      * @return an array containing all the elements in this set
      */
     @SideEffectFree
-    @PolyNull @PolySigned Object[] toArray(Set<@PolyNull @PolySigned E> this);
+    @PolyNull @PolySigned Object[] toArray(@MaybeModifiable Set<@PolyNull @PolySigned E> this);
 
     /**
      * Returns an array containing all of the elements in this set; the
@@ -247,7 +248,8 @@ public interface Set<E> extends Collection<E> {
      *         set
      * @throws NullPointerException if the specified array is null
      */
-    <T> @Nullable T [] toArray(Set<E> this, @PolyNull T[] a);
+    @SideEffectFree
+    <T> @Nullable T [] toArray(@MaybeModifiable Set<E> this, @PolyNull T[] a);
 
 
     // Modification Operations
@@ -336,7 +338,7 @@ public interface Set<E> extends Collection<E> {
      * @see    #contains(Object)
      */
     @Pure
-    boolean containsAll(@GuardSatisfied Set<E> this, @GuardSatisfied Collection<? extends @UnknownSignedness Object> c);
+    boolean containsAll(@MaybeModifiable @GuardSatisfied Set<E> this, @GuardSatisfied Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Adds all of the elements in the specified collection to this set if
@@ -442,7 +444,7 @@ public interface Set<E> extends Collection<E> {
      * @return {@code true} if the specified object is equal to this set
      */
     @Pure
-    boolean equals(@GuardSatisfied Set<E> this, @GuardSatisfied @Nullable Object o);
+    boolean equals(@MaybeModifiable @GuardSatisfied Set<E> this, @GuardSatisfied @Nullable Object o);
 
     /**
      * Returns the hash code value for this set.  The hash code of a set is
@@ -458,7 +460,7 @@ public interface Set<E> extends Collection<E> {
      * @see Set#equals(Object)
      */
     @Pure
-    int hashCode(@GuardSatisfied Set<E> this);
+    int hashCode(@MaybeModifiable @GuardSatisfied Set<E> this);
 
     /**
      * Creates a {@code Spliterator} over the elements in this set.
@@ -486,7 +488,7 @@ public interface Set<E> extends Collection<E> {
     @Override
     @SideEffectFree
     @DoesNotUnrefineReceiver("modifiability")
-    default Spliterator<E> spliterator(Set<E> this) {
+    default Spliterator<E> spliterator(@MaybeModifiable Set<E> this) {
         return Spliterators.spliterator(this, Spliterator.DISTINCT);
     }
 
@@ -787,7 +789,7 @@ public interface Set<E> extends Collection<E> {
      */
     @SuppressWarnings("unchecked")
     @SideEffectFree
-    static <E extends Object> @Unmodifiable @PolyNonEmpty Set<E> copyOf(@PolyNonEmpty Collection<? extends E> coll) {
+    static <E extends Object> @Unmodifiable @PolyNonEmpty Set<E> copyOf(@MaybeModifiable @PolyNonEmpty Collection<? extends E> coll) {
         if (coll instanceof ImmutableCollections.AbstractImmutableSet) {
             return (Set<E>)coll;
         } else if (coll.isEmpty()) { // Implicit nullcheck of coll
