@@ -50,11 +50,10 @@ import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
-import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
-// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 
 import java.util.function.UnaryOperator;
 
@@ -306,9 +305,9 @@ public interface List<E> extends SequencedCollection<E> {
      *         prevents it from being added to this list
      */
     @ReleasesNoLocks
+    @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    @EnsuresNonEmpty("this")
     boolean add(@Growable @GuardSatisfied List<E> this, E e);
 
     /**
@@ -656,6 +655,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws IndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index >= size()})
      */
+    @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     E set(@Replaceable @GuardSatisfied List<E> this, @IndexFor({"this"}) int index, E element);
@@ -680,6 +680,7 @@ public interface List<E> extends SequencedCollection<E> {
      *         ({@code index < 0 || index > size()})
      */
     @ReleasesNoLocks
+    @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     void add(@Growable @GuardSatisfied List<E> this, @IndexOrHigh({"this"}) int index, E element);
@@ -867,6 +868,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
+    @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     default void addFirst(@Growable List<E> this, E e) {
@@ -883,6 +885,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
+    @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     default void addLast(@Growable List<E> this, E e) {
@@ -899,6 +902,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
+    @EnsuresNonEmpty("this")
     @Pure
     default E getFirst() {
         if (this.isEmpty()) {
@@ -918,6 +922,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
+    @EnsuresNonEmpty("this")
     @Pure
     default E getLast() {
         if (this.isEmpty()) {

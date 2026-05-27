@@ -28,6 +28,7 @@ package java.util;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
+import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
@@ -111,6 +112,7 @@ public interface SequencedCollection<E> extends Collection<E> {
      * @throws UnsupportedOperationException if this collection implementation
      *         does not support this operation
      */
+    @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     default void addFirst(@Growable SequencedCollection<E> this, E e) {
@@ -131,6 +133,7 @@ public interface SequencedCollection<E> extends Collection<E> {
      * @throws UnsupportedOperationException if this collection implementation
      *         does not support this operation
      */
+    @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     default void addLast(@Growable SequencedCollection<E> this, E e) {
@@ -149,6 +152,7 @@ public interface SequencedCollection<E> extends Collection<E> {
      * @return the retrieved element
      * @throws NoSuchElementException if this collection is empty
      */
+    @EnsuresNonEmpty("this")
     @Pure
     default E getFirst() {
         return this.iterator().next();
@@ -166,6 +170,7 @@ public interface SequencedCollection<E> extends Collection<E> {
      * @return the retrieved element
      * @throws NoSuchElementException if this collection is empty
      */
+    @EnsuresNonEmpty("this")
     @Pure
     default E getLast() {
         return this.reversed().iterator().next();

@@ -453,6 +453,7 @@ public class CopyOnWriteArrayList<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
+    @EnsuresNonEmpty("this")
     @Pure
     public E getFirst() {
         Object[] es = getArray();
@@ -468,6 +469,7 @@ public class CopyOnWriteArrayList<E>
      * @throws NoSuchElementException {@inheritDoc}
      * @since 21
      */
+    @EnsuresNonEmpty("this")
     @Pure
     public E getLast() {
         Object[] es = getArray();
@@ -483,6 +485,7 @@ public class CopyOnWriteArrayList<E>
      *
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
+    @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public E set(@Replaceable CopyOnWriteArrayList<E> this, int index, E element) {
@@ -527,6 +530,7 @@ public class CopyOnWriteArrayList<E>
      *
      * @throws IndexOutOfBoundsException {@inheritDoc}
      */
+    @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void add(@Growable CopyOnWriteArrayList<E> this, int index, E element) {
@@ -555,6 +559,7 @@ public class CopyOnWriteArrayList<E>
      *
      * @since 21
      */
+    @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void addFirst(@Growable CopyOnWriteArrayList<E> this, E e) {
@@ -566,6 +571,7 @@ public class CopyOnWriteArrayList<E>
      *
      * @since 21
      */
+    @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void addLast(@Growable CopyOnWriteArrayList<E> this, E e) {
@@ -1543,6 +1549,7 @@ public class CopyOnWriteArrayList<E>
             return !it.hasNext();
         }
 
+        @EnsuresNonEmpty("this")
         // @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public E set(int index, E element) {
@@ -1564,6 +1571,7 @@ public class CopyOnWriteArrayList<E>
             }
         }
 
+        @EnsuresNonEmpty("this")
         @Pure
         public E getFirst() {
             synchronized (lock) {
@@ -1574,6 +1582,7 @@ public class CopyOnWriteArrayList<E>
             }
         }
 
+        @EnsuresNonEmpty("this")
         @Pure
         public E getLast() {
             synchronized (lock) {
@@ -2200,6 +2209,7 @@ public class CopyOnWriteArrayList<E>
             }
         }
 
+        @EnsuresNonEmpty("this")
         @Pure
         public E getFirst() {
             synchronized (lock) {
@@ -2211,6 +2221,7 @@ public class CopyOnWriteArrayList<E>
             }
         }
 
+        @EnsuresNonEmpty("this")
         @Pure
         public E getLast() {
             synchronized (lock) {
@@ -2295,6 +2306,7 @@ public class CopyOnWriteArrayList<E>
             base.sort(Collections.reverseOrder(c));
         }
 
+        @EnsuresNonEmpty("this")
         // @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public E set(int index, E element) {

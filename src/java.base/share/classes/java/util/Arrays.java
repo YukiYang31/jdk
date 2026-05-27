@@ -46,10 +46,10 @@ import org.checkerframework.common.value.qual.MinLen;
 import org.checkerframework.common.value.qual.StaticallyExecutable;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
-// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
+// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 
 import jdk.internal.util.ArraysSupport;
 import jdk.internal.vm.annotation.ForceInline;
@@ -123,6 +123,7 @@ public final class Arrays {
      *
      * @param a the array to be sorted
      */
+    // @SideEffectsOnly("#1")
     public static void sort(int[] a) {
         DualPivotQuicksort.sort(a, 0, 0, a.length);
     }
@@ -146,6 +147,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
+    // @SideEffectsOnly("#1")
     public static void sort(int[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, 0, fromIndex, toIndex);
@@ -161,6 +163,7 @@ public final class Arrays {
      *
      * @param a the array to be sorted
      */
+    // @SideEffectsOnly("#1")
     public static void sort(long[] a) {
         DualPivotQuicksort.sort(a, 0, 0, a.length);
     }
@@ -184,6 +187,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
+    // @SideEffectsOnly("#1")
     public static void sort(long[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, 0, fromIndex, toIndex);
@@ -199,6 +203,7 @@ public final class Arrays {
      *
      * @param a the array to be sorted
      */
+    // @SideEffectsOnly("#1")
     public static void sort(short[] a) {
         DualPivotQuicksort.sort(a, 0, a.length);
     }
@@ -222,6 +227,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
+    // @SideEffectsOnly("#1")
     public static void sort(short[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, fromIndex, toIndex);
@@ -237,6 +243,7 @@ public final class Arrays {
      *
      * @param a the array to be sorted
      */
+    // @SideEffectsOnly("#1")
     public static void sort(char[] a) {
         DualPivotQuicksort.sort(a, 0, a.length);
     }
@@ -260,6 +267,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
+    // @SideEffectsOnly("#1")
     public static void sort(char[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, fromIndex, toIndex);
@@ -275,6 +283,7 @@ public final class Arrays {
      *
      * @param a the array to be sorted
      */
+    // @SideEffectsOnly("#1")
     public static void sort(byte[] a) {
         DualPivotQuicksort.sort(a, 0, a.length);
     }
@@ -298,6 +307,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
+    // @SideEffectsOnly("#1")
     public static void sort(byte[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, fromIndex, toIndex);
@@ -321,6 +331,7 @@ public final class Arrays {
      *
      * @param a the array to be sorted
      */
+    // @SideEffectsOnly("#1")
     public static void sort(float[] a) {
         DualPivotQuicksort.sort(a, 0, 0, a.length);
     }
@@ -352,6 +363,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
+    // @SideEffectsOnly("#1")
     public static void sort(float[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, 0, fromIndex, toIndex);
@@ -375,6 +387,7 @@ public final class Arrays {
      *
      * @param a the array to be sorted
      */
+    // @SideEffectsOnly("#1")
     public static void sort(double[] a) {
         DualPivotQuicksort.sort(a, 0, 0, a.length);
     }
@@ -406,6 +419,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException
      *     if {@code fromIndex < 0} or {@code toIndex > a.length}
      */
+    // @SideEffectsOnly("#1")
     public static void sort(double[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         DualPivotQuicksort.sort(a, 0, fromIndex, toIndex);
@@ -1062,6 +1076,7 @@ public final class Arrays {
      *         ordering of the array elements is found to violate the
      *         {@link Comparable} contract
      */
+    // @SideEffectsOnly("#1")
     public static void sort(@PolyInterned @PolyNull Object[] a) {
         if (LegacyMergeSort.userRequested)
             legacyMergeSort(a);
@@ -1127,6 +1142,7 @@ public final class Arrays {
      *         not <i>mutually comparable</i> (for example, strings and
      *         integers).
      */
+    // @SideEffectsOnly("#1")
     public static void sort(@PolyInterned @PolyNull Object[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex) {
         rangeCheck(a.length, fromIndex, toIndex);
         if (LegacyMergeSort.userRequested)
@@ -1251,6 +1267,7 @@ public final class Arrays {
      * @throws IllegalArgumentException (optional) if the comparator is
      *         found to violate the {@link Comparator} contract
      */
+    // @SideEffectsOnly("#1")
     public static <T> void sort(@PolyNull @UnknownSignedness T[] a, @Nullable Comparator<? super T> c) {
         if (c == null) {
             sort(a);
@@ -1323,6 +1340,7 @@ public final class Arrays {
      * @throws ArrayIndexOutOfBoundsException if {@code fromIndex < 0} or
      *         {@code toIndex > a.length}
      */
+    // @SideEffectsOnly("#1")
     public static <T> void sort(T[] a, @IndexOrHigh({"#1"}) int fromIndex, @IndexOrHigh({"#1"}) int toIndex,
                                 Comparator<? super T> c) {
         if (c == null) {
