@@ -214,7 +214,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
      * @throws NullPointerException {@inheritDoc}
      */
     @SuppressWarnings("unchecked")
-    public <T> @Nullable T [] toArray(@MaybeModifiable @PolyNull T [] a) {
+    public <T> @Nullable T [] toArray(@MaybeModifiable AbstractCollection<E> this, @PolyNull T [] a) {
         // Estimate size of array; be prepared to see more or fewer elements
         int size = size();
         T[] r = a.length >= size ? a :
