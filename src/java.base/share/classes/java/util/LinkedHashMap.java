@@ -28,7 +28,7 @@ package java.util;
 import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPolyShrinkable;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrinkable;
@@ -661,7 +661,7 @@ public class LinkedHashMap<K,V>
      * @return a set view of the keys contained in this map
      */
     @SideEffectFree
-    public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Set<K> keySet(@PolyShrinkable LinkedHashMap<K, V> this) {
+    public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<K> keySet(@PolyShrinkable LinkedHashMap<K, V> this) {
         return sequencedKeySet();
     }
 
@@ -828,7 +828,7 @@ public class LinkedHashMap<K,V>
      * @return a view of the values contained in this map
      */
     @SideEffectFree
-    public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Collection<V> values(@PolyShrinkable LinkedHashMap<K, V> this) {
+    public @IteratorPolyMod @PolyShrinkable @Ungrowable Collection<V> values(@PolyShrinkable LinkedHashMap<K, V> this) {
         return sequencedValues();
     }
 
@@ -949,7 +949,7 @@ public class LinkedHashMap<K,V>
      * @return a set view of the mappings contained in this map
      */
     @SideEffectFree
-    public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyModifiable @GuardSatisfied LinkedHashMap<K, V> this) {
+    public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyModifiable @GuardSatisfied LinkedHashMap<K, V> this) {
         return sequencedEntrySet();
     }
 
@@ -1268,17 +1268,17 @@ public class LinkedHashMap<K,V>
         }
 
         @SideEffectFree
-        public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Set<K> keySet(@PolyShrinkable ReversedLinkedHashMapView<K,V> this) {
+        public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<K> keySet(@PolyShrinkable ReversedLinkedHashMapView<K,V> this) {
             return base.sequencedKeySet().reversed();
         }
 
         @SideEffectFree
-        public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Collection<V> values(@PolyShrinkable ReversedLinkedHashMapView<K,V> this) {
+        public @IteratorPolyMod @PolyShrinkable @Ungrowable Collection<V> values(@PolyShrinkable ReversedLinkedHashMapView<K,V> this) {
             return base.sequencedValues().reversed();
         }
 
         @SideEffectFree
-        public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Set<Map.@PolyModifiable Entry<K, V>> entrySet(@PolyModifiable ReversedLinkedHashMapView<K,V> this) {
+        public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<Map.@PolyModifiable Entry<K, V>> entrySet(@PolyModifiable ReversedLinkedHashMapView<K,V> this) {
             return base.sequencedEntrySet().reversed();
         }
 

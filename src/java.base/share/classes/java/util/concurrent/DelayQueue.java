@@ -36,7 +36,7 @@
 package java.util.concurrent;
 
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPolyShrinkable;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
@@ -154,7 +154,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
     /**
      * Creates a new {@code DelayQueue} that is initially empty.
      */
-    public @Modifiable @IteratorPolyShrinkable DelayQueue() {}
+    public @Modifiable @IteratorPolyMod DelayQueue() {}
 
     /**
      * Creates a {@code DelayQueue} initially containing the elements of the
@@ -164,7 +164,7 @@ public class DelayQueue<E extends @NonNull Delayed> extends AbstractQueue<E>
      * @throws NullPointerException if the specified collection or any
      *         of its elements are null
      */
-    public @Modifiable @IteratorPolyShrinkable DelayQueue(Collection<? extends E> c) {
+    public @Modifiable @IteratorPolyMod DelayQueue(Collection<? extends E> c) {
         this.addAll(c);
     }
 

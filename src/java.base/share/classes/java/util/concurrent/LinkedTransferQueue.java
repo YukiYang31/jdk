@@ -39,7 +39,7 @@ import org.checkerframework.checker.index.qual.CanShrink;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPolyShrinkable;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
@@ -1183,7 +1183,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
     /**
      * Creates an initially empty {@code LinkedTransferQueue}.
      */
-    public @Modifiable @IteratorPolyShrinkable LinkedTransferQueue() {
+    public @Modifiable @IteratorPolyMod LinkedTransferQueue() {
         head = tail = new Node();
     }
 
@@ -1196,7 +1196,7 @@ public class LinkedTransferQueue<E> extends AbstractQueue<E>
      * @throws NullPointerException if the specified collection or any
      *         of its elements are null
      */
-    public @Modifiable @IteratorPolyShrinkable LinkedTransferQueue(Collection<? extends E> c) {
+    public @Modifiable @IteratorPolyMod LinkedTransferQueue(Collection<? extends E> c) {
         Node h = null, t = null;
         for (E e : c) {
             Node newNode = new Node(Objects.requireNonNull(e));
