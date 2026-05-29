@@ -26,7 +26,7 @@
 package java.util;
 
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -105,7 +105,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
      */
     final transient Enum<?>[] universe;
 
-    @Modifiable @IteratorPolyMod EnumSet(Class<E>elementType, Enum<?>[] universe) {
+    @Modifiable @IteratorPolyShrinkable EnumSet(Class<E>elementType, Enum<?>[] universe) {
         this.elementType = elementType;
         this.universe    = universe;
     }
@@ -119,7 +119,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
      * @return An empty enum set of the specified type.
      * @throws NullPointerException if {@code elementType} is null
      */
-    public static <E extends Enum<E>> @Modifiable @IteratorPolyMod EnumSet<E> noneOf(Class<E> elementType) {
+    public static <E extends Enum<E>> @Modifiable @IteratorPolyShrinkable EnumSet<E> noneOf(Class<E> elementType) {
         Enum<?>[] universe = getUniverse(elementType);
         if (universe == null)
             throw new ClassCastException(elementType + " not an enum");
@@ -140,7 +140,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
      * @return An enum set containing all the elements in the specified type.
      * @throws NullPointerException if {@code elementType} is null
      */
-    public static <E extends Enum<E>> @Modifiable @IteratorPolyMod EnumSet<E> allOf(Class<E> elementType) {
+    public static <E extends Enum<E>> @Modifiable @IteratorPolyShrinkable EnumSet<E> allOf(Class<E> elementType) {
         EnumSet<E> result = noneOf(elementType);
         result.addAll();
         return result;
@@ -163,7 +163,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
      * @throws NullPointerException if {@code s} is null
      */
     @SideEffectFree
-    public static <E extends Enum<E>> @Modifiable @IteratorPolyMod EnumSet<E> copyOf(EnumSet<E> s) {
+    public static <E extends Enum<E>> @Modifiable @IteratorPolyShrinkable EnumSet<E> copyOf(EnumSet<E> s) {
         return s.clone();
     }
 
@@ -182,7 +182,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
      * @throws NullPointerException if {@code c} is null
      */
     @SideEffectFree
-    public static <E extends Enum<E>> @Modifiable @IteratorPolyMod EnumSet<E> copyOf(Collection<E> c) {
+    public static <E extends Enum<E>> @Modifiable @IteratorPolyShrinkable EnumSet<E> copyOf(Collection<E> c) {
         if (c instanceof EnumSet) {
             return ((EnumSet<E>)c).clone();
         } else {
@@ -207,7 +207,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
      * @return The complement of the specified set in this set
      * @throws NullPointerException if {@code s} is null
      */
-    public static <E extends Enum<E>> @Modifiable @IteratorPolyMod EnumSet<E> complementOf(EnumSet<E> s) {
+    public static <E extends Enum<E>> @Modifiable @IteratorPolyShrinkable EnumSet<E> complementOf(EnumSet<E> s) {
         EnumSet<E> result = copyOf(s);
         result.complement();
         return result;
@@ -228,7 +228,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
      * @return an enum set initially containing the specified element
      */
     @SideEffectFree
-    public static <E extends Enum<E>> @Modifiable @IteratorPolyMod EnumSet<E> of(E e) {
+    public static <E extends Enum<E>> @Modifiable @IteratorPolyShrinkable EnumSet<E> of(E e) {
         EnumSet<E> result = noneOf(e.getDeclaringClass());
         result.add(e);
         return result;
@@ -250,7 +250,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
      * @return an enum set initially containing the specified elements
      */
     @SideEffectFree
-    public static <E extends Enum<E>> @Modifiable @IteratorPolyMod EnumSet<E> of(E e1, E e2) {
+    public static <E extends Enum<E>> @Modifiable @IteratorPolyShrinkable EnumSet<E> of(E e1, E e2) {
         EnumSet<E> result = noneOf(e1.getDeclaringClass());
         result.add(e1);
         result.add(e2);
@@ -274,7 +274,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
      * @return an enum set initially containing the specified elements
      */
     @SideEffectFree
-    public static <E extends Enum<E>> @Modifiable @IteratorPolyMod EnumSet<E> of(E e1, E e2, E e3) {
+    public static <E extends Enum<E>> @Modifiable @IteratorPolyShrinkable EnumSet<E> of(E e1, E e2, E e3) {
         EnumSet<E> result = noneOf(e1.getDeclaringClass());
         result.add(e1);
         result.add(e2);
@@ -300,7 +300,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
      * @return an enum set initially containing the specified elements
      */
     @SideEffectFree
-    public static <E extends Enum<E>> @Modifiable @IteratorPolyMod EnumSet<E> of(E e1, E e2, E e3, E e4) {
+    public static <E extends Enum<E>> @Modifiable @IteratorPolyShrinkable EnumSet<E> of(E e1, E e2, E e3, E e4) {
         EnumSet<E> result = noneOf(e1.getDeclaringClass());
         result.add(e1);
         result.add(e2);
@@ -327,7 +327,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
      * @throws NullPointerException if any parameters are null
      * @return an enum set initially containing the specified elements
      */
-    public static <E extends Enum<E>> @Modifiable @IteratorPolyMod EnumSet<E> of(E e1, E e2, E e3, E e4,
+    public static <E extends Enum<E>> @Modifiable @IteratorPolyShrinkable EnumSet<E> of(E e1, E e2, E e3, E e4,
                                                     E e5)
     {
         EnumSet<E> result = noneOf(e1.getDeclaringClass());
@@ -355,7 +355,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
      */
     @SafeVarargs
     @SideEffectFree
-    public static <E extends Enum<E>> @Modifiable @IteratorPolyMod EnumSet<E> of(E first, E... rest) {
+    public static <E extends Enum<E>> @Modifiable @IteratorPolyShrinkable EnumSet<E> of(E first, E... rest) {
         EnumSet<E> result = noneOf(first.getDeclaringClass());
         result.add(first);
         for (E e : rest)
@@ -377,7 +377,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
      * @return an enum set initially containing all of the elements in the
      *         range defined by the two specified endpoints
      */
-    public static <E extends Enum<E>> @Modifiable @IteratorPolyMod EnumSet<E> range(E from, E to) {
+    public static <E extends Enum<E>> @Modifiable @IteratorPolyShrinkable EnumSet<E> range(E from, E to) {
         if (from.compareTo(to) > 0)
             throw new IllegalArgumentException(from + " > " + to);
         EnumSet<E> result = noneOf(from.getDeclaringClass());
@@ -399,7 +399,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
      */
     @SuppressWarnings("unchecked")
     @SideEffectFree
-    public @Modifiable @IteratorPolyMod EnumSet<E> clone() {
+    public @Modifiable @IteratorPolyShrinkable EnumSet<E> clone() {
         try {
             return (EnumSet<E>) super.clone();
         } catch(CloneNotSupportedException e) {

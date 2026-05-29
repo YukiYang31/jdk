@@ -26,7 +26,7 @@
 package java.util;
 
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.dataflow.qual.Pure;
@@ -193,7 +193,7 @@ public interface SequencedCollection<E> extends Collection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default E removeFirst(@IteratorPolyMod @Shrinkable SequencedCollection<E> this) {
+    default E removeFirst(@IteratorPolyShrinkable @Shrinkable SequencedCollection<E> this) {
         var it = this.iterator();
         E e = it.next();
         it.remove();
@@ -217,7 +217,7 @@ public interface SequencedCollection<E> extends Collection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default E removeLast(@IteratorPolyMod @Shrinkable SequencedCollection<E> this) {
+    default E removeLast(@IteratorPolyShrinkable @Shrinkable SequencedCollection<E> this) {
         var it = this.reversed().iterator();
         E e = it.next();
         it.remove();

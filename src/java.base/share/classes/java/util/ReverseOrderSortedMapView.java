@@ -26,7 +26,7 @@
 package java.util;
 
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
@@ -115,7 +115,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
     }
 
     @SideEffectFree
-    public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<K> keySet(@PolyShrinkable ReverseOrderSortedMapView<K,V> this) {
+    public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Set<K> keySet(@PolyShrinkable ReverseOrderSortedMapView<K,V> this) {
         return new AbstractSet<>() {
             // inherit add(), which throws UOE
             @SideEffectFree
@@ -130,7 +130,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
     }
 
     @SideEffectFree
-    public @IteratorPolyMod @PolyShrinkable @Ungrowable Collection<V> values(@PolyShrinkable ReverseOrderSortedMapView<K,V> this) {
+    public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Collection<V> values(@PolyShrinkable ReverseOrderSortedMapView<K,V> this) {
         return new AbstractCollection<>() {
             // inherit add(), which throws UOE
             @SideEffectFree
@@ -145,7 +145,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
     }
 
     @SideEffectFree
-    public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<Map.@PolyModifiable Entry<K, V>> entrySet(@PolyModifiable ReverseOrderSortedMapView<K,V> this) {
+    public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Set<Map.@PolyModifiable Entry<K, V>> entrySet(@PolyModifiable ReverseOrderSortedMapView<K,V> this) {
         return new AbstractSet<>() {
             // inherit add(), which throws UOE
             @SideEffectFree
@@ -438,7 +438,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
         }
 
         @SideEffectFree
-        public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<Map.@PolyModifiable Entry<K, V>> entrySet(@PolyModifiable Submap this) {
+        public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Set<Map.@PolyModifiable Entry<K, V>> entrySet(@PolyModifiable Submap this) {
             return new AbstractSet<>() {
                 @SideEffectFree
                 public Iterator<Entry<K, V>> iterator() {

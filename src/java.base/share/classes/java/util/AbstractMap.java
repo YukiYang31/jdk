@@ -29,7 +29,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.lock.qual.ReleasesNoLocks;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
@@ -395,7 +395,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
      * method will not all return the same set.
      */
     @SideEffectFree
-    public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<@KeyFor({"this"}) K> keySet(@PolyShrinkable @GuardSatisfied AbstractMap<K, V> this) {
+    public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Set<@KeyFor({"this"}) K> keySet(@PolyShrinkable @GuardSatisfied AbstractMap<K, V> this) {
         Set<K> ks = keySet;
         if (ks == null) {
             ks = new AbstractSet<K>() {
@@ -469,7 +469,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
      * method will not all return the same collection.
      */
     @SideEffectFree
-    public @IteratorPolyMod @PolyShrinkable @Ungrowable Collection<V> values(@PolyShrinkable @GuardSatisfied AbstractMap<K, V> this) {
+    public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Collection<V> values(@PolyShrinkable @GuardSatisfied AbstractMap<K, V> this) {
         Collection<V> vals = values;
         if (vals == null) {
             vals = new AbstractCollection<V>() {
@@ -527,7 +527,7 @@ public abstract class AbstractMap<K,V> implements Map<K,V> {
     }
 
     @SideEffectFree
-    public abstract @IteratorPolyMod @PolyShrinkable @Ungrowable Set<@PolyModifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyModifiable @GuardSatisfied AbstractMap<K, V> this);
+    public abstract @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Set<@PolyModifiable Entry<@KeyFor({"this"}) K,V>> entrySet(@PolyModifiable @GuardSatisfied AbstractMap<K, V> this);
 
 
     // Comparison and hashing

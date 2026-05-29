@@ -29,7 +29,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.lock.qual.ReleasesNoLocks;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
@@ -404,7 +404,7 @@ public interface Map<K, V> {
      * @return a set view of the keys contained in this map
      */
     @SideEffectFree
-    @IteratorPolyMod @PolyShrinkable @Ungrowable @PolyNonEmpty Set<@KeyFor({"this"}) K> keySet(@PolyShrinkable @GuardSatisfied @PolyNonEmpty Map<K, V> this);
+    @IteratorPolyShrinkable @PolyShrinkable @Ungrowable @PolyNonEmpty Set<@KeyFor({"this"}) K> keySet(@PolyShrinkable @GuardSatisfied @PolyNonEmpty Map<K, V> this);
 
     /**
      * Returns a {@link Collection} view of the values contained in this map.
@@ -422,7 +422,7 @@ public interface Map<K, V> {
      * @return a collection view of the values contained in this map
      */
     @SideEffectFree
-    @IteratorPolyMod @PolyShrinkable @Ungrowable @PolyNonEmpty Collection<V> values(@PolyShrinkable @GuardSatisfied @PolyNonEmpty Map<K, V> this);
+    @IteratorPolyShrinkable @PolyShrinkable @Ungrowable @PolyNonEmpty Collection<V> values(@PolyShrinkable @GuardSatisfied @PolyNonEmpty Map<K, V> this);
 
     /**
      * Returns a {@link Set} view of the mappings contained in this map.
@@ -441,7 +441,7 @@ public interface Map<K, V> {
      * @return a set view of the mappings contained in this map
      */
     @SideEffectFree
-    @IteratorPolyMod @PolyShrinkable @Ungrowable @PolyNonEmpty Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K, V>> entrySet(@PolyModifiable @GuardSatisfied @PolyNonEmpty Map<K, V> this);
+    @IteratorPolyShrinkable @PolyShrinkable @Ungrowable @PolyNonEmpty Set<Map.@PolyModifiable Entry<@KeyFor({"this"}) K, V>> entrySet(@PolyModifiable @GuardSatisfied @PolyNonEmpty Map<K, V> this);
 
     /**
      * A map entry (key-value pair). The Entry may be unmodifiable, or the

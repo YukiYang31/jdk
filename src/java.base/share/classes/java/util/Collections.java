@@ -30,7 +30,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
@@ -178,7 +178,7 @@ public class Collections {
      */
     @SuppressWarnings("unchecked")
     // @SideEffectsOnly("#1")
-    public static <T extends Comparable<? super T>> void sort(@IteratorPolyMod @Replaceable List<T> list) {
+    public static <T extends Comparable<? super T>> void sort(@IteratorPolyShrinkable @Replaceable List<T> list) {
         list.sort(null);
     }
 
@@ -213,7 +213,7 @@ public class Collections {
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
     // @SideEffectsOnly("#1")
-    public static <T> void sort(@IteratorPolyMod @Replaceable List<T> list, @Nullable Comparator<? super T> c) {
+    public static <T> void sort(@IteratorPolyShrinkable @Replaceable List<T> list, @Nullable Comparator<? super T> c) {
         list.sort(c);
     }
 
@@ -420,7 +420,7 @@ public class Collections {
      * @see    List#reversed List.reversed
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public static void reverse(@IteratorPolyMod @Replaceable @GuardSatisfied List<?> list) {
+    public static void reverse(@IteratorPolyShrinkable @Replaceable @GuardSatisfied List<?> list) {
         int size = list.size();
         if (size < REVERSE_THRESHOLD || list instanceof RandomAccess) {
             for (int i=0, mid=size>>1, j=size-1; i<mid; i++, j--)
@@ -467,7 +467,7 @@ public class Collections {
      * @throws UnsupportedOperationException if the specified list or
      *         its list-iterator does not support the {@code set} operation.
      */
-    public static void shuffle(@IteratorPolyMod @Replaceable @GuardSatisfied List<?> list) {
+    public static void shuffle(@IteratorPolyShrinkable @Replaceable @GuardSatisfied List<?> list) {
         Random rnd = r;
         if (rnd == null)
             r = rnd = new Random(); // harmless race.
@@ -490,7 +490,7 @@ public class Collections {
      * @throws UnsupportedOperationException if the specified list or its
      *         list-iterator does not support the {@code set} operation.
      */
-    public static void shuffle(@IteratorPolyMod @Replaceable List<?> list, Random rnd) {
+    public static void shuffle(@IteratorPolyShrinkable @Replaceable List<?> list, Random rnd) {
         shuffle(list, (RandomGenerator) rnd);
     }
 
@@ -519,7 +519,7 @@ public class Collections {
      * @since 21
      */
     @SuppressWarnings({"rawtypes", "unchecked"})
-    public static void shuffle(@IteratorPolyMod @Replaceable @GuardSatisfied List<?> list, RandomGenerator rnd) {
+    public static void shuffle(@IteratorPolyShrinkable @Replaceable @GuardSatisfied List<?> list, RandomGenerator rnd) {
         int size = list.size();
         if (size < SHUFFLE_THRESHOLD || list instanceof RandomAccess) {
             for (int i=size; i>1; i--)
@@ -586,7 +586,7 @@ public class Collections {
      * @throws UnsupportedOperationException if the specified list or its
      *         list-iterator does not support the {@code set} operation.
      */
-    public static <T> void fill(@IteratorPolyMod @Replaceable @GuardSatisfied List<? super T> list, T obj) {
+    public static <T> void fill(@IteratorPolyShrinkable @Replaceable @GuardSatisfied List<? super T> list, T obj) {
         int size = list.size();
 
         if (size < FILL_THRESHOLD || list instanceof RandomAccess) {
@@ -619,7 +619,7 @@ public class Collections {
      * @throws UnsupportedOperationException if the destination list's
      *         list-iterator does not support the {@code set} operation.
      */
-    public static <T> void copy(@IteratorPolyMod @Replaceable List<? super T> dest, @MaybeModifiable List<? extends T> src) {
+    public static <T> void copy(@IteratorPolyShrinkable @Replaceable List<? super T> dest, @MaybeModifiable List<? extends T> src) {
         int srcSize = src.size();
         if (srcSize > dest.size())
             throw new IndexOutOfBoundsException("Source does not fit in dest");
@@ -847,7 +847,7 @@ public class Collections {
      *         its list-iterator does not support the {@code set} operation.
      * @since 1.4
      */
-    public static void rotate(@IteratorPolyMod @Replaceable @GuardSatisfied List<?> list, int distance) {
+    public static void rotate(@IteratorPolyShrinkable @Replaceable @GuardSatisfied List<?> list, int distance) {
         if (list instanceof RandomAccess || list.size() < ROTATE_THRESHOLD)
             rotate1(list, distance);
         else
@@ -913,7 +913,7 @@ public class Collections {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public static <T> boolean replaceAll(@IteratorPolyMod @Replaceable List<T> list, @Nullable T oldVal, T newVal) {
+    public static <T> boolean replaceAll(@IteratorPolyShrinkable @Replaceable List<T> list, @Nullable T oldVal, T newVal) {
         boolean result = false;
         int size = list.size();
         if (size < REPLACEALL_THRESHOLD || list instanceof RandomAccess) {
@@ -1094,7 +1094,7 @@ public class Collections {
      */
     @SuppressWarnings("unchecked")
     @SideEffectFree
-    public static <T> @IteratorPolyMod @Unmodifiable @PolyGrowShrink @PolyNonEmpty Collection<T> unmodifiableCollection(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty Collection<? extends T> c) {
+    public static <T> @IteratorPolyShrinkable @Unmodifiable @PolyGrowShrink @PolyNonEmpty Collection<T> unmodifiableCollection(@MaybeModifiable @PolyGrowShrink @PolyNonEmpty Collection<? extends T> c) {
         if (c.getClass() == UnmodifiableCollection.class) {
             return (Collection<T>) c;
         }
@@ -1340,7 +1340,7 @@ public class Collections {
      */
     @SuppressWarnings("unchecked")
     @SideEffectFree
-    public static <T> @IteratorPolyMod @Unmodifiable @PolyNonEmpty Set<T> unmodifiableSet(@MaybeModifiable @PolyNonEmpty Set<? extends T> s) {
+    public static <T> @IteratorPolyShrinkable @Unmodifiable @PolyNonEmpty Set<T> unmodifiableSet(@MaybeModifiable @PolyNonEmpty Set<? extends T> s) {
         // Not checking for subclasses because of heap pollution and information leakage.
         if (s.getClass() == UnmodifiableSet.class) {
             return (Set<T>) s;
@@ -3226,7 +3226,7 @@ public class Collections {
         private transient Set<Map.Entry<K,V>> entrySet;
         private transient Collection<V> values;
 
-        public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<K> keySet(@PolyShrinkable SynchronizedMap<K,V> this) {
+        public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Set<K> keySet(@PolyShrinkable SynchronizedMap<K,V> this) {
             synchronized (mutex) {
                 if (keySet==null)
                     keySet = new SynchronizedSet<>(m.keySet(), mutex);
@@ -3235,7 +3235,7 @@ public class Collections {
         }
 
         @SideEffectFree
-        public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<Map.@PolyModifiable Entry<K,V>> entrySet(@PolyModifiable SynchronizedMap<K,V> this) {
+        public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Set<Map.@PolyModifiable Entry<K,V>> entrySet(@PolyModifiable SynchronizedMap<K,V> this) {
             synchronized (mutex) {
                 if (entrySet==null)
                     entrySet = new SynchronizedSet<>(m.entrySet(), mutex);
@@ -3243,7 +3243,7 @@ public class Collections {
             }
         }
 
-        public @IteratorPolyMod @PolyShrinkable @Ungrowable Collection<V> values(@PolyShrinkable SynchronizedMap<K,V> this) {
+        public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Collection<V> values(@PolyShrinkable SynchronizedMap<K,V> this) {
             synchronized (mutex) {
                 if (values==null)
                     values = new SynchronizedCollection<>(m.values(), mutex);
@@ -3552,19 +3552,19 @@ public class Collections {
             }
         }
 
-        public @IteratorPolyMod @PolyShrinkable @Ungrowable NavigableSet<K> keySet(@PolyShrinkable SynchronizedNavigableMap<K,V> this) {
+        public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable NavigableSet<K> keySet(@PolyShrinkable SynchronizedNavigableMap<K,V> this) {
             return navigableKeySet();
         }
 
         @SideEffectFree
-        public @IteratorPolyMod @PolyShrinkable @Ungrowable NavigableSet<K> navigableKeySet(@PolyShrinkable SynchronizedNavigableMap<K,V> this) {
+        public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable NavigableSet<K> navigableKeySet(@PolyShrinkable SynchronizedNavigableMap<K,V> this) {
             synchronized (mutex) {
                 return new SynchronizedNavigableSet<>(nm.navigableKeySet(), mutex);
             }
         }
 
         @SideEffectFree
-        public @IteratorPolyMod @PolyShrinkable @Ungrowable NavigableSet<K> descendingKeySet(@PolyShrinkable SynchronizedNavigableMap<K,V> this) {
+        public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable NavigableSet<K> descendingKeySet(@PolyShrinkable SynchronizedNavigableMap<K,V> this) {
             synchronized (mutex) {
                 return new SynchronizedNavigableSet<>(nm.descendingKeySet(), mutex);
             }
@@ -4394,8 +4394,8 @@ public class Collections {
         // @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public void clear()                    { m.clear(); }
-        public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<K> keySet(@PolyShrinkable CheckedMap<K,V> this)                 { return m.keySet(); }
-        public @IteratorPolyMod @PolyShrinkable @Ungrowable Collection<V> values(@PolyShrinkable CheckedMap<K,V> this)          { return m.values(); }
+        public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Set<K> keySet(@PolyShrinkable CheckedMap<K,V> this)                 { return m.keySet(); }
+        public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Collection<V> values(@PolyShrinkable CheckedMap<K,V> this)          { return m.values(); }
         @Pure
         public boolean equals(Object o)        { return o == this || m.equals(o); }
         @Pure
@@ -4436,7 +4436,7 @@ public class Collections {
         private transient Set<Map.Entry<K,V>> entrySet;
 
         @SideEffectFree
-        public @IteratorPolyMod @PolyShrinkable @Ungrowable Set<Map.@PolyModifiable Entry<K,V>> entrySet(@PolyModifiable CheckedMap<K,V> this) {
+        public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable Set<Map.@PolyModifiable Entry<K,V>> entrySet(@PolyModifiable CheckedMap<K,V> this) {
             if (entrySet==null)
                 entrySet = new CheckedEntrySet<>(m.entrySet(), valueType);
             return entrySet;
@@ -4966,17 +4966,17 @@ public class Collections {
             return checkedNavigableMap(nm.descendingMap(), keyType, valueType);
         }
 
-        public @IteratorPolyMod @PolyShrinkable @Ungrowable NavigableSet<K> keySet(@PolyShrinkable CheckedNavigableMap<K,V> this) {
+        public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable NavigableSet<K> keySet(@PolyShrinkable CheckedNavigableMap<K,V> this) {
             return navigableKeySet();
         }
 
         @SideEffectFree
-        public @IteratorPolyMod @PolyShrinkable @Ungrowable NavigableSet<K> navigableKeySet(@PolyShrinkable CheckedNavigableMap<K,V> this) {
+        public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable NavigableSet<K> navigableKeySet(@PolyShrinkable CheckedNavigableMap<K,V> this) {
             return checkedNavigableSet(nm.navigableKeySet(), keyType);
         }
 
         @SideEffectFree
-        public @IteratorPolyMod @PolyShrinkable @Ungrowable NavigableSet<K> descendingKeySet(@PolyShrinkable CheckedNavigableMap<K,V> this) {
+        public @IteratorPolyShrinkable @PolyShrinkable @Ungrowable NavigableSet<K> descendingKeySet(@PolyShrinkable CheckedNavigableMap<K,V> this) {
             return checkedNavigableSet(nm.descendingKeySet(), keyType);
         }
 
@@ -6358,7 +6358,7 @@ public class Collections {
      * @see Enumeration
      * @see ArrayList
      */
-    public static <T> @Modifiable @IteratorPolyMod ArrayList<T> list(Enumeration<T> e) {
+    public static <T> @Modifiable @IteratorPolyShrinkable ArrayList<T> list(Enumeration<T> e) {
         ArrayList<T> l = new ArrayList<>();
         while (e.hasMoreElements())
             l.add(e.nextElement());

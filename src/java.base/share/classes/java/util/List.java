@@ -34,7 +34,7 @@ import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.lock.qual.ReleasesNoLocks;
 import org.checkerframework.checker.modifiability.qual.Growable;
-import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
@@ -494,7 +494,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @since 1.8
      */
     @DoesNotUnrefineReceiver("modifiability")
-    default void replaceAll(@IteratorPolyMod @Replaceable List<E> this, UnaryOperator<E> operator) {
+    default void replaceAll(@IteratorPolyShrinkable @Replaceable List<E> this, UnaryOperator<E> operator) {
         Objects.requireNonNull(operator);
         final ListIterator<E> li = this.listIterator();
         while (li.hasNext()) {
@@ -564,7 +564,7 @@ public interface List<E> extends SequencedCollection<E> {
     @SuppressWarnings({"unchecked", "rawtypes"})
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default void sort(@IteratorPolyMod @Replaceable List<E> this, Comparator<? super E> c) {
+    default void sort(@IteratorPolyShrinkable @Replaceable List<E> this, Comparator<? super E> c) {
         Object[] a = this.toArray();
         Arrays.sort(a, (Comparator) c);
         ListIterator<E> i = this.listIterator();

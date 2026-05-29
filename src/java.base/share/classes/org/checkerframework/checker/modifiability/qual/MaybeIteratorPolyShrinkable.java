@@ -9,11 +9,11 @@ import org.checkerframework.framework.qual.DefaultQualifierInHierarchy;
 import org.checkerframework.framework.qual.SubtypeOf;
 
 /**
- * For the annotated collection, The return type of {@code iterator()} is {@code @Unshrinkable}.
+ * For the annotated collection, the return type of {@code iterator()} is {@code @Unshrinkable}.
  *
  * <p>This is the default qualifier for unannotated types.
  *
- * @see IteratorPolyMod
+ * @see IteratorPolyShrinkable
  * @checker_framework.manual #modifiability-checker Modifiability Checker
  */
 @Documented
@@ -21,4 +21,4 @@ import org.checkerframework.framework.qual.SubtypeOf;
 @Target({ElementType.TYPE_USE, ElementType.TYPE_PARAMETER})
 @SubtypeOf({})
 @DefaultQualifierInHierarchy
-public @interface MaybeIteratorPolyMod {}
+public @interface MaybeIteratorPolyShrinkable {}
