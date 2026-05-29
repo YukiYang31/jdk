@@ -29,6 +29,7 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
@@ -415,7 +416,7 @@ public interface Set<E> extends Collection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean removeAll(@Shrinkable @GuardSatisfied Set<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean removeAll(@IteratorPolyMod @Shrinkable @GuardSatisfied Set<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Removes all of the elements from this set (optional operation).
