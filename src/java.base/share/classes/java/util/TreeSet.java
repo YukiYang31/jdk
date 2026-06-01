@@ -32,6 +32,7 @@ import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.SeqUngrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
@@ -538,7 +539,7 @@ public @SeqUngrowable class TreeSet<E> extends AbstractSet<E>
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @ThrowsUOE
-    public void addFirst(E e) {
+    public void addFirst(@SeqGrowable TreeSet<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 
@@ -554,7 +555,7 @@ public @SeqUngrowable class TreeSet<E> extends AbstractSet<E>
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @ThrowsUOE
-    public void addLast(E e) {
+    public void addLast(@SeqGrowable TreeSet<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 

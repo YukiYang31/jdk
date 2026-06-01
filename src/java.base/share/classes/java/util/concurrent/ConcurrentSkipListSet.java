@@ -41,6 +41,7 @@ import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.SeqUngrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
@@ -467,7 +468,7 @@ public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull Object>
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void addFirst(E e) {
+    public void addFirst(@SeqGrowable ConcurrentSkipListSet<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 
@@ -483,7 +484,7 @@ public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull Object>
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void addLast(E e) {
+    public void addLast(@SeqGrowable ConcurrentSkipListSet<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 
