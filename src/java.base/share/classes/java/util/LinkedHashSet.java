@@ -29,6 +29,7 @@ import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
@@ -236,7 +237,7 @@ public class LinkedHashSet<E>
      * @throws IllegalArgumentException if numElements is negative
      * @since 19
      */
-    public static <T> LinkedHashSet<T> newLinkedHashSet(int numElements) {
+    public static <T> @Modifiable LinkedHashSet<T> newLinkedHashSet(int numElements) {
         if (numElements < 0) {
             throw new IllegalArgumentException("Negative number of elements: " + numElements);
         }
@@ -260,7 +261,7 @@ public class LinkedHashSet<E>
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void addFirst(@Growable LinkedHashSet<E> this, E e) {
+    public void addFirst(@SeqGrowable LinkedHashSet<E> this, E e) {
         map().putFirst(e, PRESENT);
     }
 
@@ -275,7 +276,7 @@ public class LinkedHashSet<E>
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void addLast(@Growable LinkedHashSet<E> this, E e) {
+    public void addLast(@SeqGrowable LinkedHashSet<E> this, E e) {
         map().putLast(e, PRESENT);
     }
 
@@ -345,8 +346,8 @@ public class LinkedHashSet<E>
             @SideEffectFree
             public Iterator<E> iterator()      { return map().sequencedKeySet().reversed().iterator(); }
             public boolean add(@Growable ReverseLinkedHashSetView this, E e)            { return LinkedHashSet.this.add(e); }
-            public void addFirst(@Growable ReverseLinkedHashSetView this, E e)          { LinkedHashSet.this.addLast(e); }
-            public void addLast(@Growable ReverseLinkedHashSetView this, E e)           { LinkedHashSet.this.addFirst(e); }
+            public void addFirst(@SeqGrowable ReverseLinkedHashSetView this, E e)       { LinkedHashSet.this.addLast(e); }
+            public void addLast(@SeqGrowable ReverseLinkedHashSetView this, E e)        { LinkedHashSet.this.addFirst(e); }
             @Pure
             public E getFirst()                { return LinkedHashSet.this.getLast(); }
             @Pure

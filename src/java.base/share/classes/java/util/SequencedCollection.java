@@ -25,8 +25,8 @@
 
 package java.util;
 
-import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.dataflow.qual.Pure;
@@ -115,7 +115,7 @@ public interface SequencedCollection<E> extends Collection<E> {
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default void addFirst(@Growable SequencedCollection<E> this, E e) {
+    default void addFirst(@SeqGrowable SequencedCollection<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 
@@ -136,7 +136,7 @@ public interface SequencedCollection<E> extends Collection<E> {
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default void addLast(@Growable SequencedCollection<E> this, E e) {
+    default void addLast(@SeqGrowable SequencedCollection<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 

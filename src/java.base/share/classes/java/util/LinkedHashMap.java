@@ -33,6 +33,7 @@ import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.SeqUngrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -728,6 +729,7 @@ public class LinkedHashMap<K,V>
         return a;
     }
 
+    @SeqUngrowable
     final class LinkedKeySet extends AbstractSet<K> implements SequencedSet<K> {
         final boolean reversed;
         LinkedKeySet(boolean reversed)          { this.reversed = reversed; }
@@ -854,6 +856,7 @@ public class LinkedHashMap<K,V>
         }
     }
 
+    @SeqUngrowable
     final class LinkedValues extends AbstractCollection<V> implements SequencedCollection<V> {
         final boolean reversed;
         LinkedValues(boolean reversed)          { this.reversed = reversed; }
@@ -975,6 +978,7 @@ public class LinkedHashMap<K,V>
         }
     }
 
+    @SeqUngrowable
     final class LinkedEntrySet extends AbstractSet<Map.Entry<K,V>>
         implements SequencedSet<Map.Entry<K,V>> {
         final boolean reversed;

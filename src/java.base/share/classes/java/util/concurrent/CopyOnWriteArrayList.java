@@ -41,6 +41,7 @@ import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
@@ -562,7 +563,7 @@ public class CopyOnWriteArrayList<E>
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void addFirst(@Growable CopyOnWriteArrayList<E> this, E e) {
+    public void addFirst(@SeqGrowable CopyOnWriteArrayList<E> this, E e) {
         add(0, e);
     }
 
@@ -574,7 +575,7 @@ public class CopyOnWriteArrayList<E>
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void addLast(@Growable CopyOnWriteArrayList<E> this, E e) {
+    public void addLast(@SeqGrowable CopyOnWriteArrayList<E> this, E e) {
         synchronized (lock) {
             add(getArray().length, e);
         }
@@ -1628,13 +1629,13 @@ public class CopyOnWriteArrayList<E>
 
         // @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
-        public void addFirst(E e) {
+        public void addFirst(@SeqGrowable COWSubList this, E e) {
             add(0, e);
         }
 
         // @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
-        public void addLast(E e) {
+        public void addLast(@SeqGrowable COWSubList this, E e) {
             synchronized (lock) {
                 add(size, e);
             }
@@ -2176,13 +2177,13 @@ public class CopyOnWriteArrayList<E>
 
         // @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
-        public void addFirst(E e) {
+        public void addFirst(@SeqGrowable Reversed<E> this, E e) {
             base.add(e);
         }
 
         // @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
-        public void addLast(E e) {
+        public void addLast(@SeqGrowable Reversed<E> this, E e) {
             base.add(0, e);
         }
 

@@ -42,6 +42,7 @@ import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -341,7 +342,7 @@ public class LinkedBlockingDeque<E extends Object>
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void addFirst(@Growable LinkedBlockingDeque<E> this, E e) {
+    public void addFirst(@SeqGrowable LinkedBlockingDeque<E> this, E e) {
         if (!offerFirst(e))
             throw new IllegalStateException("Deque full");
     }
@@ -353,7 +354,7 @@ public class LinkedBlockingDeque<E extends Object>
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void addLast(@Growable LinkedBlockingDeque<E> this, E e) {
+    public void addLast(@SeqGrowable LinkedBlockingDeque<E> this, E e) {
         if (!offerLast(e))
             throw new IllegalStateException("Deque full");
     }
@@ -363,7 +364,7 @@ public class LinkedBlockingDeque<E extends Object>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean offerFirst(@Growable LinkedBlockingDeque<E> this, E e) {
+    public boolean offerFirst(@SeqGrowable LinkedBlockingDeque<E> this, E e) {
         if (e == null) throw new NullPointerException();
         Node<E> node = new Node<E>(e);
         final ReentrantLock lock = this.lock;
@@ -380,7 +381,7 @@ public class LinkedBlockingDeque<E extends Object>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean offerLast(@Growable LinkedBlockingDeque<E> this, E e) {
+    public boolean offerLast(@SeqGrowable LinkedBlockingDeque<E> this, E e) {
         if (e == null) throw new NullPointerException();
         Node<E> node = new Node<E>(e);
         final ReentrantLock lock = this.lock;
@@ -398,7 +399,7 @@ public class LinkedBlockingDeque<E extends Object>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void putFirst(@Growable LinkedBlockingDeque<E> this, E e) throws InterruptedException {
+    public void putFirst(@SeqGrowable LinkedBlockingDeque<E> this, E e) throws InterruptedException {
         if (e == null) throw new NullPointerException();
         Node<E> node = new Node<E>(e);
         final ReentrantLock lock = this.lock;
@@ -417,7 +418,7 @@ public class LinkedBlockingDeque<E extends Object>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void putLast(@Growable LinkedBlockingDeque<E> this, E e) throws InterruptedException {
+    public void putLast(@SeqGrowable LinkedBlockingDeque<E> this, E e) throws InterruptedException {
         if (e == null) throw new NullPointerException();
         Node<E> node = new Node<E>(e);
         final ReentrantLock lock = this.lock;
@@ -436,7 +437,7 @@ public class LinkedBlockingDeque<E extends Object>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean offerFirst(@Growable LinkedBlockingDeque<E> this, E e, long timeout, TimeUnit unit)        throws InterruptedException {
+    public boolean offerFirst(@SeqGrowable LinkedBlockingDeque<E> this, E e, long timeout, TimeUnit unit)        throws InterruptedException {
         if (e == null) throw new NullPointerException();
         Node<E> node = new Node<E>(e);
         long nanos = unit.toNanos(timeout);
@@ -460,7 +461,7 @@ public class LinkedBlockingDeque<E extends Object>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean offerLast(@Growable LinkedBlockingDeque<E> this, E e, long timeout, TimeUnit unit)        throws InterruptedException {
+    public boolean offerLast(@SeqGrowable LinkedBlockingDeque<E> this, E e, long timeout, TimeUnit unit)        throws InterruptedException {
         if (e == null) throw new NullPointerException();
         Node<E> node = new Node<E>(e);
         long nanos = unit.toNanos(timeout);
@@ -846,7 +847,7 @@ public class LinkedBlockingDeque<E extends Object>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void push(@Growable LinkedBlockingDeque<E> this, E e) {
+    public void push(@SeqGrowable LinkedBlockingDeque<E> this, E e) {
         addFirst(e);
     }
 

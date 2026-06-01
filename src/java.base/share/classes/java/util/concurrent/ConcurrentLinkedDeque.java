@@ -42,6 +42,7 @@ import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -851,7 +852,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void addFirst(@Growable ConcurrentLinkedDeque<E> this, E e) {
+    public void addFirst(@SeqGrowable ConcurrentLinkedDeque<E> this, E e) {
         linkFirst(e);
     }
 
@@ -867,7 +868,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void addLast(@Growable ConcurrentLinkedDeque<E> this, E e) {
+    public void addLast(@SeqGrowable ConcurrentLinkedDeque<E> this, E e) {
         linkLast(e);
     }
 
@@ -880,7 +881,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean offerFirst(@Growable ConcurrentLinkedDeque<E> this, E e) {
+    public boolean offerFirst(@SeqGrowable ConcurrentLinkedDeque<E> this, E e) {
         linkFirst(e);
         return true;
     }
@@ -896,7 +897,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean offerLast(@Growable ConcurrentLinkedDeque<E> this, E e) {
+    public boolean offerLast(@SeqGrowable ConcurrentLinkedDeque<E> this, E e) {
         linkLast(e);
         return true;
     }
@@ -1073,7 +1074,7 @@ public class ConcurrentLinkedDeque<E extends @NonNull Object>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void push(@Growable ConcurrentLinkedDeque<E> this, E e)     { addFirst(e); }
+    public void push(@SeqGrowable ConcurrentLinkedDeque<E> this, E e)  { addFirst(e); }
     /**
      * Removes the first occurrence of the specified element from this deque.
      * If the deque does not contain the element, it is unchanged.

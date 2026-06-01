@@ -36,6 +36,7 @@ import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -341,7 +342,7 @@ public class LinkedList<E>
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void addFirst(@Growable @GuardSatisfied LinkedList<E> this, E e) {
+    public void addFirst(@SeqGrowable @GuardSatisfied LinkedList<E> this, E e) {
         linkFirst(e);
     }
 
@@ -355,7 +356,7 @@ public class LinkedList<E>
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void addLast(@Growable @GuardSatisfied LinkedList<E> this, E e) {
+    public void addLast(@SeqGrowable @GuardSatisfied LinkedList<E> this, E e) {
         linkLast(e);
     }
 
@@ -798,7 +799,7 @@ public class LinkedList<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean offerFirst(@Growable LinkedList<E> this, E e) {
+    public boolean offerFirst(@SeqGrowable LinkedList<E> this, E e) {
         addFirst(e);
         return true;
     }
@@ -812,7 +813,7 @@ public class LinkedList<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean offerLast(@Growable LinkedList<E> this, E e) {
+    public boolean offerLast(@SeqGrowable LinkedList<E> this, E e) {
         addLast(e);
         return true;
     }
@@ -886,7 +887,7 @@ public class LinkedList<E>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void push(@Growable @GuardSatisfied LinkedList<E> this, E e) {
+    public void push(@SeqGrowable @GuardSatisfied LinkedList<E> this, E e) {
         addFirst(e);
     }
 
@@ -1554,7 +1555,7 @@ public class LinkedList<E>
 
         // @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
-        public void push(E e) {
+        public void push(@SeqGrowable ReverseOrderLinkedListView<E> this, E e) {
             rdeque.push(e);
         }
 
@@ -1582,13 +1583,13 @@ public class LinkedList<E>
 
         // @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
-        public boolean offerLast(E e) {
+        public boolean offerLast(@SeqGrowable ReverseOrderLinkedListView<E> this, E e) {
             return rdeque.offerLast(e);
         }
 
         // @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
-        public boolean offerFirst(E e) {
+        public boolean offerFirst(@SeqGrowable ReverseOrderLinkedListView<E> this, E e) {
             return rdeque.offerFirst(e);
         }
 
@@ -1698,13 +1699,13 @@ public class LinkedList<E>
 
         // @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
-        public void addLast(E e) {
+        public void addLast(@SeqGrowable ReverseOrderLinkedListView<E> this, E e) {
             rdeque.addLast(e);
         }
 
         // @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
-        public void addFirst(E e) {
+        public void addFirst(@SeqGrowable ReverseOrderLinkedListView<E> this, E e) {
             rdeque.addFirst(e);
         }
 

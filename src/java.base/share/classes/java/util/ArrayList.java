@@ -35,6 +35,7 @@ import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -593,7 +594,7 @@ public class ArrayList<E> extends AbstractList<E>
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void addFirst(@Growable ArrayList<E> this, E element) {
+    public void addFirst(@SeqGrowable ArrayList<E> this, E element) {
         add(0, element);
     }
 
@@ -605,7 +606,7 @@ public class ArrayList<E> extends AbstractList<E>
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void addLast(@Growable ArrayList<E> this, E element) {
+    public void addLast(@SeqGrowable ArrayList<E> this, E element) {
         add(element);
     }
 

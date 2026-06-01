@@ -39,8 +39,9 @@ import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
-import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.SeqUngrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
@@ -114,7 +115,7 @@ import java.util.Spliterator;
  * @since 1.6
  */
 @AnnotatedFor({"nullness", "modifiability"})
-public class ConcurrentSkipListSet<E extends @NonNull Object>
+public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull Object>
     extends AbstractSet<E>
     implements NavigableSet<E>, Cloneable, java.io.Serializable {
 
@@ -132,7 +133,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * Constructs a new, empty set that orders its elements according to
      * their {@linkplain Comparable natural ordering}.
      */
-    public @Modifiable @IteratorPolyMod ConcurrentSkipListSet() {
+    public @Growable @Shrinkable @Replaceable @SeqUngrowable @IteratorPolyMod ConcurrentSkipListSet() {
         m = new ConcurrentSkipListMap<E,Object>();
     }
 
@@ -144,7 +145,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      *        If {@code null}, the {@linkplain Comparable natural
      *        ordering} of the elements will be used.
      */
-    public @Modifiable @IteratorPolyMod ConcurrentSkipListSet(@Nullable Comparator<? super E> comparator) {
+    public @Growable @Shrinkable @Replaceable @SeqUngrowable @IteratorPolyMod ConcurrentSkipListSet(@Nullable Comparator<? super E> comparator) {
         m = new ConcurrentSkipListMap<E,Object>(comparator);
     }
 
@@ -159,7 +160,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws NullPointerException if the specified collection or any
      *         of its elements are null
      */
-    public @Modifiable @IteratorPolyMod ConcurrentSkipListSet(Collection<? extends E> c) {
+    public @Growable @Shrinkable @Replaceable @SeqUngrowable @IteratorPolyMod ConcurrentSkipListSet(Collection<? extends E> c) {
         m = new ConcurrentSkipListMap<E,Object>();
         addAll(c);
     }
@@ -172,7 +173,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws NullPointerException if the specified sorted set or any
      *         of its elements are null
      */
-    public @Modifiable @IteratorPolyMod ConcurrentSkipListSet(SortedSet<E> s) {
+    public @Growable @Shrinkable @Replaceable @SeqUngrowable @IteratorPolyMod ConcurrentSkipListSet(SortedSet<E> s) {
         m = new ConcurrentSkipListMap<E,Object>(s.comparator());
         addAll(s);
     }
@@ -180,7 +181,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
     /**
      * For use by submaps
      */
-    @Modifiable @IteratorPolyMod ConcurrentSkipListSet(ConcurrentNavigableMap<E,Object> m) {
+    @Growable @Shrinkable @Replaceable @SeqUngrowable @IteratorPolyMod ConcurrentSkipListSet(ConcurrentNavigableMap<E,Object> m) {
         this.m = m;
     }
 
@@ -191,7 +192,7 @@ public class ConcurrentSkipListSet<E extends @NonNull Object>
      * @return a shallow copy of this set
      */
     @SideEffectFree
-    public @Modifiable @IteratorPolyMod ConcurrentSkipListSet<E> clone() {
+    public @Growable @Shrinkable @Replaceable @SeqUngrowable @IteratorPolyMod ConcurrentSkipListSet<E> clone() {
         try {
             @SuppressWarnings("unchecked")
             ConcurrentSkipListSet<E> clone =

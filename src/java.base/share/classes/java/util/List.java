@@ -39,6 +39,7 @@ import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
@@ -873,7 +874,7 @@ public interface List<E> extends SequencedCollection<E> {
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default void addFirst(@Growable List<E> this, E e) {
+    default void addFirst(@SeqGrowable List<E> this, E e) {
         this.add(0, e);
     }
 
@@ -890,7 +891,7 @@ public interface List<E> extends SequencedCollection<E> {
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default void addLast(@Growable List<E> this, E e) {
+    default void addLast(@SeqGrowable List<E> this, E e) {
         this.add(e);
     }
 

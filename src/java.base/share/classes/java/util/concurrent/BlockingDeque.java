@@ -41,6 +41,7 @@ import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -239,7 +240,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    void addFirst(@Growable BlockingDeque<E> this, E e);
+    void addFirst(@SeqGrowable BlockingDeque<E> this, E e);
 
     /**
      * Inserts the specified element at the end of this deque if it is
@@ -257,7 +258,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    void addLast(@Growable BlockingDeque<E> this, E e);
+    void addLast(@SeqGrowable BlockingDeque<E> this, E e);
 
     /**
      * Inserts the specified element at the front of this deque if it is
@@ -275,7 +276,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean offerFirst(@Growable BlockingDeque<E> this, E e);
+    boolean offerFirst(@SeqGrowable BlockingDeque<E> this, E e);
 
     /**
      * Inserts the specified element at the end of this deque if it is
@@ -293,7 +294,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean offerLast(@Growable BlockingDeque<E> this, E e);
+    boolean offerLast(@SeqGrowable BlockingDeque<E> this, E e);
 
     /**
      * Inserts the specified element at the front of this deque,
@@ -309,7 +310,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    void putFirst(@Growable BlockingDeque<E> this, E e) throws InterruptedException;
+    void putFirst(@SeqGrowable BlockingDeque<E> this, E e) throws InterruptedException;
 
     /**
      * Inserts the specified element at the end of this deque,
@@ -325,7 +326,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    void putLast(@Growable BlockingDeque<E> this, E e) throws InterruptedException;
+    void putLast(@SeqGrowable BlockingDeque<E> this, E e) throws InterruptedException;
 
     /**
      * Inserts the specified element at the front of this deque,
@@ -348,7 +349,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean offerFirst(@Growable BlockingDeque<E> this, E e, long timeout, TimeUnit unit)
+    boolean offerFirst(@SeqGrowable BlockingDeque<E> this, E e, long timeout, TimeUnit unit)
         throws InterruptedException;
 
     /**
@@ -372,7 +373,7 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean offerLast(@Growable BlockingDeque<E> this, E e, long timeout, TimeUnit unit)
+    boolean offerLast(@SeqGrowable BlockingDeque<E> this, E e, long timeout, TimeUnit unit)
         throws InterruptedException;
 
     /**
@@ -722,5 +723,5 @@ public interface BlockingDeque<E extends @NonNull Object> extends BlockingQueue<
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    void push(@Growable BlockingDeque<E> this, E e);
+    void push(@SeqGrowable BlockingDeque<E> this, E e);
 }

@@ -27,6 +27,8 @@ package java.util;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
+import org.checkerframework.checker.modifiability.qual.SeqUngrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
@@ -120,7 +122,7 @@ import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 @CFComment({"lock/nullness: Subclasses of this interface/class may opt to prohibit null elements"})
 @AnnotatedFor({"lock", "nullness"})
-public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
+public @SeqUngrowable interface SortedSet<E> extends Set<E>, SequencedSet<E> {
     /**
      * Returns the comparator used to order the elements in this set,
      * or {@code null} if this set uses the {@linkplain Comparable
@@ -302,7 +304,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @ThrowsUOE
-    default void addFirst(E e) {
+    default void addFirst(@SeqGrowable SortedSet<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 
@@ -321,7 +323,7 @@ public interface SortedSet<E> extends Set<E>, SequencedSet<E> {
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @ThrowsUOE
-    default void addLast(E e) {
+    default void addLast(@SeqGrowable SortedSet<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 
