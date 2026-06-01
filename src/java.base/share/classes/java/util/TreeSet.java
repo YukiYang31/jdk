@@ -133,7 +133,7 @@ public @SeqUngrowable class TreeSet<E> extends AbstractSet<E>
     /**
      * Constructs a set backed by the specified navigable map.
      */
-    @Modifiable @IteratorPolyMod TreeSet(NavigableMap<E,Object> m) {
+    @Growable @Shrinkable @Replaceable @SeqUngrowable @IteratorPolyMod TreeSet(NavigableMap<E,Object> m) {
         this.m = m;
     }
 
