@@ -25,10 +25,9 @@
 
 package java.util;
 
-import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrinkable;
-import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.dataflow.qual.Pure;
@@ -255,7 +254,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default V putFirst(@Growable @Replaceable SequencedMap<K,V> this, K k, V v) {
+    default V putFirst(@SeqGrowable SequencedMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }
 
@@ -276,7 +275,7 @@ public interface SequencedMap<K, V> extends Map<K, V> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    default V putLast(@Growable @Replaceable SequencedMap<K,V> this, K k, V v) {
+    default V putLast(@SeqGrowable SequencedMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }
 

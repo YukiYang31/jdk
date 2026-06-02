@@ -30,6 +30,7 @@ import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.dataflow.qual.Pure;
@@ -189,11 +190,11 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
         return base.pollFirstEntry();
     }
 
-    public V putFirst(@Growable @Replaceable ReverseOrderSortedMapView<K,V> this, K k, V v) {
+    public V putFirst(@SeqGrowable ReverseOrderSortedMapView<K,V> this, K k, V v) {
         return base.putLast(k, v);
     }
 
-    public V putLast(@Growable @Replaceable ReverseOrderSortedMapView<K,V> this, K k, V v) {
+    public V putLast(@SeqGrowable ReverseOrderSortedMapView<K,V> this, K k, V v) {
         return base.putFirst(k, v);
     }
 

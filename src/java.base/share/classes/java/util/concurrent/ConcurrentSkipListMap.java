@@ -38,10 +38,11 @@ package java.util.concurrent;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
-import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
+import org.checkerframework.checker.modifiability.qual.SeqUngrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
@@ -134,7 +135,7 @@ import java.util.concurrent.atomic.LongAdder;
  * @since 1.6
  */
 @AnnotatedFor({"nullness", "modifiability"})
-public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
+public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
     implements ConcurrentNavigableMap<K,V>, Cloneable, Serializable {
     /*
      * This class implements a tree-like two-dimensionally linked skip
@@ -1094,7 +1095,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * Constructs a new, empty map, sorted according to the
      * {@linkplain Comparable natural ordering} of the keys.
      */
-    public @Modifiable ConcurrentSkipListMap() {
+    public @Growable @Shrinkable @Replaceable @SeqUngrowable ConcurrentSkipListMap() {
         this.comparator = null;
     }
 
@@ -1106,7 +1107,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      *        If {@code null}, the {@linkplain Comparable natural
      *        ordering} of the keys will be used.
      */
-    public @Modifiable ConcurrentSkipListMap(Comparator<? super K> comparator) {
+    public @Growable @Shrinkable @Replaceable @SeqUngrowable ConcurrentSkipListMap(Comparator<? super K> comparator) {
         this.comparator = comparator;
     }
 
@@ -1121,7 +1122,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * @throws NullPointerException if the specified map or any of its keys
      *         or values are null
      */
-    public @Modifiable ConcurrentSkipListMap(Map<? extends K, ? extends V> m) {
+    public @Growable @Shrinkable @Replaceable @SeqUngrowable ConcurrentSkipListMap(Map<? extends K, ? extends V> m) {
         this.comparator = null;
         putAll(m);
     }
@@ -1135,7 +1136,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * @throws NullPointerException if the specified sorted map or any of
      *         its keys or values are null
      */
-    public @Modifiable ConcurrentSkipListMap(SortedMap<K, ? extends V> m) {
+    public @Growable @Shrinkable @Replaceable @SeqUngrowable ConcurrentSkipListMap(SortedMap<K, ? extends V> m) {
         this.comparator = m.comparator();
         buildFromSorted(m); // initializes transients
     }
@@ -1147,7 +1148,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * @return a shallow copy of this map
      */
     @SideEffectFree
-    public @Modifiable ConcurrentSkipListMap<K,V> clone() {
+    public @Growable @Shrinkable @Replaceable @SeqUngrowable ConcurrentSkipListMap<K,V> clone() {
         try {
             @SuppressWarnings("unchecked")
             ConcurrentSkipListMap<K,V> clone =
@@ -1551,7 +1552,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * @since 1.8
      */
     @DoesNotUnrefineReceiver("modifiability")
-    public @PolyNull V compute(@Modifiable ConcurrentSkipListMap<K,V> this, K key,
+    public @PolyNull V compute(@Growable @Shrinkable @Replaceable ConcurrentSkipListMap<K,V> this, K key,
                      BiFunction<? super K, ? super V, ? extends @PolyNull V> remappingFunction) {
         if (key == null || remappingFunction == null)
             throw new NullPointerException();
@@ -1591,7 +1592,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * @since 1.8
      */
     @DoesNotUnrefineReceiver("modifiability")
-    public @PolyNull V merge(@Modifiable ConcurrentSkipListMap<K,V> this, K key, @NonNull V value,
+    public @PolyNull V merge(@Growable @Shrinkable @Replaceable ConcurrentSkipListMap<K,V> this, K key, @NonNull V value,
                    BiFunction<? super V, ? super V, ? extends @PolyNull V> remappingFunction) {
         if (key == null || value == null || remappingFunction == null)
             throw new NullPointerException();
@@ -1943,7 +1944,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @ThrowsUOE
-     public V putFirst(K k, V v) {
+     public V putFirst(@SeqGrowable ConcurrentSkipListMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }
 
@@ -1958,7 +1959,7 @@ public class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @ThrowsUOE
-    public V putLast(K k, V v) {
+    public V putLast(@SeqGrowable ConcurrentSkipListMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }
 

@@ -29,10 +29,11 @@ import org.checkerframework.checker.index.qual.NonNegative;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
-import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
+import org.checkerframework.checker.modifiability.qual.SeqUngrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
@@ -149,7 +150,7 @@ import java.util.function.Function;
 
 @CFComment({"lock/nullness: This permits null element when using a custom comparator that allows null"})
 @AnnotatedFor({"lock", "nullness", "index", "modifiability"})
-public class TreeMap<K,V>
+public @SeqUngrowable class TreeMap<K,V>
     extends AbstractMap<K,V>
     implements NavigableMap<K,V>, Cloneable, java.io.Serializable
 {
@@ -186,7 +187,7 @@ public class TreeMap<K,V>
      * {@code put(Object key, Object value)} call will throw a
      * {@code ClassCastException}.
      */
-    public @Modifiable TreeMap() {
+    public @Growable @Shrinkable @Replaceable @SeqUngrowable TreeMap() {
         comparator = null;
     }
 
@@ -204,7 +205,7 @@ public class TreeMap<K,V>
      *        If {@code null}, the {@linkplain Comparable natural
      *        ordering} of the keys will be used.
      */
-    public @Modifiable TreeMap(@Nullable Comparator<? super K> comparator) {
+    public @Growable @Shrinkable @Replaceable @SeqUngrowable TreeMap(@Nullable Comparator<? super K> comparator) {
         this.comparator = comparator;
     }
 
@@ -222,7 +223,7 @@ public class TreeMap<K,V>
      *         or are not mutually comparable
      * @throws NullPointerException if the specified map is null
      */
-    public @Modifiable @PolyNonEmpty TreeMap(@PolyNonEmpty Map<? extends K, ? extends V> m) {
+    public @Growable @Shrinkable @Replaceable @SeqUngrowable @PolyNonEmpty TreeMap(@PolyNonEmpty Map<? extends K, ? extends V> m) {
         comparator = null;
         putAll(m);
     }
@@ -236,7 +237,7 @@ public class TreeMap<K,V>
      *         and whose comparator is to be used to sort this map
      * @throws NullPointerException if the specified map is null
      */
-    public @Modifiable @PolyNonEmpty TreeMap(@PolyNonEmpty SortedMap<K, ? extends V> m) {
+    public @Growable @Shrinkable @Replaceable @SeqUngrowable @PolyNonEmpty TreeMap(@PolyNonEmpty SortedMap<K, ? extends V> m) {
         comparator = m.comparator();
         try {
             buildFromSorted(m.size(), m.entrySet().iterator(), null, null);
@@ -357,7 +358,7 @@ public class TreeMap<K,V>
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @ThrowsUOE
-    public V putFirst(K k, V v) {
+    public V putFirst(@SeqGrowable TreeMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }
 
@@ -372,7 +373,7 @@ public class TreeMap<K,V>
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @ThrowsUOE
-    public V putLast(K k, V v) {
+    public V putLast(@SeqGrowable TreeMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }
 
@@ -729,7 +730,7 @@ public class TreeMap<K,V>
      */
     @Override
     @DoesNotUnrefineReceiver("modifiability")
-    public V compute(@Modifiable TreeMap<K,V> this, K key, BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
+    public V compute(@Growable @Shrinkable @Replaceable TreeMap<K,V> this, K key, BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
         Objects.requireNonNull(remappingFunction);
         V newValue;
         Entry<K,V> t = root;
@@ -792,7 +793,7 @@ public class TreeMap<K,V>
      */
     @Override
     @DoesNotUnrefineReceiver("modifiability")
-    public V merge(@Modifiable TreeMap<K,V> this, K key, V value, BiFunction<? super V, ? super V, ? extends V> remappingFunction) {
+    public V merge(@Growable @Shrinkable @Replaceable TreeMap<K,V> this, K key, V value, BiFunction<? super V, ? super V, ? extends V> remappingFunction) {
         Objects.requireNonNull(remappingFunction);
         Objects.requireNonNull(value);
         Entry<K,V> t = root;
@@ -997,7 +998,7 @@ public class TreeMap<K,V>
      * @return a shallow copy of this map
      */
     @SideEffectFree
-    public @Modifiable Object clone(@GuardSatisfied TreeMap<K, V> this) {
+    public @Growable @Shrinkable @Replaceable @SeqUngrowable Object clone(@GuardSatisfied TreeMap<K, V> this) {
         TreeMap<?,?> clone;
         try {
             clone = (TreeMap<?,?>) super.clone();
@@ -1995,7 +1996,7 @@ public class TreeMap<K,V>
         }
 
         @DoesNotUnrefineReceiver("modifiability")
-        public V merge(@Modifiable NavigableSubMap<K,V> this, K key, V value, BiFunction<? super V, ? super V, ? extends V> remappingFunction) {
+        public V merge(@Growable @Shrinkable @Replaceable NavigableSubMap<K,V> this, K key, V value, BiFunction<? super V, ? super V, ? extends V> remappingFunction) {
             if (!inRange(key))
                 throw new IllegalArgumentException("key out of range");
             return m.merge(key, value, remappingFunction);
@@ -2013,7 +2014,7 @@ public class TreeMap<K,V>
         }
 
         @DoesNotUnrefineReceiver("modifiability")
-        public V compute(@Modifiable NavigableSubMap<K,V> this, K key, BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
+        public V compute(@Growable @Shrinkable @Replaceable NavigableSubMap<K,V> this, K key, BiFunction<? super K, ? super V, ? extends V> remappingFunction) {
             if (!inRange(key)) {
                 // Do not throw if remapping function returns null
                 // to preserve compatibility with default computeIfAbsent implementation

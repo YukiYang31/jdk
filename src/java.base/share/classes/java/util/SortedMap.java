@@ -27,9 +27,10 @@ package java.util;
 
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
-import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrinkable;
+import org.checkerframework.checker.modifiability.qual.SeqGrowable;
+import org.checkerframework.checker.modifiability.qual.SeqUngrowable;
 import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -128,7 +129,7 @@ import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
 @CFComment({"lock/nullness: Subclasses of this interface/class may opt to prohibit null elements"})
 @AnnotatedFor({"lock", "nullness"})
-public interface SortedMap<K,V> extends SequencedMap<K,V> {
+public @SeqUngrowable interface SortedMap<K,V> extends SequencedMap<K,V> {
     /**
      * Returns the comparator used to order the keys in this map, or
      * {@code null} if this map uses the {@linkplain Comparable
@@ -323,7 +324,7 @@ public interface SortedMap<K,V> extends SequencedMap<K,V> {
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @ThrowsUOE
-     default V putFirst(K k, V v) {
+     default V putFirst(@SeqGrowable SortedMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }
 
@@ -341,7 +342,7 @@ public interface SortedMap<K,V> extends SequencedMap<K,V> {
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @ThrowsUOE
-    default V putLast(K k, V v) {
+    default V putLast(@SeqGrowable SortedMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }
 
