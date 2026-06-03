@@ -44,7 +44,6 @@ import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.SeqUngrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
-import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.checker.modifiability.qual.Unmodifiable;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -1943,7 +1942,6 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    @ThrowsUOE
      public V putFirst(@SeqGrowable ConcurrentSkipListMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }
@@ -1958,7 +1956,6 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    @ThrowsUOE
     public V putLast(@SeqGrowable ConcurrentSkipListMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }

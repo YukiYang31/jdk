@@ -31,7 +31,6 @@ import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.PolyShrinkable;
 import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.SeqUngrowable;
-import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
 import org.checkerframework.checker.modifiability.qual.Ungrowable;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.checker.nullness.qual.KeyFor;
@@ -323,7 +322,6 @@ public @SeqUngrowable interface SortedMap<K,V> extends SequencedMap<K,V> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    @ThrowsUOE
      default V putFirst(@SeqGrowable SortedMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }
@@ -341,7 +339,6 @@ public @SeqUngrowable interface SortedMap<K,V> extends SequencedMap<K,V> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    @ThrowsUOE
     default V putLast(@SeqGrowable SortedMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
     }

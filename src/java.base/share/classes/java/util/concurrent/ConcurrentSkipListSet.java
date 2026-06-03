@@ -44,7 +44,6 @@ import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.SeqUngrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
-import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
@@ -464,7 +463,6 @@ public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws UnsupportedOperationException always
      * @since 21
      */
-    @ThrowsUOE
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
@@ -480,7 +478,6 @@ public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws UnsupportedOperationException always
      * @since 21
      */
-    @ThrowsUOE
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")

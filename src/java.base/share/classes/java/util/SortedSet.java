@@ -30,7 +30,6 @@ import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.SeqGrowable;
 import org.checkerframework.checker.modifiability.qual.SeqUngrowable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
-import org.checkerframework.checker.modifiability.qual.ThrowsUOE;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmpty;
 import org.checkerframework.checker.nonempty.qual.NonEmpty;
 import org.checkerframework.checker.nullness.qual.Nullable;
@@ -303,7 +302,6 @@ public @SeqUngrowable interface SortedSet<E> extends Set<E>, SequencedSet<E> {
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    @ThrowsUOE
     default void addFirst(@SeqGrowable SortedSet<E> this, E e) {
         throw new UnsupportedOperationException();
     }
@@ -322,7 +320,6 @@ public @SeqUngrowable interface SortedSet<E> extends Set<E>, SequencedSet<E> {
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    @ThrowsUOE
     default void addLast(@SeqGrowable SortedSet<E> this, E e) {
         throw new UnsupportedOperationException();
     }
