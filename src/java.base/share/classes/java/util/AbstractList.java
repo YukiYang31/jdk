@@ -142,7 +142,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean add(@Growable @GuardSatisfied AbstractList<E> this, E e) {
+    public boolean add(@IteratorPolyMod @Growable @GuardSatisfied AbstractList<E> this, E e) {
         add(size(), e);
         return true;
     }
@@ -171,7 +171,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E set(@Replaceable @GuardSatisfied AbstractList<E> this, @IndexFor({"this"}) int index, E element) {
+    public E set(@IteratorPolyMod @Replaceable @GuardSatisfied AbstractList<E> this, @IndexFor({"this"}) int index, E element) {
         throw new UnsupportedOperationException();
     }
 
@@ -191,7 +191,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public void add(@Growable @GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int index, E element) {
+    public void add(@IteratorPolyMod @Growable @GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int index, E element) {
         throw new UnsupportedOperationException();
     }
 
@@ -207,7 +207,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public E remove(@Shrinkable @GuardSatisfied @CanShrink AbstractList<E> this, @IndexFor({"this"}) int index) {
+    public E remove(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink AbstractList<E> this, @IndexFor({"this"}) int index) {
         throw new UnsupportedOperationException();
     }
 
@@ -315,7 +315,7 @@ public abstract class AbstractList<E> extends AbstractCollection<E> implements L
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean addAll(@Growable @GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c) {
+    public boolean addAll(@IteratorPolyMod @Growable @GuardSatisfied AbstractList<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c) {
         rangeCheckForAdd(index);
         boolean modified = false;
         for (E e : c) {

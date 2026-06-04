@@ -311,7 +311,7 @@ public interface List<E> extends SequencedCollection<E> {
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean add(@Growable @GuardSatisfied List<E> this, E e);
+    boolean add(@IteratorPolyMod @Growable @GuardSatisfied List<E> this, E e);
 
     /**
      * Removes the first occurrence of the specified element from this list,
@@ -336,7 +336,7 @@ public interface List<E> extends SequencedCollection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean remove(@Shrinkable @GuardSatisfied @CanShrink List<E> this, @UnknownSignedness Object o);
+    boolean remove(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink List<E> this, @UnknownSignedness Object o);
 
     // Bulk Modification Operations
 
@@ -417,7 +417,7 @@ public interface List<E> extends SequencedCollection<E> {
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @EnsuresNonEmptyIf(result = true, expression = "this")
-    boolean addAll(@Growable @GuardSatisfied List<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c);
+    boolean addAll(@IteratorPolyMod @Growable @GuardSatisfied List<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c);
 
     /**
      * Removes from this list all of its elements that are contained in the
@@ -439,7 +439,7 @@ public interface List<E> extends SequencedCollection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean removeAll(@Shrinkable @GuardSatisfied @CanShrink List<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean removeAll(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink List<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Retains only the elements in this list that are contained in the
@@ -463,7 +463,7 @@ public interface List<E> extends SequencedCollection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    boolean retainAll(@Shrinkable @GuardSatisfied @CanShrink List<E> this, Collection<? extends @UnknownSignedness Object> c);
+    boolean retainAll(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink List<E> this, Collection<? extends @UnknownSignedness Object> c);
 
     /**
      * Replaces each element of this list with the result of applying the
@@ -584,7 +584,7 @@ public interface List<E> extends SequencedCollection<E> {
      */
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    void clear(@Shrinkable @GuardSatisfied @CanShrink List<E> this);
+    void clear(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink List<E> this);
 
 
     // Comparison and hashing
@@ -661,7 +661,7 @@ public interface List<E> extends SequencedCollection<E> {
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    E set(@Replaceable @GuardSatisfied List<E> this, @IndexFor({"this"}) int index, E element);
+    E set(@IteratorPolyMod @Replaceable @GuardSatisfied List<E> this, @IndexFor({"this"}) int index, E element);
 
     /**
      * Inserts the specified element at the specified position in this list
@@ -686,7 +686,7 @@ public interface List<E> extends SequencedCollection<E> {
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    void add(@Growable @GuardSatisfied List<E> this, @IndexOrHigh({"this"}) int index, E element);
+    void add(@IteratorPolyMod @Growable @GuardSatisfied List<E> this, @IndexOrHigh({"this"}) int index, E element);
     /**
      * Removes the element at the specified position in this list (optional
      * operation).  Shifts any subsequent elements to the left (subtracts one
@@ -703,7 +703,7 @@ public interface List<E> extends SequencedCollection<E> {
     @ReleasesNoLocks
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    E remove(@Shrinkable @GuardSatisfied @CanShrink List<E> this, @IndexFor({"this"}) int index);
+    E remove(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink List<E> this, @IndexFor({"this"}) int index);
 
 
     // Search Operations

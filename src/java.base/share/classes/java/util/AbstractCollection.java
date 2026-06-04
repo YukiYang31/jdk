@@ -286,7 +286,7 @@ public abstract class AbstractCollection<E> implements Collection<E> {
     @EnsuresNonEmpty("this")
     // @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
-    public boolean add(@Growable @GuardSatisfied AbstractCollection<E> this, E e) {
+    public boolean add(@IteratorPolyMod @Growable @GuardSatisfied AbstractCollection<E> this, E e) {
         throw new UnsupportedOperationException();
     }
 
