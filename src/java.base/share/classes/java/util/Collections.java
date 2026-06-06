@@ -31,6 +31,7 @@ import org.checkerframework.checker.index.qual.PolyGrowShrink;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
+import org.checkerframework.checker.modifiability.qual.PolyIteratorPolyMod;
 import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.PolyModifiable;
@@ -64,6 +65,38 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Array;
+import java.util.AbstractMap.SimpleImmutableEntry;
+import java.util.Collections.AsLIFOQueue;
+import java.util.Collections.CheckedCollection;
+import java.util.Collections.CheckedList;
+import java.util.Collections.CheckedMap.CheckedEntrySet;
+import java.util.Collections.CheckedNavigableMap;
+import java.util.Collections.CheckedNavigableSet;
+import java.util.Collections.CheckedQueue;
+import java.util.Collections.CheckedRandomAccessList;
+import java.util.Collections.CheckedSet;
+import java.util.Collections.CheckedSortedMap;
+import java.util.Collections.CheckedSortedSet;
+import java.util.Collections.SynchronizedCollection;
+import java.util.Collections.SynchronizedList;
+import java.util.Collections.SynchronizedNavigableMap;
+import java.util.Collections.SynchronizedNavigableSet;
+import java.util.Collections.SynchronizedRandomAccessList;
+import java.util.Collections.SynchronizedSet;
+import java.util.Collections.SynchronizedSortedMap;
+import java.util.Collections.SynchronizedSortedSet;
+import java.util.Collections.UnmodifiableCollection;
+import java.util.Collections.UnmodifiableList;
+import java.util.Collections.UnmodifiableMap.UnmodifiableEntrySet;
+import java.util.Collections.UnmodifiableMap.UnmodifiableEntrySet.UnmodifiableEntrySetSpliterator;
+import java.util.Collections.UnmodifiableNavigableMap;
+import java.util.Collections.UnmodifiableNavigableSet;
+import java.util.Collections.UnmodifiableRandomAccessList;
+import java.util.Collections.UnmodifiableSequencedCollection;
+import java.util.Collections.UnmodifiableSequencedSet;
+import java.util.Collections.UnmodifiableSet;
+import java.util.Collections.UnmodifiableSortedMap;
+import java.util.Collections.UnmodifiableSortedSet;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -2526,11 +2559,11 @@ public class Collections {
      * @param  c the collection to be "wrapped" in a synchronized collection.
      * @return a synchronized view of the specified collection.
      */
-    public static <T> @PolyGrowShrink @PolyModifiable @PolyNonEmpty Collection<T> synchronizedCollection(@PolyGrowShrink @PolyModifiable @PolyNonEmpty Collection<T> c) {
+    public static <T> @PolyGrowShrink @PolyModifiable @PolyIteratorPolyMod @PolyNonEmpty Collection<T> synchronizedCollection(@PolyGrowShrink @PolyModifiable @PolyIteratorPolyMod @PolyNonEmpty Collection<T> c) {
         return new SynchronizedCollection<>(c);
     }
 
-    static <T> @PolyGrowShrink @PolyModifiable @PolyNonEmpty Collection<T> synchronizedCollection(@PolyGrowShrink @PolyModifiable @PolyNonEmpty Collection<T> c, Object mutex) {
+    static <T> @PolyGrowShrink @PolyModifiable @PolyIteratorPolyMod @PolyNonEmpty Collection<T> synchronizedCollection(@PolyGrowShrink @PolyModifiable @PolyIteratorPolyMod @PolyNonEmpty Collection<T> c, Object mutex) {
         return new SynchronizedCollection<>(c, mutex);
     }
 
@@ -2683,11 +2716,11 @@ public class Collections {
      * @param  s the set to be "wrapped" in a synchronized set.
      * @return a synchronized view of the specified set.
      */
-    public static <T> @PolyModifiable Set<T> synchronizedSet(@PolyModifiable Set<T> s) {
+    public static <T> @PolyModifiable @PolyIteratorPolyMod Set<T> synchronizedSet(@PolyModifiable @PolyIteratorPolyMod Set<T> s) {
         return new SynchronizedSet<>(s);
     }
 
-    static <T> @PolyModifiable Set<T> synchronizedSet(@PolyModifiable Set<T> s, Object mutex) {
+    static <T> @PolyModifiable @PolyIteratorPolyMod Set<T> synchronizedSet(@PolyModifiable @PolyIteratorPolyMod Set<T> s, Object mutex) {
         return new SynchronizedSet<>(s, mutex);
     }
 
@@ -2963,13 +2996,13 @@ public class Collections {
      * @param  list the list to be "wrapped" in a synchronized list.
      * @return a synchronized view of the specified list.
      */
-    public static <T> @PolyGrowShrink @PolyModifiable @PolyNonEmpty List<T> synchronizedList(@PolyGrowShrink @PolyModifiable @PolyNonEmpty List<T> list) {
+    public static <T> @PolyGrowShrink @PolyModifiable @PolyIteratorPolyMod @PolyNonEmpty List<T> synchronizedList(@PolyGrowShrink @PolyModifiable @PolyIteratorPolyMod @PolyNonEmpty List<T> list) {
         return (list instanceof RandomAccess ?
                 new SynchronizedRandomAccessList<>(list) :
                 new SynchronizedList<>(list));
     }
 
-    static <T> @PolyGrowShrink @PolyModifiable @PolyNonEmpty List<T> synchronizedList(@PolyGrowShrink @PolyModifiable @PolyNonEmpty List<T> list, Object mutex) {
+    static <T> @PolyGrowShrink @PolyModifiable @PolyIteratorPolyMod @PolyNonEmpty List<T> synchronizedList(@PolyGrowShrink @PolyModifiable @PolyIteratorPolyMod @PolyNonEmpty List<T> list, Object mutex) {
         return (list instanceof RandomAccess ?
                 new SynchronizedRandomAccessList<>(list, mutex) :
                 new SynchronizedList<>(list, mutex));
@@ -3688,7 +3721,7 @@ public class Collections {
      * @return a dynamically typesafe view of the specified collection
      * @since 1.5
      */
-    public static <E> @PolyGrowShrink @PolyModifiable @PolyNonEmpty Collection<E> checkedCollection(@PolyGrowShrink @PolyModifiable @PolyNonEmpty Collection<E> c,
+    public static <E> @PolyGrowShrink @PolyModifiable @PolyIteratorPolyMod @PolyNonEmpty Collection<E> checkedCollection(@PolyGrowShrink @PolyModifiable @PolyIteratorPolyMod @PolyNonEmpty Collection<E> c,
                                                       Class<E> type) {
         return new CheckedCollection<>(c, type);
     }
@@ -3942,7 +3975,7 @@ public class Collections {
      * @return a dynamically typesafe view of the specified set
      * @since 1.5
      */
-    public static <E> @PolyModifiable Set<E> checkedSet(@PolyModifiable Set<E> s, Class<E> type) {
+    public static <E> @PolyModifiable @PolyIteratorPolyMod Set<E> checkedSet(@PolyModifiable @PolyIteratorPolyMod Set<E> s, Class<E> type) {
         return new CheckedSet<>(s, type);
     }
 
@@ -4146,7 +4179,7 @@ public class Collections {
      * @return a dynamically typesafe view of the specified list
      * @since 1.5
      */
-    public static <E> @PolyGrowShrink @PolyModifiable @PolyNonEmpty List<E> checkedList(@PolyGrowShrink @PolyModifiable @PolyNonEmpty List<E> list, Class<E> type) {
+    public static <E> @PolyGrowShrink @PolyModifiable @PolyIteratorPolyMod @PolyNonEmpty List<E> checkedList(@PolyGrowShrink @PolyModifiable @PolyIteratorPolyMod @PolyNonEmpty List<E> list, Class<E> type) {
         return (list instanceof RandomAccess ?
                 new CheckedRandomAccessList<>(list, type) :
                 new CheckedList<>(list, type));
