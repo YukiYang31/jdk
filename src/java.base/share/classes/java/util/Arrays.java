@@ -32,6 +32,7 @@ import org.checkerframework.checker.index.qual.SearchIndexFor;
 import org.checkerframework.checker.interning.qual.PolyInterned;
 import org.checkerframework.checker.lock.qual.GuardSatisfied;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
+import org.checkerframework.checker.modifiability.qual.IteratorPolyMod;
 import org.checkerframework.checker.mustcall.qual.MustCallUnknown;
 import org.checkerframework.checker.mustcall.qual.PolyMustCall;
 import org.checkerframework.checker.nonempty.qual.EnsuresNonEmptyIf;
@@ -4294,7 +4295,7 @@ public final class Arrays {
     @SafeVarargs
     @SideEffectFree
     @SuppressWarnings("varargs")
-    public static <T> @Replaceable @PolyNonEmpty List<T> asList(T @PolyNonEmpty... a) {
+    public static <T> @Replaceable @IteratorPolyMod @PolyNonEmpty List<T> asList(T @PolyNonEmpty... a) {
         return new ArrayList<>(a);
     }
 
