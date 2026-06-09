@@ -1229,7 +1229,9 @@ public class HashMap<K,V> extends AbstractMap<K,V>
 
     @Override
     @Pure
-    public V getOrDefault(HashMap<K,V> this, @GuardSatisfied @Nullable @UnknownSignedness Object key, V defaultValue) {
+    public @PolyModifiable V getOrDefault(HashMap<K, @PolyModifiable V> this,
+                                          @GuardSatisfied @Nullable @UnknownSignedness Object key,
+                                          @PolyModifiable V defaultValue) {
         Node<K,V> e;
         return (e = getNode(key)) == null ? defaultValue : e.value;
     }

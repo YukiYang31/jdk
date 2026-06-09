@@ -579,7 +579,9 @@ public class LinkedHashMap<K,V>
      */
     @CFComment("`getOrDefault()` is not strictly pure: if `accessOrder==true`, it changes the access order")
     @Pure
-    public V getOrDefault(@Nullable Object key, V defaultValue) {
+    public @PolyModifiable V getOrDefault(LinkedHashMap<K, @PolyModifiable V> this,
+                                          @Nullable Object key,
+                                          @PolyModifiable V defaultValue) {
        Node<K,V> e;
        if ((e = getNode(key)) == null)
            return defaultValue;
@@ -1289,7 +1291,9 @@ public class LinkedHashMap<K,V>
 
         @CFComment("`getOrDefault()` is not strictly pure: if `accessOrder==true`, it changes the access order")
         @Pure
-        public V getOrDefault(Object key, V defaultValue) {
+        public @PolyModifiable V getOrDefault(ReversedLinkedHashMapView<K, @PolyModifiable V> this,
+                                              Object key,
+                                              @PolyModifiable V defaultValue) {
             return base.getOrDefault(key, defaultValue);
         }
 

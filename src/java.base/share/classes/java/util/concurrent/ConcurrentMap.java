@@ -38,6 +38,7 @@ package java.util.concurrent;
 import org.checkerframework.checker.modifiability.qual.Growable;
 import org.checkerframework.checker.modifiability.qual.MaybeModifiable;
 import org.checkerframework.checker.modifiability.qual.Modifiable;
+import org.checkerframework.checker.modifiability.qual.PolyModifiable;
 import org.checkerframework.checker.modifiability.qual.Replaceable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nullness.qual.EnsuresKeyFor;
@@ -99,7 +100,9 @@ public interface ConcurrentMap<K extends @NonNull Object,V extends @NonNull Obje
      */
     @Override
     @Pure
-    default V getOrDefault(@MaybeModifiable ConcurrentMap<K,V> this,Object key, V defaultValue) {
+    default @PolyModifiable V getOrDefault(ConcurrentMap<K, @PolyModifiable V> this,
+                                           Object key,
+                                           @PolyModifiable V defaultValue) {
         V v;
         return ((v = get(key)) != null) ? v : defaultValue;
     }

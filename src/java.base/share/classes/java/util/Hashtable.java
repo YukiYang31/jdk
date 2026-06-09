@@ -957,7 +957,9 @@ public class Hashtable<K extends @NonNull Object,V extends @NonNull Object>
 
     @Override
     @Pure
-    public synchronized V getOrDefault(@GuardSatisfied @UnknownSignedness Object key, V defaultValue) {
+    public synchronized @PolyModifiable V getOrDefault(Hashtable<K, @PolyModifiable V> this,
+                                                       @GuardSatisfied @UnknownSignedness Object key,
+                                                       @PolyModifiable V defaultValue) {
         V result = get(key);
         return (null == result) ? defaultValue : result;
     }

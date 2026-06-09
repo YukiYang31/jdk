@@ -1352,7 +1352,9 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * @since 1.8
      */
     @Pure
-    public V getOrDefault(@GuardSatisfied @UnknownSignedness Object key, V defaultValue) {
+    public @PolyModifiable V getOrDefault(ConcurrentSkipListMap<K, @PolyModifiable V> this,
+                                          @GuardSatisfied @UnknownSignedness Object key,
+                                          @PolyModifiable V defaultValue) {
         V v;
         return (v = doGet(key)) == null ? defaultValue : v;
     }
