@@ -1178,7 +1178,7 @@ public class LinkedHashMap<K,V>
      * @throws IllegalArgumentException if numMappings is negative
      * @since 19
      */
-    public static <K, V> LinkedHashMap<K, V> newLinkedHashMap(int numMappings) {
+    public static <K, V> @Modifiable LinkedHashMap<K, V> newLinkedHashMap(int numMappings) {
         if (numMappings < 0) {
             throw new IllegalArgumentException("Negative number of mappings: " + numMappings);
         }
