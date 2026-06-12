@@ -755,7 +755,7 @@ public interface Map<K, V> {
      * @since 1.8
      */
     @Pure
-    default @PolyModifiable V getOrDefault(Map<K, @PolyModifiable V> this, @GuardSatisfied @UnknownSignedness Object key, @PolyModifiable V defaultValue) {
+    default V getOrDefault(Map<K, V> this, @GuardSatisfied @UnknownSignedness Object key, V defaultValue) {
         V v;
         return (((v = get(key)) != null) || containsKey(key))
             ? v
