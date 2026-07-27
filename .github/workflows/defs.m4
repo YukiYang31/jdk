@@ -20,7 +20,7 @@ define([cftests_job], [dnl
     container: mdernst/cf-ubuntu-jdk$3[]docker_testing:latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 25
       - name: git config
@@ -42,7 +42,7 @@ define([daikon_job], [dnl
     container: mdernst/cf-ubuntu-jdk$2[]docker_testing:latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 25
       - name: git config
@@ -63,7 +63,7 @@ define([plume_lib_job], [dnl
     container: mdernst/cf-ubuntu-jdk$1[]docker_testing:latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           fetch-depth: 25
       - name: git config
