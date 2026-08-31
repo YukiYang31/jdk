@@ -162,6 +162,7 @@ class ReverseOrderSortedMapView<K, V> extends AbstractMap<K, V> implements Sorte
 
     // ========== SequencedMap ==========
 
+    @SideEffectFree
     public SortedMap<K, V> reversed() {
         return base;
     }

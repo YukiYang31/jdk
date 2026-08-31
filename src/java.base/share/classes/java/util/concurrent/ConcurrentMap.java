@@ -47,6 +47,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.nullness.qual.PolyNull;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.dataflow.qual.Pure;
+import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
@@ -175,7 +176,7 @@ public interface ConcurrentMap<K extends @NonNull Object,V extends @NonNull Obje
      *         or value prevents it from being stored in this map
      */
     @EnsuresKeyFor(value={"#1"}, map={"this"})
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @Nullable V putIfAbsent(@Growable ConcurrentMap<K,V> this, K key, V value);
 
@@ -208,7 +209,7 @@ public interface ConcurrentMap<K extends @NonNull Object,V extends @NonNull Obje
      *         and this map does not permit null keys or values
      * (<a href="{@docRoot}/java.base/java/util/Collection.html#optional-restrictions">optional</a>)
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean remove(@Shrinkable ConcurrentMap<K,V> this, @UnknownSignedness Object key, @UnknownSignedness Object value);
 
@@ -242,7 +243,7 @@ public interface ConcurrentMap<K extends @NonNull Object,V extends @NonNull Obje
      * @throws IllegalArgumentException if some property of a specified key
      *         or value prevents it from being stored in this map
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean replace(@Replaceable ConcurrentMap<K,V> this, K key, V oldValue, V newValue);
 
@@ -276,7 +277,7 @@ public interface ConcurrentMap<K extends @NonNull Object,V extends @NonNull Obje
      * @throws IllegalArgumentException if some property of the specified key
      *         or value prevents it from being stored in this map
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @Nullable V replace(@Replaceable ConcurrentMap<K,V> this, K key, V value);
 

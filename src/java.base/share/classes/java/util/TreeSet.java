@@ -44,6 +44,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
@@ -226,7 +227,7 @@ public @SeqUngrowable class TreeSet<E> extends AbstractSet<E>
     /**
      * @since 1.6
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public @PolyModifiable NavigableSet<E> descendingSet(@PolyModifiable TreeSet<E> this) {
         return new TreeSet<>(m.descendingMap());
@@ -292,7 +293,7 @@ public @SeqUngrowable class TreeSet<E> extends AbstractSet<E>
      *         does not permit null elements
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean add(@Growable @GuardSatisfied TreeSet<E> this, E e) {
         return m.put(e, PRESENT)==null;
@@ -315,7 +316,7 @@ public @SeqUngrowable class TreeSet<E> extends AbstractSet<E>
      *         and this set uses natural ordering, or its comparator
      *         does not permit null elements
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean remove(@Shrinkable @GuardSatisfied TreeSet<E> this, @GuardSatisfied @UnknownSignedness Object o) {
         return m.remove(o)==PRESENT;
@@ -325,7 +326,7 @@ public @SeqUngrowable class TreeSet<E> extends AbstractSet<E>
      * Removes all of the elements from this set.
      * The set will be empty after this call returns.
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void clear(@Shrinkable @GuardSatisfied TreeSet<E> this) {
         m.clear();
@@ -342,7 +343,7 @@ public @SeqUngrowable class TreeSet<E> extends AbstractSet<E>
      *         if any element is null and this set uses natural ordering, or
      *         its comparator does not permit null elements
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public  boolean addAll(@Growable @GuardSatisfied TreeSet<E> this, Collection<? extends E> c) {
         // Use linear-time version if applicable
@@ -509,7 +510,7 @@ public @SeqUngrowable class TreeSet<E> extends AbstractSet<E>
     /**
      * @since 1.6
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E pollFirst(@Shrinkable @GuardSatisfied TreeSet<E> this) {
         Map.Entry<E,?> e = m.pollFirstEntry();
@@ -519,7 +520,7 @@ public @SeqUngrowable class TreeSet<E> extends AbstractSet<E>
     /**
      * @since 1.6
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E pollLast(@Shrinkable @GuardSatisfied TreeSet<E> this) {
         Map.Entry<E,?> e = m.pollLastEntry();
@@ -535,7 +536,7 @@ public @SeqUngrowable class TreeSet<E> extends AbstractSet<E>
      * @since 21
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void addFirst(@SeqGrowable TreeSet<E> this, E e) {
         throw new UnsupportedOperationException();
@@ -550,7 +551,7 @@ public @SeqUngrowable class TreeSet<E> extends AbstractSet<E>
      * @since 21
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void addLast(@SeqGrowable TreeSet<E> this, E e) {
         throw new UnsupportedOperationException();

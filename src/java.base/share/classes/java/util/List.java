@@ -52,10 +52,10 @@ import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.CFComment;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
-// import org.checkerframework.dataflow.qual.SideEffectsOnly;
 
 import java.util.function.UnaryOperator;
 
@@ -309,7 +309,7 @@ public interface List<E> extends SequencedCollection<E> {
      */
     @ReleasesNoLocks
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean add(@IteratorPolyMod @Growable @GuardSatisfied List<E> this, E e);
 
@@ -334,7 +334,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException if the {@code remove} operation
      *         is not supported by this list
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean remove(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink List<E> this, @UnknownSignedness Object o);
 
@@ -382,7 +382,7 @@ public interface List<E> extends SequencedCollection<E> {
      *         specified collection prevents it from being added to this list
      * @see #add(Object)
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @EnsuresNonEmptyIf(result = true, expression = "this")
     boolean addAll(@Growable @GuardSatisfied List<E> this, Collection<? extends E> c);
@@ -414,7 +414,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws IndexOutOfBoundsException if the index is out of range
      *         ({@code index < 0 || index > size()})
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     @EnsuresNonEmptyIf(result = true, expression = "this")
     boolean addAll(@IteratorPolyMod @Growable @GuardSatisfied List<E> this, @IndexOrHigh({"this"}) int index, Collection<? extends E> c);
@@ -437,7 +437,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean removeAll(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink List<E> this, Collection<? extends @UnknownSignedness Object> c);
 
@@ -461,7 +461,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @see #remove(Object)
      * @see #contains(Object)
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     boolean retainAll(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink List<E> this, Collection<? extends @UnknownSignedness Object> c);
 
@@ -563,7 +563,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @since 1.8
      */
     @SuppressWarnings({"unchecked", "rawtypes"})
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     default void sort(@IteratorPolyMod @Replaceable List<E> this, Comparator<? super E> c) {
         Object[] a = this.toArray();
@@ -582,7 +582,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException if the {@code clear} operation
      *         is not supported by this list
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     void clear(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink List<E> this);
 
@@ -659,7 +659,7 @@ public interface List<E> extends SequencedCollection<E> {
      *         ({@code index < 0 || index >= size()})
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     E set(@IteratorPolyMod @Replaceable @GuardSatisfied List<E> this, @IndexFor({"this"}) int index, E element);
 
@@ -684,7 +684,7 @@ public interface List<E> extends SequencedCollection<E> {
      */
     @ReleasesNoLocks
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     void add(@IteratorPolyMod @Growable @GuardSatisfied List<E> this, @IndexOrHigh({"this"}) int index, E element);
     /**
@@ -701,7 +701,7 @@ public interface List<E> extends SequencedCollection<E> {
      *         ({@code index < 0 || index >= size()})
      */
     @ReleasesNoLocks
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     E remove(@IteratorPolyMod @Shrinkable @GuardSatisfied @CanShrink List<E> this, @IndexFor({"this"}) int index);
 
@@ -872,7 +872,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @since 21
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     default void addFirst(@SeqGrowable List<E> this, E e) {
         this.add(0, e);
@@ -889,7 +889,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @since 21
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     default void addLast(@SeqGrowable List<E> this, E e) {
         this.add(e);
@@ -946,7 +946,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     default E removeFirst(@Shrinkable List<E> this) {
         if (this.isEmpty()) {
@@ -967,7 +967,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @throws UnsupportedOperationException {@inheritDoc}
      * @since 21
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     default E removeLast(@Shrinkable List<E> this) {
         if (this.isEmpty()) {
@@ -987,6 +987,7 @@ public interface List<E> extends SequencedCollection<E> {
      * @return a reverse-ordered view of this collection, as a {@code List}
      * @since 21
      */
+    @SideEffectFree
     default List<E> reversed() {
         return ReverseOrderListView.of(this, true); // we must assume it's modifiable
     }

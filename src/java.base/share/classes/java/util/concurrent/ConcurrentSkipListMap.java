@@ -56,6 +56,7 @@ import org.checkerframework.checker.signedness.qual.PolySigned;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
@@ -1372,7 +1373,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      *         with the keys currently in the map
      * @throws NullPointerException if the specified key or value is null
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public V put(@Growable @Replaceable ConcurrentSkipListMap<K,V> this, K key, V value) {
         if (value == null)
@@ -1390,7 +1391,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      *         with the keys currently in the map
      * @throws NullPointerException if the specified key is null
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public V remove(@Shrinkable ConcurrentSkipListMap<K,V> this, @GuardSatisfied @UnknownSignedness Object key) {
         return doRemove(key, null);
@@ -1447,7 +1448,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
     /**
      * Removes all of the mappings from this map.
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void clear(@Shrinkable ConcurrentSkipListMap<K,V> this) {
         Index<K,V> h, r, d; Node<K,V> b;
@@ -1834,7 +1835,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      *         with the keys currently in the map
      * @throws NullPointerException if the specified key or value is null
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public V putIfAbsent(@Growable ConcurrentSkipListMap<K,V> this, K key, V value) {
         if (value == null)
@@ -1849,7 +1850,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      *         with the keys currently in the map
      * @throws NullPointerException if the specified key is null
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean remove(@Shrinkable ConcurrentSkipListMap<K,V> this, @GuardSatisfied @UnknownSignedness Object key, @GuardSatisfied @UnknownSignedness Object value) {
         if (key == null)
@@ -1864,7 +1865,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      *         with the keys currently in the map
      * @throws NullPointerException if any of the arguments are null
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean replace(@Replaceable ConcurrentSkipListMap<K,V> this, K key, V oldValue, V newValue) {
         if (key == null || oldValue == null || newValue == null)
@@ -1891,7 +1892,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      *         with the keys currently in the map
      * @throws NullPointerException if the specified key or value is null
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public V replace(@Replaceable ConcurrentSkipListMap<K,V> this, K key, V value) {
         if (key == null || value == null)
@@ -1942,7 +1943,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * @throws UnsupportedOperationException always
      * @since 21
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
      public V putFirst(@SeqGrowable ConcurrentSkipListMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
@@ -1956,7 +1957,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * @throws UnsupportedOperationException always
      * @since 21
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public V putLast(@SeqGrowable ConcurrentSkipListMap<K,V> this, K k, V v) {
         throw new UnsupportedOperationException();
@@ -2166,7 +2167,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * The returned entry does <em>not</em> support
      * the {@code Entry.setValue} method.
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public Map.@Unmodifiable Entry<K,V> pollFirstEntry(@Shrinkable ConcurrentSkipListMap<K,V> this) {
         return doRemoveFirstEntry();
@@ -2178,7 +2179,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
      * The returned entry does <em>not</em> support
      * the {@code Entry.setValue} method.
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public Map.@Unmodifiable Entry<K,V> pollLastEntry(@Shrinkable ConcurrentSkipListMap<K,V> this) {
         return doRemoveLastEntry();
@@ -2220,7 +2221,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
             next = n;
         }
 
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public final void remove() {
             Node<K,V> n; K k;
@@ -2234,7 +2235,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
     }
 
     final class ValueIterator extends Iter<V> {
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public V next(@NonEmpty ValueIterator this) {
             V v;
@@ -2246,7 +2247,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
     }
 
     final class KeyIterator extends Iter<K> {
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public K next(@NonEmpty KeyIterator this) {
             Node<K,V> n;
@@ -2259,7 +2260,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
     }
 
     final class EntryIterator extends Iter<Map.Entry<K,V>> {
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public Map.Entry<K,V> next(@NonEmpty EntryIterator this) {
             Node<K,V> n;
@@ -2300,10 +2301,10 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
         @Pure
         @EnsuresNonEmptyIf(result = true, expression = "this")
         public boolean contains(@UnknownSignedness Object o) { return m.containsKey(o); }
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public boolean remove(@UnknownSignedness Object o) { return m.remove(o) != null; }
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public void clear() { m.clear(); }
         @Pure
@@ -2320,13 +2321,13 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
         public K first() { return m.firstKey(); }
         @Pure
         public K last() { return m.lastKey(); }
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public K pollFirst() {
             Map.Entry<K,V> e = m.pollFirstEntry();
             return (e == null) ? null : e.getKey();
         }
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public K pollLast() {
             Map.Entry<K,V> e = m.pollLastEntry();
@@ -2354,6 +2355,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
         @SideEffectFree
         public @PolyNull @PolySigned Object[] toArray(KeySet<@PolyNull @PolySigned K,V> this)     { return toList(this).toArray();  }
         public <T> @Nullable T[] toArray(@PolyNull T[] a) { return toList(this).toArray(a); }
+        @SideEffectFree
         public Iterator<K> descendingIterator() {
             return descendingSet().iterator();
         }
@@ -2415,7 +2417,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
         @Pure
         @EnsuresNonEmptyIf(result = true, expression = "this")
         public boolean contains(@UnknownSignedness Object o) { return m.containsValue(o); }
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public void clear() { m.clear(); }
         @SideEffectFree
@@ -2429,7 +2431,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
                 : ((SubMap<K,V>)m).new SubMapValueIterator();
         }
 
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public boolean removeIf(Predicate<? super V> filter) {
             if (filter == null) throw new NullPointerException();
@@ -2470,7 +2472,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
             V v = m.get(e.getKey());
             return v != null && v.equals(e.getValue());
         }
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public boolean remove(@UnknownSignedness Object o) {
             if (!(o instanceof Map.Entry))
@@ -2488,7 +2490,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
         public int size() {
             return m.size();
         }
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public void clear() {
             m.clear();
@@ -2516,7 +2518,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
                 ? ((ConcurrentSkipListMap<K,V>)m).entrySpliterator()
                 : ((SubMap<K,V>)m).new SubMapEntryIterator();
         }
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public boolean removeIf(Predicate<? super Entry<K,V>> filter) {
             if (filter == null) throw new NullPointerException();
@@ -2805,14 +2807,14 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
             return (!inBounds(key, m.comparator)) ? null : m.get(key);
         }
 
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public V put(@Growable @Replaceable SubMap<K,V> this, K key, V value) {
             checkKeyBounds(key, m.comparator);
             return m.put(key, value);
         }
 
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public V remove(@Shrinkable SubMap<K,V> this, Object key) {
             return (!inBounds(key, m.comparator)) ? null : m.remove(key);
@@ -2853,7 +2855,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
             return false;
         }
 
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public void clear(@Shrinkable SubMap<K,V> this) {
             Comparator<? super K> cmp = m.comparator;
@@ -2867,27 +2869,27 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
 
         /* ----------------  ConcurrentMap API methods -------------- */
 
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public V putIfAbsent(@Growable SubMap<K,V> this, K key, V value) {
             checkKeyBounds(key, m.comparator);
             return m.putIfAbsent(key, value);
         }
 
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public boolean remove(@Shrinkable SubMap<K,V> this, @UnknownSignedness Object key, @UnknownSignedness Object value) {
             return inBounds(key, m.comparator) && m.remove(key, value);
         }
 
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public boolean replace(@Replaceable SubMap<K,V> this, K key, V oldValue, V newValue) {
             checkKeyBounds(key, m.comparator);
             return m.replace(key, oldValue, newValue);
         }
 
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public V replace(@Replaceable SubMap<K,V> this, K key, V value) {
             checkKeyBounds(key, m.comparator);
@@ -3051,13 +3053,13 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
             return isDescending ? lowestEntry() : highestEntry();
         }
 
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public Map.Entry<K,V> pollFirstEntry(@Shrinkable SubMap<K,V> this) {
             return isDescending ? removeHighest() : removeLowest();
         }
 
-        // @SideEffectsOnly("this")
+        @SideEffectsOnly("this")
         @DoesNotUnrefineReceiver("modifiability")
         public Map.Entry<K,V> pollLastEntry(@Shrinkable SubMap<K,V> this) {
             return isDescending ? removeLowest() : removeHighest();
@@ -3178,7 +3180,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
                 }
             }
 
-            // @SideEffectsOnly("this")
+            @SideEffectsOnly("this")
             @DoesNotUnrefineReceiver("modifiability")
             public void remove() {
                 Node<K,V> l = lastReturned;
@@ -3212,7 +3214,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
         }
 
         final class SubMapValueIterator extends SubMapIter<V> {
-            // @SideEffectsOnly("this")
+            @SideEffectsOnly("this")
             @DoesNotUnrefineReceiver("modifiability")
             public V next(@NonEmpty SubMapValueIterator this) {
                 V v = nextValue;
@@ -3225,7 +3227,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
         }
 
         final class SubMapKeyIterator extends SubMapIter<K> {
-            // @SideEffectsOnly("this")
+            @SideEffectsOnly("this")
             @DoesNotUnrefineReceiver("modifiability")
             public K next(@NonEmpty SubMapKeyIterator this) {
                 Node<K,V> n = next;
@@ -3242,7 +3244,7 @@ public @SeqUngrowable class ConcurrentSkipListMap<K,V> extends AbstractMap<K,V>
         }
 
         final class SubMapEntryIterator extends SubMapIter<Map.Entry<K,V>> {
-            // @SideEffectsOnly("this")
+            @SideEffectsOnly("this")
             @DoesNotUnrefineReceiver("modifiability")
             public Map.Entry<K,V> next(@NonEmpty SubMapEntryIterator this) {
                 Node<K,V> n = next;

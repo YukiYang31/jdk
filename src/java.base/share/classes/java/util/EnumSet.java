@@ -31,6 +31,7 @@ import org.checkerframework.checker.modifiability.qual.Modifiable;
 import org.checkerframework.checker.modifiability.qual.Shrinkable;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
@@ -150,7 +151,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
      * Adds all of the elements from the appropriate enum type to this enum
      * set, which is empty prior to the call.
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     abstract void addAll(@Growable EnumSet<E> this);
     /**
@@ -389,7 +390,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
      * Adds the specified range to this enum set, which is empty prior
      * to the call.
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     abstract void addRange(@Growable EnumSet<E> this, E from, E to);
     /**
@@ -410,7 +411,7 @@ public abstract sealed class EnumSet<E extends Enum<E>> extends AbstractSet<E>
     /**
      * Complements the contents of this enum set.
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     abstract void complement(@Growable @Shrinkable EnumSet<E> this);
     /**

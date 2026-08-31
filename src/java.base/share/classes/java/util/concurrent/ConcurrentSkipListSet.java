@@ -54,6 +54,7 @@ import org.checkerframework.checker.nullness.qual.Nullable;
 import org.checkerframework.checker.signedness.qual.UnknownSignedness;
 import org.checkerframework.dataflow.qual.Pure;
 import org.checkerframework.dataflow.qual.SideEffectFree;
+import org.checkerframework.dataflow.qual.SideEffectsOnly;
 import org.checkerframework.framework.qual.AnnotatedFor;
 import org.checkerframework.framework.qual.DoesNotUnrefineReceiver;
 
@@ -269,7 +270,7 @@ public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws NullPointerException if the specified element is null
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean add(@Growable ConcurrentSkipListSet<E> this, E e) {
         return m.putIfAbsent(e, Boolean.TRUE) == null;
@@ -289,7 +290,7 @@ public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull Object>
      *         with the elements currently in this set
      * @throws NullPointerException if the specified element is null
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean remove(@Shrinkable ConcurrentSkipListSet<E> this, @GuardSatisfied @UnknownSignedness Object o) {
         return m.remove(o, Boolean.TRUE);
@@ -298,7 +299,7 @@ public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull Object>
     /**
      * Removes all of the elements from this set.
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void clear(@Shrinkable ConcurrentSkipListSet<E> this) {
         m.clear();
@@ -319,6 +320,7 @@ public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull Object>
      *
      * @return an iterator over the elements in this set in descending order
      */
+    @SideEffectFree
     public @PolyGrowShrink @PolyModifiable @PolyNonEmpty Iterator<E> descendingIterator(@PolyGrowShrink @PolyModifiable @PolyNonEmpty ConcurrentSkipListSet<E> this) {
         return m.descendingKeySet().iterator();
     }
@@ -368,7 +370,7 @@ public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull Object>
      * @throws NullPointerException if the specified collection or any
      *         of its elements are null
      */
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public boolean removeAll(@Shrinkable ConcurrentSkipListSet<E> this, Collection<? extends @NonNull @UnknownSignedness Object> c) {
         // Override AbstractSet version to avoid unnecessary call to size()
@@ -417,14 +419,14 @@ public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull Object>
         return m.higherKey(e);
     }
 
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E pollFirst(@Shrinkable ConcurrentSkipListSet<E> this) {
         Map.Entry<E,Object> e = m.pollFirstEntry();
         return (e == null) ? null : e.getKey();
     }
 
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public @Nullable E pollLast(@Shrinkable ConcurrentSkipListSet<E> this) {
         Map.Entry<E,Object> e = m.pollLastEntry();
@@ -464,7 +466,7 @@ public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull Object>
      * @since 21
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void addFirst(@SeqGrowable ConcurrentSkipListSet<E> this, E e) {
         throw new UnsupportedOperationException();
@@ -479,7 +481,7 @@ public @SeqUngrowable class ConcurrentSkipListSet<E extends @NonNull Object>
      * @since 21
      */
     @EnsuresNonEmpty("this")
-    // @SideEffectsOnly("this")
+    @SideEffectsOnly("this")
     @DoesNotUnrefineReceiver("modifiability")
     public void addLast(@SeqGrowable ConcurrentSkipListSet<E> this, E e) {
         throw new UnsupportedOperationException();
